@@ -1,9 +1,9 @@
-package com.sa.dao;
+package com.sa.db.layout;
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
 
-import com.sa.data.bean.Photo;
+import com.sa.db.layout.data.Photo;
 
 
 public class PhotoDAO extends GenericDAO<Photo>{

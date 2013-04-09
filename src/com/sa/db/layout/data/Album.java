@@ -1,4 +1,4 @@
-package com.sa.data.bean;
+package com.sa.db.layout.data;
 
 
 public class Album {
