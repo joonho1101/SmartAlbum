@@ -19,4 +19,18 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	/*
+	 * An intent to start detail view for an image
+	 */
+	public void startDetailViewActivity(int id) {
+		// TODO
+	}
+
+	/*
+	 * An intent to take a photo
+	 */
+	public void takePhoto() {
+		// TODO
+	}
+
 }

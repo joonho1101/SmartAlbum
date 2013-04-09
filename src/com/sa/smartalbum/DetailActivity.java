@@ -22,4 +22,18 @@ public class DetailActivity extends Activity {
 		getMenuInflater().inflate(R.menu.detail, menu);
 		return true;
 	}
+
+	/*
+	 * An intent to start ImageViewActivity
+	 */
+	public void startImageViewActivity(int id) {
+		// TODO
+	}
+	
+	/*
+	 * An intent to share on Facebook
+	 */
+	public void shareOnFacebook() {
+		// TODO
+	}
 }
