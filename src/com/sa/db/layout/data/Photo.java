@@ -1,5 +1,6 @@
 package com.sa.db.layout.data;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /*
@@ -7,13 +8,16 @@ import java.sql.Date;
 
  @PrimaryKey("photoNumber")
  */
-public class Photo {
+public class Photo implements Serializable{
 	private int photoNumber;
 	private String comment;
 	private Byte[] actualPhoto;
 	private Byte[] vocalComment;
 	private Date date;
 
+	private String path;
+	
+	
 	/**
 	 * Gets comment
 	 * 
@@ -103,4 +107,12 @@ public class Photo {
 	public void setPhotoNumber(int photoNumber) {
 		this.photoNumber = photoNumber;
 	}
+	
+	public void setPath(String s){
+		this.path = s;
+	}
+	public String getPath(){
+		return path;
+	}
+	
 }

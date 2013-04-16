@@ -10,5 +10,6 @@
     <string name="voice">Voice Memo</string>
     <string name="share_facebook">Share on Facebook</string>
     <string name="sample_caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eros purus, ullamcorper tincidunt malesuada in, bibendum ut ipsum. Donec suscipit.</string>
+    <string name="share">Share</string>
 
 </resources>

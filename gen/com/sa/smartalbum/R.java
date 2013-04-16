@@ -26,11 +26,10 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080009;
+        public static final int action_settings=0x7f080008;
         public static final int button1=0x7f080005;
-        public static final int button2=0x7f080007;
         public static final int caption=0x7f080002;
-        public static final int gridview=0x7f080008;
+        public static final int gridview=0x7f080007;
         public static final int image=0x7f080001;
         public static final int location=0x7f080003;
         public static final int scrollView1=0x7f080000;
@@ -51,6 +50,7 @@ public final class R {
         public static final int hello_world=0x7f050002;
         public static final int location=0x7f050005;
         public static final int sample_caption=0x7f050008;
+        public static final int share=0x7f050009;
         public static final int share_facebook=0x7f050007;
         public static final int take_photo=0x7f050004;
         public static final int title_activity_detail=0x7f050003;

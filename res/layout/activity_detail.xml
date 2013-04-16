@@ -50,7 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_spacing"
-            android:text="@string/share_facebook" />
+            android:onClick="share"
+            android:text="@string/share" />
     </LinearLayout>
 
 </ScrollView>

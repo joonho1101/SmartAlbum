@@ -21,13 +21,6 @@
             android:text="@string/take_photo"
             android:textAppearance="?android:attr/textAppearanceLarge" />
         
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Share"
-            android:onClick="share"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <GridView
             android:id="@+id/gridview"

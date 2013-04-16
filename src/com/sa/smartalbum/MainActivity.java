@@ -99,7 +99,8 @@ public class MainActivity extends Activity {
 	public void startViewPhotoActivity(int position) {
 		Intent viewPhotoIntent = new Intent(MainActivity.this, DetailActivity.class);
 		Log.e("intent : ", "" + position);
-		viewPhotoIntent.putExtra("position", position);
+		viewPhotoIntent.putExtra("position", position);	
+		viewPhotoIntent.putExtra("photo", photos.get(position).getPath());
 		startActivity(viewPhotoIntent);
 	}
 
@@ -130,7 +131,7 @@ public class MainActivity extends Activity {
 					
 					Photo p = new Photo();
 					p.setActualPhoto(byteArray);
-					photos.push(p);
+					
 					
 					updateGrid();
 					
@@ -143,6 +144,10 @@ public class MainActivity extends Activity {
 		    	    fos.flush();
 		    	    fos.close();
 					makeToast("Image saved to:\n" + photo_file.getAbsolutePath().toString());
+					
+					p.setPath(photo_file.getAbsolutePath().toString());
+					photos.push(p);
+					
 				}
 				catch(Exception e){
 					makeToast("Oops. Something went wrong. Failed to save a photo.\n");
@@ -192,7 +197,7 @@ public class MainActivity extends Activity {
 				imageView = new ImageView(mContext);
 				imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
 				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				imageView.setPadding(4, 30, 4,30);
+				imageView.setPadding(4, 60, 4,60);
 			}
 			else {
 				imageView = (ImageView) convertView;
@@ -231,7 +236,7 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	public void share(View button){
+	/*public void share(View button){
 		if(photo_file==null || !photo_file.isFile()){
 			makeToast("Not photos available to share");
 			return;
@@ -244,9 +249,7 @@ public class MainActivity extends Activity {
 		
 		Intent share = up.upload(photo_file, "sample text", d, loc);
 		startActivity(Intent.createChooser(share , "Share via...")); 
-
-		
-	}
+	}*/
 	
 	public void updateGrid(){
 		gridView.invalidateViews();
