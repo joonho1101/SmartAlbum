@@ -1,8 +1,9 @@
 package com.sa.entities;
 
 import java.io.File;
-import java.sql.Date;
+import java.util.Date;
 
+import android.content.Intent;
 import android.location.Location;
 
 /**
@@ -14,7 +15,7 @@ import android.location.Location;
  */
 public interface Facebook {
 
-	boolean upload(File file);
+	Intent upload(File file, String s, Date d, Location l);
 
 	// Uploads photo/video/audio to facebook. If success return true
 	boolean addCaption(String s);

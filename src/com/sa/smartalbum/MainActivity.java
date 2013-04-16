@@ -1,10 +1,21 @@
 package com.sa.smartalbum;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Date;
+
+import com.sa.entities.PhotoUploader;
+
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -19,6 +30,8 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
+	private File photo_file; /////
+	
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
 	private Integer[] mThumbIds = { R.drawable.ic_launcher };
@@ -91,6 +104,26 @@ public class MainActivity extends Activity {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
 				makeToast("Image saved to:\n" + data.getData());
+			
+				//////// Temporary code to allow sharing of last photo taken
+				try{
+					Bitmap bmp = (Bitmap) data.getExtras().get("data");
+					File storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+	
+		    	    photo_file = new File(storagePath, Long.toString(System.currentTimeMillis()) + ".png");
+				    	    
+		    		final FileOutputStream fos = new FileOutputStream(photo_file);
+		    	    bmp.compress(CompressFormat.PNG, 90, fos);
+		    	    fos.flush();
+		    	    fos.close();
+					makeToast("Image saved to:\n" + photo_file.getAbsolutePath().toString());
+				}
+				catch(Exception e){
+					makeToast("Oops. Something went wrong. Failed to save a photo.\n");
+				}
+
+				///////////////////////////////////////////////
+				
 			}
 			else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
@@ -160,4 +193,17 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	public void post(View button){
+		PhotoUploader up = new PhotoUploader();
+		Date d = new Date();
+		
+		LocationManager lm = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+		Location loc = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		
+		Intent share = up.upload(photo_file, "sample text", d, loc);
+		startActivity(Intent.createChooser(share , "Share via...")); 
+
+		
+	}
+	
 }
