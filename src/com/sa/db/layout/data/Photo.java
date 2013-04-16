@@ -1,9 +1,12 @@
 package com.sa.db.layout.data;
+
 import java.sql.Date;
 
-import org.genericdao.PrimaryKey;
+/*
+ import org.genericdao.PrimaryKey;
 
-@PrimaryKey("photoNumber")
+ @PrimaryKey("photoNumber")
+ */
 public class Photo {
 	private int photoNumber;
 	private String comment;
@@ -85,6 +88,7 @@ public class Photo {
 
 	/**
 	 * Gets photo number
+	 * 
 	 * @return
 	 */
 	public int getPhotoNumber() {
@@ -93,6 +97,7 @@ public class Photo {
 
 	/**
 	 * Sets photo number
+	 * 
 	 * @param photoNumber
 	 */
 	public void setPhotoNumber(int photoNumber) {
