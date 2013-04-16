@@ -1,9 +1,13 @@
 package com.sa.smartalbum;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
 
+import com.sa.db.layout.data.Photo;
 import com.sa.entities.PhotoUploader;
 
 import android.location.Location;
@@ -16,6 +20,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
+import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -37,6 +43,7 @@ public class MainActivity extends Activity {
 	private Integer[] mThumbIds = { R.drawable.ic_launcher };
 	private Button button;
 	private GridView gridView;
+	private LinkedList<Photo> photos = new LinkedList<Photo>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +90,7 @@ public class MainActivity extends Activity {
 		// takePhotoIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 		// takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new
 		// File(filename)));
-		startActivityForResult(takePhotoIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+		startActivityForResult(takePhotoIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE + photos.size()); // launch camera intent with photo id
 	}
 
 	/**
@@ -101,19 +108,38 @@ public class MainActivity extends Activity {
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+		int id = requestCode - CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE;
+		if (requestCode >= CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
-				makeToast("Image saved to:\n" + data.getData());
+				
+				
+				//makeToast("Image saved to:\n" + data.getData());
 			
 				//////// Temporary code to allow sharing of last photo taken
 				try{
 					Bitmap bmp = (Bitmap) data.getExtras().get("data");
+					
+					ByteArrayOutputStream stream = new ByteArrayOutputStream();
+					bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+					byte[] bytes = stream.toByteArray();
+					
+					Byte[] byteArray = new Byte[bytes.length];
+					for(int i = 0; i < bytes.length; i++){
+						byteArray[i] = new Byte(bytes[i]);
+					}
+					
+					Photo p = new Photo();
+					p.setActualPhoto(byteArray);
+					photos.push(p);
+					
+					updateGrid();
+					
 					File storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 	
 		    	    photo_file = new File(storagePath, Long.toString(System.currentTimeMillis()) + ".png");
 				    	    
 		    		final FileOutputStream fos = new FileOutputStream(photo_file);
-		    	    bmp.compress(CompressFormat.PNG, 90, fos);
+		    	    bmp.compress(CompressFormat.PNG, 100, fos);
 		    	    fos.flush();
 		    	    fos.close();
 					makeToast("Image saved to:\n" + photo_file.getAbsolutePath().toString());
@@ -146,7 +172,8 @@ public class MainActivity extends Activity {
 		}
 
 		public int getCount() {
-			return mThumbIds.length;
+			//return mThumbIds.length;
+			return photos.size();
 		}
 
 		public Object getItem(int position) {
@@ -163,15 +190,26 @@ public class MainActivity extends Activity {
 			if (convertView == null) {
 				// if it's not recycled, initialize some attributes
 				imageView = new ImageView(mContext);
-				imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+				imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
 				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				imageView.setPadding(8, 8, 8, 8);
+				imageView.setPadding(4, 30, 4,30);
 			}
 			else {
 				imageView = (ImageView) convertView;
 			}
 
-			imageView.setImageResource(mThumbIds[position]);
+			//imageView.setImageResource(mThumbIds[position]);
+			Photo p = photos.get(position);
+			Byte[] bytes = p.getActualPhoto();
+			byte[] b = new byte[bytes.length];
+
+			int j=0;
+			for(Byte a: bytes)
+			    b[j++] = a.byteValue();
+
+			Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+			imageView.setImageBitmap(bitmap);
+	        
 			return imageView;
 		}
 	}
@@ -193,7 +231,11 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	public void post(View button){
+	public void share(View button){
+		if(photo_file==null || !photo_file.isFile()){
+			makeToast("Not photos available to share");
+			return;
+		}
 		PhotoUploader up = new PhotoUploader();
 		Date d = new Date();
 		
@@ -204,6 +246,11 @@ public class MainActivity extends Activity {
 		startActivity(Intent.createChooser(share , "Share via...")); 
 
 		
+	}
+	
+	public void updateGrid(){
+		gridView.invalidateViews();
+		gridView.setAdapter(new ImageAdapter(this));
 	}
 	
 }
