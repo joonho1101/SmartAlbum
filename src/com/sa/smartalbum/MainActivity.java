@@ -3,15 +3,8 @@ package com.sa.smartalbum;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.Queue;
-
 import com.sa.db.layout.data.Photo;
-import com.sa.entities.PhotoUploader;
-
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -21,7 +14,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -36,11 +28,11 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	private File photo_file; /////
-	
+	private File photo_file; // ///
+
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
-	private Integer[] mThumbIds = { R.drawable.ic_launcher };
+	//private Integer[] mThumbIds = { R.drawable.ic_launcher };
 	private Button button;
 	private GridView gridView;
 	private LinkedList<Photo> photos = new LinkedList<Photo>();
@@ -60,6 +52,7 @@ public class MainActivity extends Activity {
 	public void initializeButton(int viewId) {
 		button = (Button) findViewById(viewId);
 		button.setOnClickListener(new Button.OnClickListener() {
+			@Override
 			public void onClick(View v) {
 				startTakePhotoActivity();
 			}
@@ -76,7 +69,9 @@ public class MainActivity extends Activity {
 		gridView = (GridView) findViewById(viewId);
 		gridView.setAdapter(new ImageAdapter(this));
 		gridView.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				startViewPhotoActivity(position);
 			}
 		});
@@ -90,16 +85,23 @@ public class MainActivity extends Activity {
 		// takePhotoIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 		// takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new
 		// File(filename)));
-		startActivityForResult(takePhotoIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE + photos.size()); // launch camera intent with photo id
+		startActivityForResult(takePhotoIntent,
+				CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE + photos.size()); // launch
+																		// camera
+																		// intent
+																		// with
+																		// photo
+																		// id
 	}
 
 	/**
 	 * Creates an intent to view photo in detail.
 	 */
 	public void startViewPhotoActivity(int position) {
-		Intent viewPhotoIntent = new Intent(MainActivity.this, DetailActivity.class);
+		Intent viewPhotoIntent = new Intent(MainActivity.this,
+				DetailActivity.class);
 		Log.e("intent : ", "" + position);
-		viewPhotoIntent.putExtra("position", position);	
+		viewPhotoIntent.putExtra("position", position);
 		viewPhotoIntent.putExtra("photo", photos.get(position).getPath());
 		startActivity(viewPhotoIntent);
 	}
@@ -109,57 +111,56 @@ public class MainActivity extends Activity {
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		int id = requestCode - CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE;
+		//int id = requestCode - CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE;
 		if (requestCode >= CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
-				
-				
-				//makeToast("Image saved to:\n" + data.getData());
-			
-				//////// Temporary code to allow sharing of last photo taken
-				try{
+
+				// makeToast("Image saved to:\n" + data.getData());
+
+				// ////// Temporary code to allow sharing of last photo taken
+				try {
 					Bitmap bmp = (Bitmap) data.getExtras().get("data");
-					
+
 					ByteArrayOutputStream stream = new ByteArrayOutputStream();
 					bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
 					byte[] bytes = stream.toByteArray();
-					
+
 					Byte[] byteArray = new Byte[bytes.length];
-					for(int i = 0; i < bytes.length; i++){
+					for (int i = 0; i < bytes.length; i++) {
 						byteArray[i] = new Byte(bytes[i]);
 					}
-					
+
 					Photo p = new Photo();
 					p.setActualPhoto(byteArray);
-					
-					
+
 					updateGrid();
-					
-					File storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-	
-		    	    photo_file = new File(storagePath, Long.toString(System.currentTimeMillis()) + ".png");
-				    	    
-		    		final FileOutputStream fos = new FileOutputStream(photo_file);
-		    	    bmp.compress(CompressFormat.PNG, 100, fos);
-		    	    fos.flush();
-		    	    fos.close();
-					makeToast("Image saved to:\n" + photo_file.getAbsolutePath().toString());
-					
+
+					File storagePath = Environment
+							.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+					photo_file = new File(storagePath, Long.toString(System
+							.currentTimeMillis()) + ".png");
+
+					final FileOutputStream fos = new FileOutputStream(
+							photo_file);
+					bmp.compress(CompressFormat.PNG, 100, fos);
+					fos.flush();
+					fos.close();
+					makeToast("Image saved to:\n"
+							+ photo_file.getAbsolutePath().toString());
+
 					p.setPath(photo_file.getAbsolutePath().toString());
 					photos.push(p);
-					
-				}
-				catch(Exception e){
+
+				} catch (Exception e) {
 					makeToast("Oops. Something went wrong. Failed to save a photo.\n");
 				}
 
-				///////////////////////////////////////////////
-				
-			}
-			else if (resultCode == RESULT_CANCELED) {
+				// /////////////////////////////////////////////
+
+			} else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
-			}
-			else {
+			} else {
 				// Image capture failed, advise user
 				makeToast("Oops. Something went wrong. Failed to save a photo.\n");
 			}
@@ -176,15 +177,18 @@ public class MainActivity extends Activity {
 			mContext = c;
 		}
 
+		@Override
 		public int getCount() {
-			//return mThumbIds.length;
+			// return mThumbIds.length;
 			return photos.size();
 		}
 
+		@Override
 		public Object getItem(int position) {
 			return null;
 		}
 
+		@Override
 		public long getItemId(int position) {
 			return 0;
 		}
@@ -197,24 +201,23 @@ public class MainActivity extends Activity {
 				imageView = new ImageView(mContext);
 				imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
 				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				imageView.setPadding(4, 60, 4,60);
-			}
-			else {
+				imageView.setPadding(4, 60, 4, 60);
+			} else {
 				imageView = (ImageView) convertView;
 			}
 
-			//imageView.setImageResource(mThumbIds[position]);
+			// imageView.setImageResource(mThumbIds[position]);
 			Photo p = photos.get(position);
 			Byte[] bytes = p.getActualPhoto();
 			byte[] b = new byte[bytes.length];
 
-			int j=0;
-			for(Byte a: bytes)
-			    b[j++] = a.byteValue();
+			int j = 0;
+			for (Byte a : bytes)
+				b[j++] = a.byteValue();
 
 			Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
 			imageView.setImageBitmap(bitmap);
-	        
+
 			return imageView;
 		}
 	}
@@ -236,24 +239,22 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	/*public void share(View button){
-		if(photo_file==null || !photo_file.isFile()){
-			makeToast("Not photos available to share");
-			return;
-		}
-		PhotoUploader up = new PhotoUploader();
-		Date d = new Date();
-		
-		LocationManager lm = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-		Location loc = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		
-		Intent share = up.upload(photo_file, "sample text", d, loc);
-		startActivity(Intent.createChooser(share , "Share via...")); 
-	}*/
-	
-	public void updateGrid(){
+	/*
+	 * public void share(View button){ if(photo_file==null ||
+	 * !photo_file.isFile()){ makeToast("Not photos available to share");
+	 * return; } PhotoUploader up = new PhotoUploader(); Date d = new Date();
+	 * 
+	 * LocationManager lm =
+	 * (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+	 * Location loc = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+	 * 
+	 * Intent share = up.upload(photo_file, "sample text", d, loc);
+	 * startActivity(Intent.createChooser(share , "Share via...")); }
+	 */
+
+	public void updateGrid() {
 		gridView.invalidateViews();
 		gridView.setAdapter(new ImageAdapter(this));
 	}
-	
+
 }

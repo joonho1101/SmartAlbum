@@ -8,7 +8,9 @@ import java.sql.Date;
 
  @PrimaryKey("photoNumber")
  */
-public class Photo implements Serializable{
+public class Photo implements Serializable {
+	private static final long serialVersionUID = -1896979024004367149L;
+	
 	private int photoNumber;
 	private String comment;
 	private Byte[] actualPhoto;
@@ -16,8 +18,7 @@ public class Photo implements Serializable{
 	private Date date;
 
 	private String path;
-	
-	
+
 	/**
 	 * Gets comment
 	 * 
@@ -107,12 +108,13 @@ public class Photo implements Serializable{
 	public void setPhotoNumber(int photoNumber) {
 		this.photoNumber = photoNumber;
 	}
-	
-	public void setPath(String s){
+
+	public void setPath(String s) {
 		this.path = s;
 	}
-	public String getPath(){
+
+	public String getPath() {
 		return path;
 	}
-	
+
 }

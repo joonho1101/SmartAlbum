@@ -1,12 +1,12 @@
 package com.sa.db.layout.data;
 
-
 public class Album {
 
 	private Photo[] photos;
 
 	/**
 	 * Gets photos
+	 * 
 	 * @return
 	 */
 	public Photo[] getPhotos() {
@@ -15,6 +15,7 @@ public class Album {
 
 	/**
 	 * Sets photos
+	 * 
 	 * @param photos
 	 */
 	public void setPhotos(Photo[] photos) {
