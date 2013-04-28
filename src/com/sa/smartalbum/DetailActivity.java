@@ -1,8 +1,5 @@
 package com.sa.smartalbum;
 
-import com.sa.db.layout.data.Photo;
-import com.sa.entities.PhotoUploader;
-
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -11,6 +8,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.sa.db.layout.data.Photo;
+import com.sa.entities.PhotoUploader;
 
 public class DetailActivity extends BaseActivity {
 
