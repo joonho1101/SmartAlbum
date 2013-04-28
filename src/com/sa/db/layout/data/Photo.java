@@ -9,6 +9,11 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 
+/**
+ * Photo bean class that handles all of photo information
+ * @author phillip
+ *
+ */
 public class Photo implements Media {
 
 	private int id;
@@ -20,11 +25,16 @@ public class Photo implements Media {
 	private String place;
 	private Date date;
 
+	/**
+	 * Default constructor
+	 */
 	public Photo() {
 
 	}
 
-	public Photo(int id, String comment, byte[] actualPhoto, byte[] vocalComment, float longitude, float latitude, String place, Date date) {
+	public Photo(int id, String comment, byte[] actualPhoto,
+			byte[] vocalComment, float longitude, float latitude, String place,
+			Date date) {
 		this.id = id;
 		this.comment = comment;
 		this.actualPhoto = actualPhoto;
@@ -34,7 +44,9 @@ public class Photo implements Media {
 		this.date = date;
 	}
 
-	@Override
+	/**
+	 * Gets type of the media type (Photo or Video)
+	 */
 	public int getType() {
 		return TYPE_PHOTO;
 	}
@@ -44,7 +56,6 @@ public class Photo implements Media {
 	 * 
 	 * @return
 	 */
-	@Override
 	public String getComment() {
 		return comment;
 	}
@@ -54,7 +65,6 @@ public class Photo implements Media {
 	 * 
 	 * @param comment
 	 */
-	@Override
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
@@ -64,7 +74,6 @@ public class Photo implements Media {
 	 * 
 	 * @return
 	 */
-	@Override
 	public Date getDate() {
 		return date;
 	}
@@ -74,7 +83,6 @@ public class Photo implements Media {
 	 * 
 	 * @param date
 	 */
-	@Override
 	public void setDate(Date date) {
 		this.date = date;
 	}
@@ -175,7 +183,8 @@ public class Photo implements Media {
 	 * @return bitmap
 	 */
 	public Bitmap getBitmap() {
-		return BitmapFactory.decodeByteArray(actualPhoto, 0, actualPhoto.length);
+		return BitmapFactory
+				.decodeByteArray(actualPhoto, 0, actualPhoto.length);
 	}
 
 	/**
