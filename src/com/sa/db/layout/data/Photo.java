@@ -11,7 +11,7 @@ import android.location.LocationManager;
 
 public class Photo implements Media {
 
-	private int id;
+	private int id = 0;
 	private String comment;
 	private byte[] actualPhoto;
 	private byte[] vocalComment;
@@ -84,7 +84,7 @@ public class Photo implements Media {
 	 * 
 	 * @return
 	 */
-	public int getPhotoNumber() {
+	public int getId() {
 		return id;
 	}
 
@@ -93,8 +93,8 @@ public class Photo implements Media {
 	 * 
 	 * @param photoNumber
 	 */
-	public void setPhotoNumber(int photoNumber) {
-		this.id = photoNumber;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**

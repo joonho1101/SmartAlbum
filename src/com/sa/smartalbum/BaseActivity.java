@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.sa.db.layout.DatabaseHandler;
+import com.sa.db.layout.data.Photo;
 
 /**
  * Base Activity for SmartAlbum that contains commonly used methods and utility
@@ -29,6 +30,39 @@ public abstract class BaseActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(getMenuId(), menu);
 		return true;
+	}
+
+	public Photo getPhotoById(int id) {
+		return db.getPhoto(id);
+	}
+
+	public boolean savePhoto(Photo photo) {
+		try {
+			if (photo.getId() == 0) {
+				db.addPhoto(photo);
+			}
+			else {
+				db.updatePhoto(photo);
+			}
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean deletePhoto(int id) {
+		try {
+			db.deletePhoto(id);
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean deletePhoto(Photo photo) {
+		return deletePhoto(photo.getId());
 	}
 
 	/**
