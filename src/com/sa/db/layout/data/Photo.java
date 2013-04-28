@@ -3,20 +3,41 @@ package com.sa.db.layout.data;
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
+<<<<<<< HEAD
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 
 public class Photo implements Media {
+=======
+public class Photo {
+>>>>>>> DatabaseHandler, and Photo are added or modified.
 
-	private int photoNumber;
+	private int id;
 	private String comment;
 	private byte[] actualPhoto;
 	private byte[] vocalComment;
-	private Location location;
+	private float longitude;
+	private float altitude;
+	private String place;
 	private Date date;
+<<<<<<< HEAD
 	private String path;
+=======
+
+	public Photo(int id, String comment, byte[] actualPhoto,
+			byte[] vocalComment, float longitude, float altitude, String place,
+			Date date) {
+		this.id = id;
+		this.comment = comment;
+		this.actualPhoto = actualPhoto;
+		this.longitude = longitude;
+		this.altitude = altitude;
+		this.place = place;
+		this.date = date;
+	}
+>>>>>>> DatabaseHandler, and Photo are added or modified.
 
 	public int getType() {
 		return TYPE_PHOTO;
@@ -64,7 +85,7 @@ public class Photo implements Media {
 	 * @return
 	 */
 	public int getPhotoNumber() {
-		return photoNumber;
+		return id;
 	}
 
 	/**
@@ -73,65 +94,65 @@ public class Photo implements Media {
 	 * @param photoNumber
 	 */
 	public void setPhotoNumber(int photoNumber) {
-		this.photoNumber = photoNumber;
+		this.id = photoNumber;
 	}
 
 	/**
-	 * Sets path
-	 * 
-	 * @param s
-	 */
-	public void setPath(String s) {
-		this.path = s;
-	}
-
-	/**
-	 * Gets path
+	 * Gets actual photo
 	 * 
 	 * @return
 	 */
-	public String getPath() {
-		return path;
+	public byte[] getActualPhoto() {
+		return actualPhoto;
 	}
 
 	/**
-	 * Returns location stored on the photo.
+	 * Sets Actual photo
 	 * 
-	 * @return location
+	 * @param actualPhoto
 	 */
-	public Location getLocation() {
-		return location;
+	public void setActualPhoto(byte[] actualPhoto) {
+		this.actualPhoto = actualPhoto;
 	}
 
 	/**
-	 * Sets location for a photo
-	 * 
-	 * @param location
-	 */
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-
-	/**
-	 * Save or update photo to persistent storage, database. Returns a boolean
-	 * value indicating successful transaction.
-	 * 
-	 * @return whether successfully saved or not
-	 */
-	public boolean save() {
-		return true;
-	}
-
-	/**
-	 * Loads a photo instance from persistent storage, database.
+	 * Get vocal comment
 	 * 
 	 * @return
 	 */
-	public static Photo load(int id) {
-		return new Photo();
+	public byte[] getVocalComment() {
+		return vocalComment;
 	}
 
 	/**
+	 * Sets vocal comment
+	 * 
+	 * @param vocalComment
+	 */
+	public void setVocalComment(byte[] vocalComment) {
+		this.vocalComment = vocalComment;
+	}
+
+	/**
+	 * Gets longtitude
+	 * 
+	 * @return
+	 */
+	public float getLongitude() {
+		return longitude;
+	}
+
+	/**
+	 * Sets longtitude
+	 * 
+	 * @param longitude
+	 */
+	public void setLongitude(float longitude) {
+		this.longitude = longitude;
+	}
+
+	/**
+<<<<<<< HEAD
 	 * Returns image byte array
 	 * 
 	 * @return
@@ -142,14 +163,27 @@ public class Photo implements Media {
 
 	/**
 	 * Sets image byte array
+=======
+	 * Gets altitude
 	 * 
-	 * @param actualPhoto
+	 * @return
 	 */
-	public void setActualPhoto(byte[] actualPhoto) {
-		this.actualPhoto = actualPhoto;
+	public float getAltitude() {
+		return altitude;
 	}
 
 	/**
+	 * Sets altitude
+>>>>>>> DatabaseHandler, and Photo are added or modified.
+	 * 
+	 * @param altitude
+	 */
+	public void setAltitude(float altitude) {
+		this.altitude = altitude;
+	}
+
+	/**
+<<<<<<< HEAD
 	 * Returns bitmap from byte array.
 	 * 
 	 * @return bitmap
@@ -171,19 +205,22 @@ public class Photo implements Media {
 
 	/**
 	 * Get vocal comment
+=======
+	 * Gets place
+>>>>>>> DatabaseHandler, and Photo are added or modified.
 	 * 
 	 * @return
 	 */
-	public byte[] getVocalComment() {
-		return vocalComment;
+	public String getPlace() {
+		return place;
 	}
 
 	/**
-	 * Sets vocal comment
+	 * Sets place
 	 * 
-	 * @param vocalComment
+	 * @param place
 	 */
-	public void setVocalComment(byte[] vocalComment) {
-		this.vocalComment = vocalComment;
+	public void setPlace(String place) {
+		this.place = place;
 	}
 }
