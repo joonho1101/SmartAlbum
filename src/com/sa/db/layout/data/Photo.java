@@ -1,8 +1,8 @@
 package com.sa.db.layout.data;
 
-import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
+<<<<<<< HEAD
 import android.location.Location;
 
 /*
@@ -18,6 +18,14 @@ public class Photo implements Serializable {
 	private Byte[] actualPhoto;
 	private Byte[] vocalComment;
 	private Location location;
+=======
+public class Photo{
+	
+	private int photoNumber;
+	private String comment;
+	private byte[] actualPhoto;
+	private byte[] vocalComment;
+>>>>>>> Added Database of Photo (need to add more methods)
 	private Date date;
 
 	private String path;
@@ -40,41 +48,6 @@ public class Photo implements Serializable {
 		this.comment = comment;
 	}
 
-	/**
-	 * Gets Actual Photo
-	 * 
-	 * @return
-	 */
-	public Byte[] getActualPhoto() {
-		return actualPhoto;
-	}
-
-	/**
-	 * Sets Actual Photo
-	 * 
-	 * @param actualPhoto
-	 */
-	public void setActualPhoto(Byte[] actualPhoto) {
-		this.actualPhoto = actualPhoto;
-	}
-
-	/**
-	 * Gets Vocal Comment
-	 * 
-	 * @return
-	 */
-	public Byte[] getVocalComment() {
-		return vocalComment;
-	}
-
-	/**
-	 * Sets Vocal Comment
-	 * 
-	 * @param vocalComment
-	 */
-	public void setVocalComment(Byte[] vocalComment) {
-		this.vocalComment = vocalComment;
-	}
 
 	/**
 	 * Gets date
@@ -112,15 +85,24 @@ public class Photo implements Serializable {
 		this.photoNumber = photoNumber;
 	}
 
+	/**
+	 * Sets path
+	 * @param s
+	 */
 	public void setPath(String s) {
 		this.path = s;
 	}
 
+	/**
+	 * Gets path
+	 * @return
+	 */
 	public String getPath() {
 		return path;
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns location stored on the photo.
 	 * 
 	 * @return location
@@ -157,5 +139,36 @@ public class Photo implements Serializable {
 	public static Photo load(int id) {
 		// TODO
 		return new Photo();
+=======
+	 * Gets actual photo
+	 * @return
+	 */
+	public byte[] getActualPhoto() {
+		return actualPhoto;
+	}
+
+	/**
+	 * Sets Actual photo
+	 * @param actualPhoto
+	 */
+	public void setActualPhoto(byte[] actualPhoto) {
+		this.actualPhoto = actualPhoto;
+	}
+
+	/**
+	 * Get vocal comment
+	 * @return
+	 */
+	public byte[] getVocalComment() {
+		return vocalComment;
+	}
+
+	/**
+	 * Sets vocal comment
+	 * @param vocalComment
+	 */
+	public void setVocalComment(byte[] vocalComment) {
+		this.vocalComment = vocalComment;
+>>>>>>> Added Database of Photo (need to add more methods)
 	}
 }
