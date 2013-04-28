@@ -56,23 +56,6 @@ public class MainActivity extends BaseActivity {
 	}
 
 	/**
-	 * Initializes a thumbnail grid view.
-	 * 
-	 * @param viewId
-	 *            grid view id
-	 */
-	public void initGridView(int viewId) {
-		gridView = (GridView) findViewById(viewId);
-		gridView.setAdapter(new ImageAdapter(this));
-		gridView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				startViewPhotoActivity(position);
-			}
-		});
-	}
-
-	/**
 	 * Creates an intent to take a photo using Camera API.
 	 */
 	public void startTakePhotoActivity() {
@@ -86,12 +69,30 @@ public class MainActivity extends BaseActivity {
 	}
 
 	/**
+	 * Initializes a thumbnail grid view.
+	 * 
+	 * @param viewId
+	 *            grid view id
+	 */
+	public void initGridView(int viewId) {
+		gridView = (GridView) findViewById(viewId);
+		gridView.setAdapter(new ImageAdapter(this));
+		gridView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				startViewPhotoActivity(position, id);
+			}
+		});
+	}
+
+	/**
 	 * Creates an intent to view photo in detail.
 	 */
-	public void startViewPhotoActivity(int position) {
+	public void startViewPhotoActivity(int position, long id) {
 		Intent viewPhotoIntent = new Intent(MainActivity.this, DetailActivity.class);
 		Log.e("intent : ", "" + position);
 		viewPhotoIntent.putExtra("position", position);
+		viewPhotoIntent.putExtra("id", id);
 		viewPhotoIntent.putExtra("photo", photos.get(position).getPath());
 		startActivity(viewPhotoIntent);
 	}

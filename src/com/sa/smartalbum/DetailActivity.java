@@ -20,6 +20,7 @@ import android.graphics.BitmapFactory;
 public class DetailActivity extends BaseActivity {
 
 	private File photo_file;
+	private Photo photo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class DetailActivity extends BaseActivity {
 	}
 
 	public void storeLocation(Location location) {
+
 		// TODO
 	}
 
