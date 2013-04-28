@@ -1,10 +1,14 @@
 package com.sa.db.layout.data;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 
-public class Photo {
+public class Photo implements Media {
 
 	private int photoNumber;
 	private String comment;
@@ -12,8 +16,11 @@ public class Photo {
 	private byte[] vocalComment;
 	private Location location;
 	private Date date;
-
 	private String path;
+
+	public int getType() {
+		return TYPE_PHOTO;
+	}
 
 	/**
 	 * Gets comment
@@ -124,17 +131,42 @@ public class Photo {
 		return new Photo();
 	}
 
+	/**
+	 * Returns image byte array
+	 * 
+	 * @return
+	 */
 	public byte[] getActualPhoto() {
 		return actualPhoto;
 	}
 
 	/**
-	 * Sets Actual photo
+	 * Sets image byte array
 	 * 
 	 * @param actualPhoto
 	 */
 	public void setActualPhoto(byte[] actualPhoto) {
 		this.actualPhoto = actualPhoto;
+	}
+
+	/**
+	 * Returns bitmap from byte array.
+	 * 
+	 * @return bitmap
+	 */
+	public Bitmap getBitmap() {
+		return BitmapFactory.decodeByteArray(actualPhoto, 0, actualPhoto.length);
+	}
+
+	/**
+	 * Sets byte array from bitmap
+	 * 
+	 * @param bitmap
+	 */
+	public void setBitmap(Bitmap bitmap) {
+		ByteArrayOutputStream blob = new ByteArrayOutputStream();
+		bitmap.compress(CompressFormat.PNG, 0 /* ignored for PNG */, blob);
+		actualPhoto = blob.toByteArray();
 	}
 
 	/**
