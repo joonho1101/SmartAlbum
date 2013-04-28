@@ -47,5 +47,4 @@ public interface Media {
 	 */
 	public void setLocation(Location location);
 
-	public boolean save();
 }

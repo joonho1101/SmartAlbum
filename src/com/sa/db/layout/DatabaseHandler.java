@@ -1,8 +1,6 @@
 package com.sa.db.layout;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -30,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String ACTUAL_PHOTO = "actualPhoto";
 	private static final String VOCAL_COMMENT = "vocalComment";
 	private static final String LONGITUDE = "longitude";
-	private static final String ALTITUDE = "altitude";
+	private static final String LATITUDE = "latitude";
 	private static final String PLACE = "place";
 	private static final String DATE = "date";
 
@@ -43,7 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		String CREATE_PHOTOS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
 				+ ID + " INTEGER PRIMARY KEY," + COMMENT + " TEXT,"
 				+ ACTUAL_PHOTO + " BLOB," + VOCAL_COMMENT + "BLOB," + LONGITUDE
-				+ " REAL," + ALTITUDE + " REAL," + PLACE + " TEXT," + DATE
+				+ " REAL," + LATITUDE + " REAL," + PLACE + " TEXT," + DATE
 				+ " TEXT" + ")";
 
 		db.execSQL(CREATE_PHOTOS_TABLE);
@@ -72,7 +70,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(ACTUAL_PHOTO, photo.getActualPhoto());
 		values.put(VOCAL_COMMENT, photo.getVocalComment());
 		values.put(LONGITUDE, photo.getLongitude());
-		values.put(ALTITUDE, photo.getAltitude());
+		values.put(LATITUDE, photo.getLatitude());
 		values.put(PLACE, photo.getPlace());
 		values.put(DATE, photo.getDate().getTime() + "");
 
@@ -90,7 +88,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_CONTACTS,
 				new String[] { ID, COMMENT, ACTUAL_PHOTO, VOCAL_COMMENT,
-						LONGITUDE, ALTITUDE, PLACE, DATE }, ID + "=?",
+						LONGITUDE, LATITUDE, PLACE, DATE }, ID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
 		if (cursor != null) {
 			cursor.moveToFirst();
@@ -114,7 +112,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	public List<Photo> getAllPhotos(){
+/*	public List<Photo> getAllPhotos(){
 		List<Photo> photos = new ArrayList<Photo>();
 	    // Select All Query
 	    String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
@@ -125,12 +123,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	    if (cursor.moveToFirst()) {
 	        do {
 	            Photo contact = new Photo();
-	            contact.setID(Integer.parseInt(cursor.getString(0)));
-	            contact.setName(cursor.getString(1));
-	            contact.setPhoneNumber(cursor.getString(2));
+	        //    contact.setID(Integer.parseInt(cursor.getString(0)));
+	          //  contact.setName(cursor.getString(1));
+	            //contact.setPhoneNumber(cursor.getString(2));
 	            // Adding contact to list
-	            contactList.add(contact);
+	            //contactList.add(contact);
 	        } while (cursor.moveToNext());
 	    }
-	}
+	}*/
 }

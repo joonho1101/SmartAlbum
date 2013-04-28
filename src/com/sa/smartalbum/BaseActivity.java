@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.sa.db.layout.DatabaseHandler;
+
 /**
  * Base Activity for SmartAlbum that contains commonly used methods and utility
  * functions.
@@ -13,6 +15,8 @@ import android.widget.Toast;
  * 
  */
 public abstract class BaseActivity extends Activity {
+
+	public DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

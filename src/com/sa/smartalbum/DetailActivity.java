@@ -1,10 +1,8 @@
 package com.sa.smartalbum;
 
-<<<<<<< HEAD
 import com.sa.db.layout.data.Photo;
 import com.sa.entities.PhotoUploader;
 
-=======
 import java.io.File;
 import java.util.Date;
 
@@ -12,22 +10,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
->>>>>>> Added/Modified DatabaseHandler.class Photo.class
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-<<<<<<< HEAD
 import android.content.Context;
 import android.content.Intent;
-=======
 import android.widget.Toast;
 
 import com.sa.db.layout.data.Photo;
 import com.sa.entities.PhotoUploader;
->>>>>>> Added/Modified DatabaseHandler.class Photo.class
 
 public class DetailActivity extends BaseActivity {
 
@@ -43,7 +37,9 @@ public class DetailActivity extends BaseActivity {
 	public Photo getPhotoFromIntent() {
 		Intent i = getIntent();
 		int id = i.getIntExtra("id", 0);
-		return Photo.load(id);
+		// need to modify
+		// return Photo.load(id);
+		return null;
 	}
 
 	public void initImageView() {
@@ -77,7 +73,8 @@ public class DetailActivity extends BaseActivity {
 		LocationManager locMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		// get last known location
-		Location location = locMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		Location location = locMgr
+				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		if (location != null) {
 			storeLocation(location);
 		}
@@ -94,13 +91,15 @@ public class DetailActivity extends BaseActivity {
 			public void onProviderEnabled(String provider) {
 			}
 
-			public void onStatusChanged(String provider, int status, Bundle extras) {
+			public void onStatusChanged(String provider, int status,
+					Bundle extras) {
 			}
 		};
 
 		// Register the listener with the Location Manager to receive location
 		// updates
-		locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);
+		locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
+				locListener);
 	}
 
 	@Override
