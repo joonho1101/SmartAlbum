@@ -11,8 +11,9 @@ import android.location.LocationManager;
 
 /**
  * Photo bean class that handles all of photo information
+ * 
  * @author phillip
- *
+ * 
  */
 public class Photo implements Media {
 
@@ -32,9 +33,7 @@ public class Photo implements Media {
 
 	}
 
-	public Photo(int id, String comment, byte[] actualPhoto,
-			byte[] vocalComment, float longitude, float latitude, String place,
-			Date date) {
+	public Photo(int id, String comment, byte[] actualPhoto, byte[] vocalComment, float longitude, float latitude, String place, Date date) {
 		this.id = id;
 		this.comment = comment;
 		this.actualPhoto = actualPhoto;
@@ -188,8 +187,7 @@ public class Photo implements Media {
 	 * @return bitmap
 	 */
 	public Bitmap getBitmap() {
-		return BitmapFactory
-				.decodeByteArray(actualPhoto, 0, actualPhoto.length);
+		return BitmapFactory.decodeByteArray(actualPhoto, 0, actualPhoto.length);
 	}
 
 	/**

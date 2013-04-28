@@ -114,7 +114,7 @@ public class MainActivity extends BaseActivity {
 					Bitmap bmp = (Bitmap) data.getExtras().get("data");
 
 					ByteArrayOutputStream stream = new ByteArrayOutputStream();
-					bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+					bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 					byte[] bytes = stream.toByteArray();
 
 					byte[] byteArray = new byte[bytes.length];
@@ -128,14 +128,6 @@ public class MainActivity extends BaseActivity {
 
 					updateGrid();
 
-					File storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-
-					photo_file = new File(storagePath, Long.toString(System.currentTimeMillis()) + ".png");
-
-					final FileOutputStream fos = new FileOutputStream(photo_file);
-					bmp.compress(CompressFormat.PNG, 100, fos);
-					fos.flush();
-					fos.close();
 					makeToast("Image saved to:\n" + photo_file.getAbsolutePath().toString());
 
 					photos.push(p);

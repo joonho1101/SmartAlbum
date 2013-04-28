@@ -1,6 +1,10 @@
 package com.sa.smartalbum;
 
 import android.app.Activity;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Toast;
@@ -71,6 +75,37 @@ public abstract class BaseActivity extends Activity {
 	 */
 	public void makeToast(String msg) {
 		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+	}
+
+	public void requestLocationUpdates() {
+		// Acquire a reference to the system Location Manager
+		LocationManager locMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+		// get last known location
+		Location location = locMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+		// Define a listener that responds to location updates
+		LocationListener locListener = new LocationListener() {
+			@Override
+			public void onLocationChanged(Location location) {
+			}
+
+			@Override
+			public void onProviderDisabled(String provider) {
+			}
+
+			@Override
+			public void onProviderEnabled(String provider) {
+			}
+
+			@Override
+			public void onStatusChanged(String provider, int status, Bundle extras) {
+			}
+		};
+
+		// Register the listener with the Location Manager to receive location
+		// updates
+		locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);s
 	}
 
 	abstract int getMenuId();
