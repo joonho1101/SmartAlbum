@@ -1,7 +1,10 @@
-package com.sa.smartalbum;
+package com.sa.activity;
 
 import java.util.LinkedList;
-import com.sa.db.layout.data.Photo;
+
+import com.sa.db.bean.Photo;
+import com.sa.smartalbum.R;
+
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.content.Context;

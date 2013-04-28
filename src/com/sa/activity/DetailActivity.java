@@ -1,4 +1,4 @@
-package com.sa.smartalbum;
+package com.sa.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sa.db.layout.data.Photo;
-import com.sa.entities.PhotoUploader;
+import com.sa.db.bean.Photo;
+import com.sa.smartalbum.R;
+import com.sa.uploader.PhotoUploader;
 
 public class DetailActivity extends BaseActivity {
 

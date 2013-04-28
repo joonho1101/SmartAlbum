@@ -1,4 +1,4 @@
-package com.sa.db.layout;
+package com.sa.db.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.sa.db.layout.data.Photo;
+import com.sa.db.bean.Photo;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 

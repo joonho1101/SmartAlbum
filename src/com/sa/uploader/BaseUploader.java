@@ -1,7 +1,9 @@
-package com.sa.entities;
+package com.sa.uploader;
 
 import java.util.Date;
-import com.sa.db.layout.data.Media;
+
+import com.sa.db.bean.Media;
+
 import android.content.Intent;
 import android.location.Location;
 

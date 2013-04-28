@@ -1,4 +1,4 @@
-package com.sa.db.layout.data;
+package com.sa.db.bean;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Date;

@@ -1,6 +1,6 @@
-package com.sa.entities;
+package com.sa.uploader;
 
-import com.sa.db.layout.data.Media;
+import com.sa.db.bean.Media;
 
 import android.content.Intent;
 

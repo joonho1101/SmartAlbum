@@ -1,4 +1,4 @@
-package com.sa.smartalbum;
+package com.sa.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Toast;
 
-import com.sa.db.layout.DatabaseHandler;
-import com.sa.db.layout.data.Photo;
+import com.sa.db.bean.Photo;
+import com.sa.db.dao.DatabaseHandler;
 
 /**
  * Base Activity for SmartAlbum that contains commonly used methods and utility
