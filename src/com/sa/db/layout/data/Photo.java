@@ -1,22 +1,15 @@
 package com.sa.db.layout.data;
 
-import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import android.location.Location;
 
-/*
- * import org.genericdao.PrimaryKey;
- * 
- * @PrimaryKey("photoNumber")
- */
-public class Photo implements Serializable {
-	private static final long serialVersionUID = -1896979024004367149L;
+public class Photo {
 
 	private int photoNumber;
 	private String comment;
-	private Byte[] actualPhoto;
-	private Byte[] vocalComment;
+	private byte[] actualPhoto;
+	private byte[] vocalComment;
 	private Location location;
 	private Date date;
 
@@ -38,42 +31,6 @@ public class Photo implements Serializable {
 	 */
 	public void setComment(String comment) {
 		this.comment = comment;
-	}
-
-	/**
-	 * Gets Actual Photo
-	 * 
-	 * @return
-	 */
-	public Byte[] getActualPhoto() {
-		return actualPhoto;
-	}
-
-	/**
-	 * Sets Actual Photo
-	 * 
-	 * @param actualPhoto
-	 */
-	public void setActualPhoto(Byte[] actualPhoto) {
-		this.actualPhoto = actualPhoto;
-	}
-
-	/**
-	 * Gets Vocal Comment
-	 * 
-	 * @return
-	 */
-	public Byte[] getVocalComment() {
-		return vocalComment;
-	}
-
-	/**
-	 * Sets Vocal Comment
-	 * 
-	 * @param vocalComment
-	 */
-	public void setVocalComment(Byte[] vocalComment) {
-		this.vocalComment = vocalComment;
 	}
 
 	/**
@@ -112,10 +69,20 @@ public class Photo implements Serializable {
 		this.photoNumber = photoNumber;
 	}
 
+	/**
+	 * Sets path
+	 * 
+	 * @param s
+	 */
 	public void setPath(String s) {
 		this.path = s;
 	}
 
+	/**
+	 * Gets path
+	 * 
+	 * @return
+	 */
 	public String getPath() {
 		return path;
 	}
@@ -139,13 +106,12 @@ public class Photo implements Serializable {
 	}
 
 	/**
-	 * Save or update photo to persistent storage, database.
-	 * Returns a boolean value indicating successful transaction.
+	 * Save or update photo to persistent storage, database. Returns a boolean
+	 * value indicating successful transaction.
 	 * 
 	 * @return whether successfully saved or not
 	 */
 	public boolean save() {
-		// TODO
 		return true;
 	}
 
@@ -155,7 +121,37 @@ public class Photo implements Serializable {
 	 * @return
 	 */
 	public static Photo load(int id) {
-		// TODO
 		return new Photo();
+	}
+
+	public byte[] getActualPhoto() {
+		return actualPhoto;
+	}
+
+	/**
+	 * Sets Actual photo
+	 * 
+	 * @param actualPhoto
+	 */
+	public void setActualPhoto(byte[] actualPhoto) {
+		this.actualPhoto = actualPhoto;
+	}
+
+	/**
+	 * Get vocal comment
+	 * 
+	 * @return
+	 */
+	public byte[] getVocalComment() {
+		return vocalComment;
+	}
+
+	/**
+	 * Sets vocal comment
+	 * 
+	 * @param vocalComment
+	 */
+	public void setVocalComment(byte[] vocalComment) {
+		this.vocalComment = vocalComment;
 	}
 }

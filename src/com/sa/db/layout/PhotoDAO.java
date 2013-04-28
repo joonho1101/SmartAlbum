@@ -11,3 +11,4 @@ package com.sa.db.layout;
  * public PhotoDAO(ConnectionPool cp, String tableName) throws DAOException {
  * super(Photo.class, tableName, cp); } }
  */
+
