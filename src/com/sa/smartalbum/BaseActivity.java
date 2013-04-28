@@ -39,12 +39,11 @@ public abstract class BaseActivity extends Activity {
 	public boolean savePhoto(Photo photo) {
 		try {
 			if (photo.getId() == 0) {
-				db.addPhoto(photo);
+				return db.addPhoto(photo) != -1;
 			}
 			else {
-				db.updatePhoto(photo);
+				return db.updatePhoto(photo) > 0;
 			}
-			return true;
 		}
 		catch (Exception e) {
 			return false;
@@ -53,8 +52,7 @@ public abstract class BaseActivity extends Activity {
 
 	public boolean deletePhoto(int id) {
 		try {
-			db.deletePhoto(id);
-			return true;
+			return db.deletePhoto(id) > 0;
 		}
 		catch (Exception e) {
 			return false;

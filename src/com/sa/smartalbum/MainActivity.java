@@ -3,6 +3,7 @@ package com.sa.smartalbum;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Date;
 import java.util.LinkedList;
 import com.sa.db.layout.data.Photo;
 import android.os.Bundle;
@@ -123,6 +124,7 @@ public class MainActivity extends BaseActivity {
 
 					Photo p = new Photo();
 					p.setActualPhoto(byteArray);
+					p.setDate(new Date());
 
 					updateGrid();
 
@@ -136,7 +138,6 @@ public class MainActivity extends BaseActivity {
 					fos.close();
 					makeToast("Image saved to:\n" + photo_file.getAbsolutePath().toString());
 
-					p.setPath(photo_file.getAbsolutePath().toString());
 					photos.push(p);
 
 				}

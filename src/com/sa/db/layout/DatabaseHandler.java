@@ -38,11 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_PHOTOS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
-				+ ID + " INTEGER PRIMARY KEY," + COMMENT + " TEXT,"
-				+ ACTUAL_PHOTO + " BLOB," + VOCAL_COMMENT + "BLOB," + LONGITUDE
-				+ " REAL," + LATITUDE + " REAL," + PLACE + " TEXT," + DATE
-				+ " TEXT" + ")";
+		String CREATE_PHOTOS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "(" + ID + " INTEGER PRIMARY KEY," + COMMENT + " TEXT," + ACTUAL_PHOTO + " BLOB," + VOCAL_COMMENT + "BLOB," + LONGITUDE + " REAL," + LATITUDE + " REAL," + PLACE + " TEXT," + DATE + " TEXT" + ")";
 
 		db.execSQL(CREATE_PHOTOS_TABLE);
 	}
@@ -96,8 +92,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(LATITUDE, photo.getLatitude());
 		values.put(PLACE, photo.getPlace());
 		values.put(DATE, photo.getDate().getTime() + "");
-		return db.update(TABLE_CONTACTS, values, ID + " = ?",
-				new String[] { String.valueOf(photo.getPhotoNumber()) });
+		return db.update(TABLE_CONTACTS, values, ID + " = ?", new String[] { String.valueOf(photo.getId()) });
 	}
 
 	/**
@@ -108,17 +103,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 */
 	public Photo getPhoto(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_CONTACTS,
-				new String[] { ID, COMMENT, ACTUAL_PHOTO, VOCAL_COMMENT,
-						LONGITUDE, LATITUDE, PLACE, DATE }, ID + "=?",
-				new String[] { String.valueOf(id) }, null, null, null, null);
+		Cursor cursor = db.query(TABLE_CONTACTS, new String[] { ID, COMMENT, ACTUAL_PHOTO, VOCAL_COMMENT, LONGITUDE, LATITUDE, PLACE, DATE }, ID + "=?", new String[] { String.valueOf(id) }, null, null, null, null);
 		if (cursor != null) {
 			cursor.moveToFirst();
 		}
-		Photo photo = new Photo(Integer.parseInt(cursor.getString(0)),
-				cursor.getString(1), cursor.getBlob(2), cursor.getBlob(3),
-				cursor.getFloat(4), cursor.getFloat(5), cursor.getString(6),
-				new Date(cursor.getString(7)));
+		Photo photo = new Photo(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getBlob(2), cursor.getBlob(3), cursor.getFloat(4), cursor.getFloat(5), cursor.getString(6), new Date(cursor.getString(7)));
 		return photo;
 	}
 
@@ -129,8 +118,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 */
 	public void deletePhoto(int id) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(TABLE_CONTACTS, ID + " = ?",
-				new String[] { String.valueOf(id) });
+		db.delete(TABLE_CONTACTS, ID + " = ?", new String[] { String.valueOf(id) });
 		db.close();
 	}
 
