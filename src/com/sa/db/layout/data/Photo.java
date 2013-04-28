@@ -2,30 +2,15 @@ package com.sa.db.layout.data;
 
 import java.util.Date;
 
-<<<<<<< HEAD
 import android.location.Location;
 
-/*
- * import org.genericdao.PrimaryKey;
- * 
- * @PrimaryKey("photoNumber")
- */
-public class Photo implements Serializable {
-	private static final long serialVersionUID = -1896979024004367149L;
+public class Photo {
 
-	private int photoNumber;
-	private String comment;
-	private Byte[] actualPhoto;
-	private Byte[] vocalComment;
-	private Location location;
-=======
-public class Photo{
-	
 	private int photoNumber;
 	private String comment;
 	private byte[] actualPhoto;
 	private byte[] vocalComment;
->>>>>>> Added Database of Photo (need to add more methods)
+	private Location location;
 	private Date date;
 
 	private String path;
@@ -47,7 +32,6 @@ public class Photo{
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-
 
 	/**
 	 * Gets date
@@ -87,6 +71,7 @@ public class Photo{
 
 	/**
 	 * Sets path
+	 * 
 	 * @param s
 	 */
 	public void setPath(String s) {
@@ -95,6 +80,7 @@ public class Photo{
 
 	/**
 	 * Gets path
+	 * 
 	 * @return
 	 */
 	public String getPath() {
@@ -102,7 +88,6 @@ public class Photo{
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Returns location stored on the photo.
 	 * 
 	 * @return location
@@ -121,13 +106,12 @@ public class Photo{
 	}
 
 	/**
-	 * Save or update photo to persistent storage, database.
-	 * Returns a boolean value indicating successful transaction.
+	 * Save or update photo to persistent storage, database. Returns a boolean
+	 * value indicating successful transaction.
 	 * 
 	 * @return whether successfully saved or not
 	 */
 	public boolean save() {
-		// TODO
 		return true;
 	}
 
@@ -137,18 +121,16 @@ public class Photo{
 	 * @return
 	 */
 	public static Photo load(int id) {
-		// TODO
 		return new Photo();
-=======
-	 * Gets actual photo
-	 * @return
-	 */
+	}
+
 	public byte[] getActualPhoto() {
 		return actualPhoto;
 	}
 
 	/**
 	 * Sets Actual photo
+	 * 
 	 * @param actualPhoto
 	 */
 	public void setActualPhoto(byte[] actualPhoto) {
@@ -157,6 +139,7 @@ public class Photo{
 
 	/**
 	 * Get vocal comment
+	 * 
 	 * @return
 	 */
 	public byte[] getVocalComment() {
@@ -165,10 +148,10 @@ public class Photo{
 
 	/**
 	 * Sets vocal comment
+	 * 
 	 * @param vocalComment
 	 */
 	public void setVocalComment(byte[] vocalComment) {
 		this.vocalComment = vocalComment;
->>>>>>> Added Database of Photo (need to add more methods)
 	}
 }

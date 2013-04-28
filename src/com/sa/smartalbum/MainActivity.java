@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity {
 					bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
 					byte[] bytes = stream.toByteArray();
 
-					Byte[] byteArray = new Byte[bytes.length];
+					byte[] byteArray = new byte[bytes.length];
 					for (int i = 0; i < bytes.length; i++) {
 						byteArray[i] = new Byte(bytes[i]);
 					}
@@ -198,7 +198,7 @@ public class MainActivity extends BaseActivity {
 
 			// imageView.setImageResource(mThumbIds[position]);
 			Photo p = photos.get(position);
-			Byte[] bytes = p.getActualPhoto();
+			byte[] bytes = p.getActualPhoto();
 			byte[] b = new byte[bytes.length];
 
 			int j = 0;
