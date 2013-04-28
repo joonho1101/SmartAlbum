@@ -1,6 +1,8 @@
 package com.sa.db.layout;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -55,11 +57,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 
-	/**
-	 * Given photo, it adds the photo to the data base
-	 * 
-	 * @param photo
-	 */
 	/**
 	 * Adds photo to the database.
 	 * 
@@ -138,18 +135,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return rowsAffected;
 	}
 
-	/*
-	 * public List<Photo> getAllPhotos(){ List<Photo> photos = new
-	 * ArrayList<Photo>(); // Select All Query String selectQuery =
-	 * "SELECT  * FROM " + TABLE_CONTACTS; SQLiteDatabase db =
-	 * this.getWritableDatabase(); Cursor cursor = db.rawQuery(selectQuery,
-	 * null);
+	/**
+	 * Gets all of photos from the database
 	 * 
-	 * // looping through all rows and adding to list if (cursor.moveToFirst())
-	 * { do { Photo contact = new Photo(); //
-	 * contact.setID(Integer.parseInt(cursor.getString(0))); //
-	 * contact.setName(cursor.getString(1));
-	 * //contact.setPhoneNumber(cursor.getString(2)); // Adding contact to list
-	 * //contactList.add(contact); } while (cursor.moveToNext()); } }
+	 * @return
 	 */
+	public List<Photo> getAllPhotos() {
+		List<Photo> photos = new ArrayList<Photo>();
+		String selectQuery = "SELECT  * FROM " + TABLE_PHOTOS;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			do {
+				Photo photo =
+						new Photo(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getBlob(2),
+								cursor.getBlob(3), cursor.getFloat(4), cursor.getFloat(5), cursor.getString(6),
+								new Date(cursor.getString(7)));
+				photos.add(photo);
+			}
+			while (cursor.moveToNext());
+		}
+		return photos;
+	}
 }

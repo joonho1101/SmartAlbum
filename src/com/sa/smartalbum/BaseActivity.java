@@ -105,7 +105,7 @@ public abstract class BaseActivity extends Activity {
 
 		// Register the listener with the Location Manager to receive location
 		// updates
-		locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);s
+		locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);
 	}
 
 	abstract int getMenuId();
