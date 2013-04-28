@@ -3,18 +3,21 @@ package com.sa.db.layout.data;
 import java.io.Serializable;
 import java.sql.Date;
 
-/*
- import org.genericdao.PrimaryKey;
+import android.location.Location;
 
- @PrimaryKey("photoNumber")
+/*
+ * import org.genericdao.PrimaryKey;
+ * 
+ * @PrimaryKey("photoNumber")
  */
 public class Photo implements Serializable {
 	private static final long serialVersionUID = -1896979024004367149L;
-	
+
 	private int photoNumber;
 	private String comment;
 	private Byte[] actualPhoto;
 	private Byte[] vocalComment;
+	private Location location;
 	private Date date;
 
 	private String path;
@@ -117,4 +120,42 @@ public class Photo implements Serializable {
 		return path;
 	}
 
+	/**
+	 * Returns location stored on the photo.
+	 * 
+	 * @return location
+	 */
+	public Location getLocation() {
+		return location;
+	}
+
+	/**
+	 * Sets location for a photo
+	 * 
+	 * @param location
+	 */
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
+	/**
+	 * Save or update photo to persistent storage, database.
+	 * Returns a boolean value indicating successful transaction.
+	 * 
+	 * @return whether successfully saved or not
+	 */
+	public boolean save() {
+		// TODO
+		return true;
+	}
+
+	/**
+	 * Loads a photo instance from persistent storage, database.
+	 * 
+	 * @return
+	 */
+	public static Photo load(int id) {
+		// TODO
+		return new Photo();
+	}
 }
