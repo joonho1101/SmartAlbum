@@ -20,7 +20,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "PhotoManager";
 
 	// Contacts table name
-	private static final String TABLE_CONTACTS = "photos";
+	private static final String TABLE_PHOTOS = "photos";
 
 	// Contacts Table Columns names
 	private static final String ID = "id";
@@ -38,11 +38,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_PHOTOS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
-				+ ID + " INTEGER PRIMARY KEY," + COMMENT + " TEXT,"
-				+ ACTUAL_PHOTO + " BLOB," + VOCAL_COMMENT + "BLOB," + LONGITUDE
-				+ " REAL," + LATITUDE + " REAL," + PLACE + " TEXT," + DATE
-				+ " TEXT" + ")";
+		String CREATE_PHOTOS_TABLE = "CREATE TABLE " + TABLE_PHOTOS + "(" + ID
+				+ " INTEGER PRIMARY KEY," + COMMENT + " TEXT," + ACTUAL_PHOTO
+				+ " BLOB," + VOCAL_COMMENT + "BLOB," + LONGITUDE + " REAL,"
+				+ LATITUDE + " REAL," + PLACE + " TEXT," + DATE + " TEXT" + ")";
 
 		db.execSQL(CREATE_PHOTOS_TABLE);
 	}
@@ -50,7 +49,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_PHOTOS);
 
 		// Create tables again
 		onCreate(db);
@@ -60,6 +59,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 * Given photo, it adds the photo to the data base
 	 * 
 	 * @param photo
+	 */
+	/**
+	 * Adds photo to the database.
+	 * 
+	 * @param photo
+	 * @return row id or -1 if there is an error.
 	 */
 	public long addPhoto(Photo photo) {
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -83,7 +88,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 * Updates Photo given photo
 	 * 
 	 * @param photo
-	 * @return
+	 * @return numbers of rows effected
 	 */
 	public long updatePhoto(Photo photo) {
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -96,8 +101,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(LATITUDE, photo.getLatitude());
 		values.put(PLACE, photo.getPlace());
 		values.put(DATE, photo.getDate().getTime() + "");
-		return db.update(TABLE_CONTACTS, values, ID + " = ?",
-				new String[] { String.valueOf(photo.getPhotoNumber()) });
+		return db.update(TABLE_PHOTOS, values, ID + " = ?",
+				new String[] { String.valueOf(photo.getId()) });
 	}
 
 	/**
@@ -108,7 +113,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 */
 	public Photo getPhoto(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_CONTACTS,
+		Cursor cursor = db.query(TABLE_PHOTOS,
 				new String[] { ID, COMMENT, ACTUAL_PHOTO, VOCAL_COMMENT,
 						LONGITUDE, LATITUDE, PLACE, DATE }, ID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
@@ -123,15 +128,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	/**
-	 * Deletes the photo with given id
+	 * Deletes photo given id
 	 * 
 	 * @param id
+	 * @return number of rows effected
 	 */
-	public void deletePhoto(int id) {
+	public long deletePhoto(int id) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(TABLE_CONTACTS, ID + " = ?",
+		long rowsAffected = db.delete(TABLE_PHOTOS, ID + " = ?",
 				new String[] { String.valueOf(id) });
 		db.close();
+		return rowsAffected;
 	}
 
 	/*
