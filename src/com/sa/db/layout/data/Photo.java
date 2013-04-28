@@ -24,7 +24,7 @@ public class Photo implements Media {
 	private float longitude;
 	private float latitude;
 	private String place;
-	private Date date;
+	private Date date = new Date();
 
 	/**
 	 * Default constructor
@@ -196,9 +196,7 @@ public class Photo implements Media {
 	 * @param bitmap
 	 */
 	public void setBitmap(Bitmap bitmap) {
-		ByteArrayOutputStream blob = new ByteArrayOutputStream();
-		bitmap.compress(CompressFormat.PNG, 0 /* ignored for PNG */, blob);
-		actualPhoto = blob.toByteArray();
+		actualPhoto = compressBitmap(bitmap);
 	}
 
 	/**
@@ -231,6 +229,17 @@ public class Photo implements Media {
 	public void setLocation(Location location) {
 		longitude = (float) location.getLongitude();
 		latitude = (float) location.getLatitude();
+	}
+
+	public byte[] compressBitmap(Bitmap bmp) {
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		byte[] bytes = stream.toByteArray();
+		byte[] byteArray = new byte[bytes.length];
+		for (int i = 0; i < bytes.length; i++) {
+			byteArray[i] = new Byte(bytes[i]);
+		}
+		return byteArray;
 	}
 
 }

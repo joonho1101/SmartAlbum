@@ -21,7 +21,12 @@ import com.sa.db.layout.data.Photo;
  */
 public abstract class BaseActivity extends Activity {
 
+	public Location lastLocation = null;
+
 	public DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+
+	// Acquire a reference to the system Location Manager
+	public LocationManager locMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,17 +82,24 @@ public abstract class BaseActivity extends Activity {
 		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 	}
 
+	/**
+	 * Returns last known location
+	 * 
+	 * @return last know location
+	 */
+	public Location getLastKnownLocation() {
+		return locMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+	}
+
+	/**
+	 * Requests location updatess
+	 */
 	public void requestLocationUpdates() {
-		// Acquire a reference to the system Location Manager
-		LocationManager locMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-		// get last known location
-		Location location = locMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
 		// Define a listener that responds to location updates
 		LocationListener locListener = new LocationListener() {
 			@Override
 			public void onLocationChanged(Location location) {
+				lastLocation = location;
 			}
 
 			@Override

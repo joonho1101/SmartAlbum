@@ -2,17 +2,14 @@ package com.sa.smartalbum;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.LinkedList;
 import com.sa.db.layout.data.Photo;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
@@ -25,8 +22,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 public class MainActivity extends BaseActivity {
-
-	private File photo_file; // ///
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
@@ -103,42 +98,20 @@ public class MainActivity extends BaseActivity {
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// int id = requestCode - CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE;
 		if (requestCode >= CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
+				Photo p = new Photo();
+				p.setBitmap((Bitmap) data.getExtras().get("data"));
+				p.setLocation(lastLocation);
 
-				// makeToast("Image saved to:\n" + data.getData());
-
-				// ////// Temporary code to allow sharing of last photo taken
-				try {
-					Bitmap bmp = (Bitmap) data.getExtras().get("data");
-
-					ByteArrayOutputStream stream = new ByteArrayOutputStream();
-					bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-					byte[] bytes = stream.toByteArray();
-
-					byte[] byteArray = new byte[bytes.length];
-					for (int i = 0; i < bytes.length; i++) {
-						byteArray[i] = new Byte(bytes[i]);
-					}
-
-					Photo p = new Photo();
-					p.setActualPhoto(byteArray);
-					p.setDate(new Date());
-
-					updateGrid();
-
-					makeToast("Image saved to:\n" + photo_file.getAbsolutePath().toString());
-
+				if (savePhoto(p)) {
+					makeToast("Image saved");
 					photos.push(p);
-
+					updateGrid();
 				}
-				catch (Exception e) {
+				else {
 					makeToast("Oops. Something went wrong. Failed to save a photo.\n");
 				}
-
-				// /////////////////////////////////////////////
-
 			}
 			else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
