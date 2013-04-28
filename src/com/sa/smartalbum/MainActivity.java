@@ -1,8 +1,5 @@
 package com.sa.smartalbum;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.Date;
 import java.util.LinkedList;
 import com.sa.db.layout.data.Photo;
 import android.os.Bundle;
@@ -10,7 +7,6 @@ import android.provider.MediaStore;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,15 +30,15 @@ public class MainActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		initializeButton(R.id.take_photo_button);
-		initGridView(R.id.gridview);
+		initializeButton();
+		initGridView();
 	}
 
 	/**
 	 * Initializes a button and attach a listener for taking a photo.
 	 */
-	public void initializeButton(int viewId) {
-		button = (Button) findViewById(viewId);
+	public void initializeButton() {
+		button = (Button) findViewById(R.id.take_photo_button);
 		button.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -66,12 +62,9 @@ public class MainActivity extends BaseActivity {
 
 	/**
 	 * Initializes a thumbnail grid view.
-	 * 
-	 * @param viewId
-	 *            grid view id
 	 */
-	public void initGridView(int viewId) {
-		gridView = (GridView) findViewById(viewId);
+	public void initGridView() {
+		gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new ImageAdapter(this));
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -163,34 +156,12 @@ public class MainActivity extends BaseActivity {
 				imageView = (ImageView) convertView;
 			}
 
-			// imageView.setImageResource(mThumbIds[position]);
 			Photo p = photos.get(position);
-			byte[] bytes = p.getActualPhoto();
-			byte[] b = new byte[bytes.length];
-
-			int j = 0;
-			for (Byte a : bytes)
-				b[j++] = a.byteValue();
-
-			Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
-			imageView.setImageBitmap(bitmap);
+			imageView.setImageBitmap(p.getBitmap());
 
 			return imageView;
 		}
 	}
-
-	/*
-	 * public void share(View button){ if(photo_file==null ||
-	 * !photo_file.isFile()){ makeToast("Not photos available to share");
-	 * return; } PhotoUploader up = new PhotoUploader(); Date d = new Date();
-	 * 
-	 * LocationManager lm =
-	 * (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-	 * Location loc = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-	 * 
-	 * Intent share = up.upload(photo_file, "sample text", d, loc);
-	 * startActivity(Intent.createChooser(share , "Share via...")); }
-	 */
 
 	public void updateGrid() {
 		gridView.invalidateViews();

@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
@@ -205,7 +204,11 @@ public class Photo implements Media {
 	 * @return
 	 */
 	public String getPlace() {
-		return place;
+		return place == null ? getGeocodeString() : place;
+	}
+
+	public String getGeocodeString() {
+		return "(" + latitude + "," + longitude + ")";
 	}
 
 	/**
@@ -234,12 +237,6 @@ public class Photo implements Media {
 	public byte[] compressBitmap(Bitmap bmp) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-		byte[] bytes = stream.toByteArray();
-		byte[] byteArray = new byte[bytes.length];
-		for (int i = 0; i < bytes.length; i++) {
-			byteArray[i] = new Byte(bytes[i]);
-		}
-		return byteArray;
+		return stream.toByteArray();
 	}
-
 }

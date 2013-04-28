@@ -6,10 +6,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_detail">Detail View</string>
     <string name="take_photo">Take a photo</string>
-    <string name="location">Location Here</string>
-    <string name="voice">Voice Memo</string>
+    <string name="location">Add location</string>
+    <string name="voice">Add voice memo</string>
     <string name="share_facebook">Share on Facebook</string>
-    <string name="sample_caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eros purus, ullamcorper tincidunt malesuada in, bibendum ut ipsum. Donec suscipit.</string>
+    <string name="sample_caption">Add comment...</string>
     <string name="share">Share</string>
 
 </resources>
