@@ -26,6 +26,9 @@ public class Photo {
 	private String path;
 =======
 
+	public Photo(){
+		
+	}
 	public Photo(int id, String comment, byte[] actualPhoto,
 			byte[] vocalComment, float longitude, float altitude, String place,
 			Date date) {

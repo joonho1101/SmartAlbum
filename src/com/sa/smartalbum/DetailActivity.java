@@ -1,16 +1,33 @@
 package com.sa.smartalbum;
 
+<<<<<<< HEAD
 import com.sa.db.layout.data.Photo;
 import com.sa.entities.PhotoUploader;
 
+=======
+import java.io.File;
+import java.util.Date;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+>>>>>>> Added/Modified DatabaseHandler.class Photo.class
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+<<<<<<< HEAD
 import android.content.Context;
 import android.content.Intent;
+=======
+import android.widget.Toast;
+
+import com.sa.db.layout.data.Photo;
+import com.sa.entities.PhotoUploader;
+>>>>>>> Added/Modified DatabaseHandler.class Photo.class
 
 public class DetailActivity extends BaseActivity {
 

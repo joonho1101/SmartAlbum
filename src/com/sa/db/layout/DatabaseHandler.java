@@ -1,6 +1,8 @@
 package com.sa.db.layout;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -110,5 +112,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.delete(TABLE_CONTACTS, ID + " = ?",
 				new String[] { String.valueOf(id) });
 		db.close();
+	}
+	
+	public List<Photo> getAllPhotos(){
+		List<Photo> photos = new ArrayList<Photo>();
+	    // Select All Query
+	    String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
+	    SQLiteDatabase db = this.getWritableDatabase();
+	    Cursor cursor = db.rawQuery(selectQuery, null);
+	    
+	 // looping through all rows and adding to list
+	    if (cursor.moveToFirst()) {
+	        do {
+	            Photo contact = new Photo();
+	            contact.setID(Integer.parseInt(cursor.getString(0)));
+	            contact.setName(cursor.getString(1));
+	            contact.setPhoneNumber(cursor.getString(2));
+	            // Adding contact to list
+	            contactList.add(contact);
+	        } while (cursor.moveToNext());
+	    }
 	}
 }
