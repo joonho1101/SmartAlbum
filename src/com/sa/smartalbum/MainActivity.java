@@ -8,14 +8,12 @@ import com.sa.db.layout.data.Photo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,15 +22,14 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
 	private File photo_file; // ///
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
-	//private Integer[] mThumbIds = { R.drawable.ic_launcher };
+	// private Integer[] mThumbIds = { R.drawable.ic_launcher };
 	private Button button;
 	private GridView gridView;
 	private LinkedList<Photo> photos = new LinkedList<Photo>();
@@ -40,7 +37,6 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 
 		initializeButton(R.id.take_photo_button);
 		initGridView(R.id.gridview);
@@ -70,8 +66,7 @@ public class MainActivity extends Activity {
 		gridView.setAdapter(new ImageAdapter(this));
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				startViewPhotoActivity(position);
 			}
 		});
@@ -85,21 +80,16 @@ public class MainActivity extends Activity {
 		// takePhotoIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 		// takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new
 		// File(filename)));
-		startActivityForResult(takePhotoIntent,
-				CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE + photos.size()); // launch
-																		// camera
-																		// intent
-																		// with
-																		// photo
-																		// id
+
+		// launch camera intent with photo id
+		startActivityForResult(takePhotoIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE + photos.size());
 	}
 
 	/**
 	 * Creates an intent to view photo in detail.
 	 */
 	public void startViewPhotoActivity(int position) {
-		Intent viewPhotoIntent = new Intent(MainActivity.this,
-				DetailActivity.class);
+		Intent viewPhotoIntent = new Intent(MainActivity.this, DetailActivity.class);
 		Log.e("intent : ", "" + position);
 		viewPhotoIntent.putExtra("position", position);
 		viewPhotoIntent.putExtra("photo", photos.get(position).getPath());
@@ -111,7 +101,7 @@ public class MainActivity extends Activity {
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		//int id = requestCode - CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE;
+		// int id = requestCode - CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE;
 		if (requestCode >= CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
 
@@ -135,32 +125,31 @@ public class MainActivity extends Activity {
 
 					updateGrid();
 
-					File storagePath = Environment
-							.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+					File storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
-					photo_file = new File(storagePath, Long.toString(System
-							.currentTimeMillis()) + ".png");
+					photo_file = new File(storagePath, Long.toString(System.currentTimeMillis()) + ".png");
 
-					final FileOutputStream fos = new FileOutputStream(
-							photo_file);
+					final FileOutputStream fos = new FileOutputStream(photo_file);
 					bmp.compress(CompressFormat.PNG, 100, fos);
 					fos.flush();
 					fos.close();
-					makeToast("Image saved to:\n"
-							+ photo_file.getAbsolutePath().toString());
+					makeToast("Image saved to:\n" + photo_file.getAbsolutePath().toString());
 
 					p.setPath(photo_file.getAbsolutePath().toString());
 					photos.push(p);
 
-				} catch (Exception e) {
+				}
+				catch (Exception e) {
 					makeToast("Oops. Something went wrong. Failed to save a photo.\n");
 				}
 
 				// /////////////////////////////////////////////
 
-			} else if (resultCode == RESULT_CANCELED) {
+			}
+			else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
-			} else {
+			}
+			else {
 				// Image capture failed, advise user
 				makeToast("Oops. Something went wrong. Failed to save a photo.\n");
 			}
@@ -202,7 +191,8 @@ public class MainActivity extends Activity {
 				imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
 				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 				imageView.setPadding(4, 60, 4, 60);
-			} else {
+			}
+			else {
 				imageView = (ImageView) convertView;
 			}
 
@@ -222,23 +212,6 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	/**
-	 * Display a toast message
-	 * 
-	 * @param msg
-	 *            a message to display
-	 */
-	public void makeToast(String msg) {
-		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
 	/*
 	 * public void share(View button){ if(photo_file==null ||
 	 * !photo_file.isFile()){ makeToast("Not photos available to share");
@@ -255,6 +228,16 @@ public class MainActivity extends Activity {
 	public void updateGrid() {
 		gridView.invalidateViews();
 		gridView.setAdapter(new ImageAdapter(this));
+	}
+
+	@Override
+	int getMenuId() {
+		return R.menu.main;
+	}
+
+	@Override
+	int getLayoutId() {
+		return R.layout.activity_main;
 	}
 
 }
