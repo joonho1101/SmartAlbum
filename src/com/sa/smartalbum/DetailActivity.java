@@ -3,25 +3,14 @@ package com.sa.smartalbum;
 import com.sa.db.layout.data.Photo;
 import com.sa.entities.PhotoUploader;
 
-import java.io.File;
-import java.util.Date;
-
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.content.Context;
-import android.content.Intent;
-import android.widget.Toast;
-
-import com.sa.db.layout.data.Photo;
-import com.sa.entities.PhotoUploader;
 
 public class DetailActivity extends BaseActivity {
 
@@ -73,33 +62,34 @@ public class DetailActivity extends BaseActivity {
 		LocationManager locMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		// get last known location
-		Location location = locMgr
-				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		Location location = locMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		if (location != null) {
 			storeLocation(location);
 		}
 
 		// Define a listener that responds to location updates
 		LocationListener locListener = new LocationListener() {
+			@Override
 			public void onLocationChanged(Location location) {
 				storeLocation(location);
 			}
 
+			@Override
 			public void onProviderDisabled(String provider) {
 			}
 
+			@Override
 			public void onProviderEnabled(String provider) {
 			}
 
-			public void onStatusChanged(String provider, int status,
-					Bundle extras) {
+			@Override
+			public void onStatusChanged(String provider, int status, Bundle extras) {
 			}
 		};
 
 		// Register the listener with the Location Manager to receive location
 		// updates
-		locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
-				locListener);
+		locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);
 	}
 
 	@Override

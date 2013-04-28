@@ -93,7 +93,7 @@ public class MainActivity extends BaseActivity {
 		Log.e("intent : ", "" + position);
 		viewPhotoIntent.putExtra("position", position);
 		viewPhotoIntent.putExtra("id", id);
-		
+
 		startActivity(viewPhotoIntent);
 	}
 
