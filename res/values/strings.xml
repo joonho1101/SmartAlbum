@@ -11,5 +11,7 @@
     <string name="share_facebook">Share on Facebook</string>
     <string name="sample_caption">Add comment...</string>
     <string name="share">Share</string>
+    <string name="edit_ok">OK</string>
+    <string name="edit_cancel">Cancel</string>
 
 </resources>

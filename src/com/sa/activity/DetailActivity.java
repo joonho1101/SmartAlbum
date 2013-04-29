@@ -14,6 +14,9 @@ import com.sa.uploader.PhotoUploader;
 public class DetailActivity extends BaseActivity {
 
 	private Photo photo;
+	private TextView captionView;
+	private View caption_edit_wrapper;
+	private TextView captionEditView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +38,40 @@ public class DetailActivity extends BaseActivity {
 	}
 
 	public void initCaptionView() {
-		TextView captionView = (TextView) findViewById(R.id.caption);
+		captionView = (TextView) findViewById(R.id.caption);
 		captionView.setText(photo.getComment());
-		captionView.setOnClickListener(new Button.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				editCaption();
-			}
-		});
+	}
+
+	public void initEditCaptionView() {
+		caption_edit_wrapper = findViewById(R.id.caption_edit_wrapper);
+		captionEditView = (TextView) findViewById(R.id.caption_edit);
+	}
+
+	public void showEditCaption() {
+		captionView.setVisibility(View.GONE);
+		caption_edit_wrapper.setVisibility(View.VISIBLE);
+	}
+
+	public void hideEditCaption() {
+		captionView.setVisibility(View.VISIBLE);
+		caption_edit_wrapper.setVisibility(View.GONE);
+	}
+
+	public void editCaption() {
+		showEditCaption();
+		captionEditView.setText(photo.getComment());
+	}
+
+	public void saveEditCaption() {
+		hideEditCaption();
+		String text = captionEditView.getText().toString();
+		photo.setComment(text);
+		savePhoto(photo);
+		captionView.setText(text);
+	}
+
+	public void cancelEditCaption() {
+		hideEditCaption();
 	}
 
 	public void initLocationView() {
@@ -76,10 +105,6 @@ public class DetailActivity extends BaseActivity {
 	 * An intent to start ImageViewActivity
 	 */
 	public void startImageViewActivity(int id) {
-		// TODO
-	}
-
-	public void editCaption() {
 		// TODO
 	}
 

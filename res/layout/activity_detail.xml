@@ -26,7 +26,47 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_spacing"
+            android:onClick="editCaption"
             android:text="@string/sample_caption" />
+
+        <LinearLayout
+            android:id="@+id/caption_edit_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <EditText
+                android:id="@+id/caption_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textMultiLine" >
+
+                <requestFocus />
+            </EditText>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/caption_edit_ok"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="saveEditCaption"
+                    android:text="@string/edit_ok" />
+
+                <Button
+                    android:id="@+id/caption_edit_cancel"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="cancelEditCaption"
+                    android:text="@string/edit_cancel" />
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/location"
