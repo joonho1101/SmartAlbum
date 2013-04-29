@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -76,7 +75,7 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				startViewPhotoActivity(id);
+				startViewPhotoActivity(position);
 			}
 		});
 	}
@@ -84,10 +83,10 @@ public class MainActivity extends BaseActivity {
 	/**
 	 * Creates an intent to view photo in detail.
 	 */
-	public void startViewPhotoActivity(long id) {
+	public void startViewPhotoActivity(int position) {
 		Intent viewPhotoIntent = new Intent(MainActivity.this,
 				DetailActivity.class);
-		viewPhotoIntent.putExtra("id", id);
+		viewPhotoIntent.putExtra("id", photos.get(position).getId());
 
 		startActivity(viewPhotoIntent);
 	}
