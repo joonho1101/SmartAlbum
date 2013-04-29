@@ -40,8 +40,12 @@ public abstract class BaseActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(getLayoutId());
+<<<<<<< HEAD
 		System.out.println(getApplicationContext());
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+=======
+		locMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+>>>>>>> None
 		db = new DatabaseHandler(getApplicationContext());
 	}
 
