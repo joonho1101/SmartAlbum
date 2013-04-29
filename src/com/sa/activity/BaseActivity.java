@@ -141,6 +141,7 @@ public abstract class BaseActivity extends Activity {
 			public void onLocationChanged(Location location) {
 				if (isBetterLocation(location, lastLocation)) {
 					lastLocation = location;
+					makeToast(lastLocation.getAltitude() + "");
 				}
 			}
 
@@ -283,5 +284,4 @@ public abstract class BaseActivity extends Activity {
 	abstract int getMenuId();
 
 	abstract int getLayoutId();
-
 }

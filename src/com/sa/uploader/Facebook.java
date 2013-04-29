@@ -11,6 +11,7 @@ import android.content.Intent;
  * @author phillip
  * 
  */
+
 public interface Facebook {
 
 	// Uploads photo/video/audio to facebook. If success return true
