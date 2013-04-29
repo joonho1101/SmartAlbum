@@ -236,17 +236,9 @@ public class Photo implements Media {
 		if (location == null) {
 			longitude = 0;
 			latitude = 0;
-<<<<<<< HEAD
 		} else {
 			longitude = (float) location.getLongitude();
 			latitude = (float) location.getLatitude();
-=======
-		}
-		else {
-			longitude = (float) location.getLongitude();
-			latitude = (float) location.getLatitude();
-
->>>>>>> 7376208eacd4b5b6d2230b63576bc1d126323d45
 		}
 	}
 
