@@ -40,12 +40,8 @@ public abstract class BaseActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(getLayoutId());
-<<<<<<< HEAD
 		System.out.println(getApplicationContext());
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-=======
-		locMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
->>>>>>> None
 		db = new DatabaseHandler(getApplicationContext());
 	}
 
@@ -64,10 +60,12 @@ public abstract class BaseActivity extends Activity {
 		try {
 			if (photo.getId() == 0) {
 				return db.addPhoto(photo) != -1;
-			} else {
+			}
+			else {
 				return db.updatePhoto(photo) > 0;
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			return false;
 		}
 	}
@@ -75,7 +73,8 @@ public abstract class BaseActivity extends Activity {
 	public boolean deletePhoto(int id) {
 		try {
 			return db.deletePhoto(id) > 0;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			return false;
 		}
 	}
@@ -124,9 +123,11 @@ public abstract class BaseActivity extends Activity {
 	public Location getLastKnownLocation() {
 		if (isGPSEnabled()) {
 			return locationManager.getLastKnownLocation(GPS_PROVIDER);
-		} else if (isNetworkLocationEnabled()) {
+		}
+		else if (isNetworkLocationEnabled()) {
 			return locationManager.getLastKnownLocation(NETWORK_PROVIDER);
-		} else {
+		}
+		else {
 			showGPSDisabledAlertToUser();
 			return null;
 		}
@@ -135,6 +136,7 @@ public abstract class BaseActivity extends Activity {
 	private LocationListener getLocationListener() {
 		// Define a listener that responds to location updates
 		return new LocationListener() {
+
 			@Override
 			public void onLocationChanged(Location location) {
 				if (isBetterLocation(location, lastLocation)) {
@@ -164,9 +166,11 @@ public abstract class BaseActivity extends Activity {
 	public void requestLocationUpdates() {
 		if (isGPSEnabled()) {
 			requestLocationUpdatesSafe(GPS_PROVIDER);
-		} else if (isNetworkLocationEnabled()) {
+		}
+		else if (isNetworkLocationEnabled()) {
 			requestLocationUpdatesSafe(NETWORK_PROVIDER);
-		} else {
+		}
+		else {
 			showGPSDisabledAlertToUser();
 		}
 	}
@@ -187,6 +191,7 @@ public abstract class BaseActivity extends Activity {
 				.setCancelable(false)
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
+
 							public void onClick(DialogInterface dialog, int id) {
 								Intent callGPSSettingIntent = new Intent(
 										android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -195,6 +200,7 @@ public abstract class BaseActivity extends Activity {
 						});
 		alertDialogBuilder.setNegativeButton("Cancel",
 				new DialogInterface.OnClickListener() {
+
 					public void onClick(DialogInterface dialog, int id) {
 						dialog.cancel();
 					}
@@ -233,7 +239,8 @@ public abstract class BaseActivity extends Activity {
 			return true;
 			// If the new location is more than two minutes older, it must be
 			// worse
-		} else if (isSignificantlyOlder) {
+		}
+		else if (isSignificantlyOlder) {
 			return false;
 		}
 
@@ -252,9 +259,11 @@ public abstract class BaseActivity extends Activity {
 		// accuracy
 		if (isMoreAccurate) {
 			return true;
-		} else if (isNewer && !isLessAccurate) {
+		}
+		else if (isNewer && !isLessAccurate) {
 			return true;
-		} else if (isNewer && !isSignificantlyLessAccurate
+		}
+		else if (isNewer && !isSignificantlyLessAccurate
 				&& isFromSameProvider) {
 			return true;
 		}
