@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class MainActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		requestLocationUpdates();
 		initializeButton();
 		initGridView();
 	}
@@ -40,7 +42,7 @@ public class MainActivity extends BaseActivity {
 	/**
 	 * Initializes a button and attach a listener for taking a photo.
 	 */
-	public void initializeButton() {
+	private void initializeButton() {
 		button = (Button) findViewById(R.id.take_photo_button);
 		button.setOnClickListener(new Button.OnClickListener() {
 			@Override
@@ -60,18 +62,20 @@ public class MainActivity extends BaseActivity {
 		// File(filename)));
 
 		// launch camera intent with photo id
-		startActivityForResult(takePhotoIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE + photos.size());
+		startActivityForResult(takePhotoIntent,
+				CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE + photos.size());
 	}
 
 	/**
 	 * Initializes a thumbnail grid view.
 	 */
-	public void initGridView() {
+	private void initGridView() {
 		gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new ImageAdapter(this));
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				startViewPhotoActivity(position, id);
 			}
 		});
@@ -81,7 +85,8 @@ public class MainActivity extends BaseActivity {
 	 * Creates an intent to view photo in detail.
 	 */
 	public void startViewPhotoActivity(int position, long id) {
-		Intent viewPhotoIntent = new Intent(MainActivity.this, DetailActivity.class);
+		Intent viewPhotoIntent = new Intent(MainActivity.this,
+				DetailActivity.class);
 		Log.e("intent : ", "" + position);
 		viewPhotoIntent.putExtra("position", position);
 		viewPhotoIntent.putExtra("id", id);
@@ -96,26 +101,29 @@ public class MainActivity extends BaseActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode >= CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
-				Photo p = new Photo();
-				p.setBitmap((Bitmap) data.getExtras().get("data"));
-				p.setLocation(lastLocation);
-
-				if (savePhoto(p)) {
-					makeToast("Image saved");
-					photos.push(p);
-					updateGrid();
-				}
-				else {
-					makeToast("Oops. Something went wrong. Failed to save a photo.\n");
-				}
-			}
-			else if (resultCode == RESULT_CANCELED) {
+				createPhoto((Bitmap) data.getExtras().get("data"));
+			} else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
-			}
-			else {
+				createPhoto(BitmapFactory.decodeResource(getResources(),
+						R.drawable.ic_launcher));
+			} else {
 				// Image capture failed, advise user
 				makeToast("Oops. Something went wrong. Failed to save a photo.\n");
 			}
+		}
+	}
+
+	private void createPhoto(Bitmap bitmap) {
+		Photo p = new Photo();
+		p.setBitmap(bitmap);
+		p.setLocation(lastLocation);
+
+		if (savePhoto(p)) {
+			makeToast("Image saved");
+			photos.push(p);
+			updateGrid();
+		} else {
+			makeToast("Oops. Something went wrong. Failed to save a photo.\n");
 		}
 	}
 
@@ -154,8 +162,7 @@ public class MainActivity extends BaseActivity {
 				imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
 				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 				imageView.setPadding(4, 60, 4, 60);
-			}
-			else {
+			} else {
 				imageView = (ImageView) convertView;
 			}
 
