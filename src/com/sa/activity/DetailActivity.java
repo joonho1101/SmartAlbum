@@ -3,7 +3,6 @@ package com.sa.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +24,7 @@ public class DetailActivity extends BaseActivity {
 		getPhotoFromIntent();
 		initImageView();
 		initCaptionView();
+		initEditCaptionView();
 		initLocationView();
 	}
 
@@ -39,30 +39,34 @@ public class DetailActivity extends BaseActivity {
 
 	public void initCaptionView() {
 		captionView = (TextView) findViewById(R.id.caption);
-		captionView.setText(photo.getComment());
+		String comment = photo.getComment();
+		if (comment == null || comment.length() < 1) {
+			comment = "Add comment...";
+		}
+		captionView.setText(comment);
 	}
 
-	public void initEditCaptionView() {
+	private void initEditCaptionView() {
 		caption_edit_wrapper = findViewById(R.id.caption_edit_wrapper);
 		captionEditView = (TextView) findViewById(R.id.caption_edit);
 	}
 
-	public void showEditCaption() {
+	private void showEditCaption() {
 		captionView.setVisibility(View.GONE);
 		caption_edit_wrapper.setVisibility(View.VISIBLE);
 	}
 
-	public void hideEditCaption() {
+	private void hideEditCaption() {
 		captionView.setVisibility(View.VISIBLE);
 		caption_edit_wrapper.setVisibility(View.GONE);
 	}
 
-	public void editCaption() {
+	public void editCaption(View view) {
 		showEditCaption();
 		captionEditView.setText(photo.getComment());
 	}
 
-	public void saveEditCaption() {
+	public void saveEditCaption(View view) {
 		hideEditCaption();
 		String text = captionEditView.getText().toString();
 		photo.setComment(text);
@@ -70,32 +74,20 @@ public class DetailActivity extends BaseActivity {
 		captionView.setText(text);
 	}
 
-	public void cancelEditCaption() {
+	public void cancelEditCaption(View view) {
 		hideEditCaption();
 	}
 
-	public void initLocationView() {
+	private void initLocationView() {
 		TextView locationView = (TextView) findViewById(R.id.location);
 		locationView.setText(photo.getPlace());
-		locationView.setOnClickListener(new Button.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				editLocation();
-			}
-		});
 	}
 
-	public void initShareButton() {
-		Button shareButton = (Button) findViewById(R.id.share_button);
-		shareButton.setOnClickListener(new Button.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startPhotoShareIntent();
-			}
-		});
+	public void share(View view) {
+		startPhotoShareIntent();
 	}
 
-	public void startPhotoShareIntent() {
+	private void startPhotoShareIntent() {
 		PhotoUploader uploader = new PhotoUploader();
 		Intent share = uploader.createShareIntent(photo);
 		startActivity(Intent.createChooser(share, "Share via..."));
@@ -104,11 +96,7 @@ public class DetailActivity extends BaseActivity {
 	/*
 	 * An intent to start ImageViewActivity
 	 */
-	public void startImageViewActivity(int id) {
-		// TODO
-	}
-
-	public void editLocation() {
+	public void startImageViewActivity(View view) {
 		// TODO
 	}
 

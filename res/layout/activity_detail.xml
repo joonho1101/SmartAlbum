@@ -19,13 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#000000"
-            android:minHeight="@dimen/detail_image_min_height" />
+            android:clickable="true"
+            android:minHeight="@dimen/detail_image_min_height"
+            android:onClick="startImageViewActivity" />
 
         <TextView
             android:id="@+id/caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_spacing"
+            android:clickable="true"
             android:onClick="editCaption"
             android:text="@string/sample_caption" />
 
@@ -55,6 +58,7 @@
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:onClick="saveEditCaption"
                     android:text="@string/edit_ok" />
 
@@ -63,6 +67,7 @@
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:onClick="cancelEditCaption"
                     android:text="@string/edit_cancel" />
             </LinearLayout>
@@ -90,6 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_spacing"
+            android:clickable="true"
             android:onClick="share"
             android:text="@string/share" />
     </LinearLayout>
