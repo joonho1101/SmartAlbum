@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				startViewPhotoActivity(position, id);
+				startViewPhotoActivity(id);
 			}
 		});
 	}
@@ -84,11 +84,9 @@ public class MainActivity extends BaseActivity {
 	/**
 	 * Creates an intent to view photo in detail.
 	 */
-	public void startViewPhotoActivity(int position, long id) {
+	public void startViewPhotoActivity(long id) {
 		Intent viewPhotoIntent = new Intent(MainActivity.this,
 				DetailActivity.class);
-		Log.e("intent : ", "" + position);
-		viewPhotoIntent.putExtra("position", position);
 		viewPhotoIntent.putExtra("id", id);
 
 		startActivity(viewPhotoIntent);
