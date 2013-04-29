@@ -36,6 +36,7 @@ public class MainActivity extends BaseActivity {
 		requestLocationUpdates();
 		initializeButton();
 		initGridView();
+		photos.addAll(db.getAllPhotos());
 	}
 
 	/**
@@ -44,6 +45,7 @@ public class MainActivity extends BaseActivity {
 	private void initializeButton() {
 		button = (Button) findViewById(R.id.take_photo_button);
 		button.setOnClickListener(new Button.OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				startTakePhotoActivity();
@@ -72,6 +74,7 @@ public class MainActivity extends BaseActivity {
 		gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new ImageAdapter(this));
 		gridView.setOnItemClickListener(new OnItemClickListener() {
+
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -99,11 +102,13 @@ public class MainActivity extends BaseActivity {
 		if (requestCode >= CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
 				createPhoto((Bitmap) data.getExtras().get("data"));
-			} else if (resultCode == RESULT_CANCELED) {
+			}
+			else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
 				createPhoto(BitmapFactory.decodeResource(getResources(),
 						R.drawable.ic_launcher));
-			} else {
+			}
+			else {
 				// Image capture failed, advise user
 				makeToast("Oops. Something went wrong. Failed to save a photo.\n");
 			}
@@ -119,7 +124,8 @@ public class MainActivity extends BaseActivity {
 			makeToast("Image saved");
 			photos.push(p);
 			updateGrid();
-		} else {
+		}
+		else {
 			makeToast("Oops. Something went wrong. Failed to save a photo.\n");
 		}
 	}
@@ -128,6 +134,7 @@ public class MainActivity extends BaseActivity {
 	 * This class loads the image gallery in grid view.
 	 */
 	public class ImageAdapter extends BaseAdapter {
+
 		private Context mContext;
 
 		public ImageAdapter(Context c) {
@@ -159,7 +166,8 @@ public class MainActivity extends BaseActivity {
 				imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
 				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 				imageView.setPadding(4, 60, 4, 60);
-			} else {
+			}
+			else {
 				imageView = (ImageView) convertView;
 			}
 

@@ -44,8 +44,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				"CREATE TABLE " + TABLE_PHOTOS + "(" + ID + " INTEGER PRIMARY KEY," + COMMENT + " TEXT," + ACTUAL_PHOTO
 						+ " BLOB," + VOCAL_COMMENT + " BLOB," + LONGITUDE + " REAL," + LATITUDE + " REAL," + PLACE
 						+ " TEXT," + DATE + " TEXT" + ")";
-		
-		db.execSQL(CREATE_PHOTOS_TABLE);		
+
+		db.execSQL(CREATE_PHOTOS_TABLE);
 	}
 
 	@Override
@@ -77,6 +77,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(DATE, photo.getDate().getTime() + "");
 
 		long insertedPos = db.insert(TABLE_PHOTOS, null, values);
+		photo.setId((int) insertedPos);
 		db.close();
 		return insertedPos;
 	}
