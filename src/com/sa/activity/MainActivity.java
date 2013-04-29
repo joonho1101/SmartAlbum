@@ -187,5 +187,4 @@ public class MainActivity extends BaseActivity {
 	int getLayoutId() {
 		return R.layout.activity_main;
 	}
-
 }

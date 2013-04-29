@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import com.sa.db.bean.Photo;
 
@@ -42,10 +43,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_PHOTOS_TABLE =
 				"CREATE TABLE " + TABLE_PHOTOS + "(" + ID + " INTEGER PRIMARY KEY," + COMMENT + " TEXT," + ACTUAL_PHOTO
-						+ " BLOB," + VOCAL_COMMENT + "BLOB," + LONGITUDE + " REAL," + LATITUDE + " REAL," + PLACE
+						+ " BLOB," + VOCAL_COMMENT + " BLOB," + LONGITUDE + " REAL," + LATITUDE + " REAL," + PLACE
 						+ " TEXT," + DATE + " TEXT" + ")";
-
-		db.execSQL(CREATE_PHOTOS_TABLE);
+		
+		db.execSQL(CREATE_PHOTOS_TABLE);		
 	}
 
 	@Override
@@ -76,7 +77,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(PLACE, photo.getPlace());
 		values.put(DATE, photo.getDate().getTime() + "");
 
-		long insertedPos = db.insert(DATABASE_NAME, null, values);
+		long insertedPos = db.insert(TABLE_PHOTOS, null, values);
 		db.close();
 		return insertedPos;
 	}
