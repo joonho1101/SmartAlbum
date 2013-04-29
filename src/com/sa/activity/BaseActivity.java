@@ -23,15 +23,17 @@ public abstract class BaseActivity extends Activity {
 
 	public Location lastLocation = null;
 
-	public DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+	public DatabaseHandler db;
 
 	// Acquire a reference to the system Location Manager
-	public LocationManager locMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
+	public LocationManager locMgr;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(getLayoutId());
+		System.out.println(getApplicationContext());
+		locMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		db = new DatabaseHandler(getApplicationContext());
 	}
 
 	@Override
