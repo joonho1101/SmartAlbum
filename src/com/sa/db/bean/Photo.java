@@ -32,7 +32,9 @@ public class Photo implements Media {
 
 	}
 
-	public Photo(int id, String comment, byte[] actualPhoto, byte[] vocalComment, float longitude, float latitude, String place, Date date) {
+	public Photo(int id, String comment, byte[] actualPhoto,
+			byte[] vocalComment, float longitude, float latitude, String place,
+			Date date) {
 		this.id = id;
 		this.comment = comment;
 		this.actualPhoto = actualPhoto;
@@ -186,7 +188,8 @@ public class Photo implements Media {
 	 * @return bitmap
 	 */
 	public Bitmap getBitmap() {
-		return BitmapFactory.decodeByteArray(actualPhoto, 0, actualPhoto.length);
+		return BitmapFactory
+				.decodeByteArray(actualPhoto, 0, actualPhoto.length);
 	}
 
 	/**
@@ -230,8 +233,13 @@ public class Photo implements Media {
 
 	@Override
 	public void setLocation(Location location) {
-		longitude = (float) location.getLongitude();
-		latitude = (float) location.getLatitude();
+		if (location == null) {
+			longitude = 0;
+			latitude = 0;
+		} else {
+			longitude = (float) location.getLongitude();
+			latitude = (float) location.getLatitude();
+		}
 	}
 
 	public byte[] compressBitmap(Bitmap bmp) {
