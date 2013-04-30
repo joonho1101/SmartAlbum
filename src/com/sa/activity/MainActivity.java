@@ -23,8 +23,7 @@ import android.widget.ImageView;
 public class MainActivity extends BaseActivity {
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-
-	public static final int RESULT_DELETE = 17;
+	private static final int VIEW_IMAGE_ACTIVITY_REQUEST_CODE = 200;
 
 	// private Integer[] mThumbIds = { R.drawable.ic_launcher };
 	private Button button;
@@ -90,7 +89,7 @@ public class MainActivity extends BaseActivity {
 		viewPhotoIntent.putExtra("position", position);
 		viewPhotoIntent.putExtra("id", photos.get(position).getId());
 
-		startActivity(viewPhotoIntent);
+		startActivityForResult(viewPhotoIntent, VIEW_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 
 	/**
@@ -98,9 +97,11 @@ public class MainActivity extends BaseActivity {
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == RESULT_DELETE) {
-			photos.remove(data.getIntExtra("position", -1));
-			updateGrid();
+		if (requestCode == VIEW_IMAGE_ACTIVITY_REQUEST_CODE) {
+			if (resultCode == RESULT_DELETE) {
+				photos.remove(data.getIntExtra("position", -1));
+				updateGrid();
+			}
 		}
 		else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
