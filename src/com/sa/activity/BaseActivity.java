@@ -94,7 +94,7 @@ public abstract class BaseActivity extends Activity {
 							Intent resultIntent = new Intent();
 							resultIntent.putExtra("id", photoId);
 							resultIntent.putExtra("position", activity.position);
-							setResult(MainActivity.RESULT_DELETE, resultIntent);
+							activity.setResult(MainActivity.RESULT_DELETE, resultIntent);
 							activity.finish();
 						}
 					}
