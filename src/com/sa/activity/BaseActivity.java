@@ -83,6 +83,30 @@ public abstract class BaseActivity extends Activity {
 		return deletePhoto(photo.getId());
 	}
 
+	public void confirmDelete(final int photoId, final DetailActivity activity) {
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setMessage("Are you sure you want to delete this photo?").setCancelable(false)
+				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						deletePhoto(photoId);
+						if (activity != null) {
+							Intent resultIntent = new Intent();
+							resultIntent.putExtra("id", photoId);
+							resultIntent.putExtra("position", activity.position);
+							setResult(MainActivity.RESULT_DELETE, resultIntent);
+							activity.finish();
+						}
+					}
+				});
+		alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog alert = alertDialogBuilder.create();
+		alert.show();
+	}
+
 	/**
 	 * Display a toast message
 	 * 
@@ -113,6 +137,16 @@ public abstract class BaseActivity extends Activity {
 
 	private boolean isLocationProviderEnabled(String provider) {
 		return locationManager.isProviderEnabled(provider);
+	}
+
+	/**
+	 * Returns string resource
+	 * 
+	 * @param id
+	 * @return string resource
+	 */
+	public String getStringResource(int id) {
+		return getResources().getString(id);
 	}
 
 	/**
@@ -153,8 +187,7 @@ public abstract class BaseActivity extends Activity {
 			}
 
 			@Override
-			public void onStatusChanged(String provider, int status,
-					Bundle extras) {
+			public void onStatusChanged(String provider, int status, Bundle extras) {
 			}
 		};
 	}
@@ -176,8 +209,7 @@ public abstract class BaseActivity extends Activity {
 	}
 
 	private void requestLocationUpdatesSafe(String provider) {
-		locationManager.requestLocationUpdates(provider, 0, 0,
-				getLocationListener());
+		locationManager.requestLocationUpdates(provider, 0, 0, getLocationListener());
 	}
 
 	/**
@@ -185,26 +217,19 @@ public abstract class BaseActivity extends Activity {
 	 */
 	private void showGPSDisabledAlertToUser() {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-		alertDialogBuilder
-				.setMessage(
-						"GPS is disabled in your device. Would you like to enable it?")
-				.setCancelable(false)
-				.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
-
-							public void onClick(DialogInterface dialog, int id) {
-								Intent callGPSSettingIntent = new Intent(
-										android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-								startActivity(callGPSSettingIntent);
-							}
-						});
-		alertDialogBuilder.setNegativeButton("Cancel",
-				new DialogInterface.OnClickListener() {
-
+		alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
+				.setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						dialog.cancel();
+						Intent callGPSSettingIntent =
+								new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+						startActivity(callGPSSettingIntent);
 					}
 				});
+		alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
 		AlertDialog alert = alertDialogBuilder.create();
 		alert.show();
 	}
@@ -219,8 +244,7 @@ public abstract class BaseActivity extends Activity {
 	 *            The current Location fix, to which you want to compare the new
 	 *            one
 	 */
-	protected boolean isBetterLocation(Location location,
-			Location currentBestLocation) {
+	protected boolean isBetterLocation(Location location, Location currentBestLocation) {
 		if (currentBestLocation == null) {
 			// A new location is always better than no location
 			return true;
@@ -245,15 +269,13 @@ public abstract class BaseActivity extends Activity {
 		}
 
 		// Check whether the new location fix is more or less accurate
-		int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation
-				.getAccuracy());
+		int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
 		boolean isLessAccurate = accuracyDelta > 0;
 		boolean isMoreAccurate = accuracyDelta < 0;
 		boolean isSignificantlyLessAccurate = accuracyDelta > 200;
 
 		// Check if the old and new location are from the same provider
-		boolean isFromSameProvider = isSameProvider(location.getProvider(),
-				currentBestLocation.getProvider());
+		boolean isFromSameProvider = isSameProvider(location.getProvider(), currentBestLocation.getProvider());
 
 		// Determine location quality using a combination of timeliness and
 		// accuracy
@@ -263,8 +285,7 @@ public abstract class BaseActivity extends Activity {
 		else if (isNewer && !isLessAccurate) {
 			return true;
 		}
-		else if (isNewer && !isSignificantlyLessAccurate
-				&& isFromSameProvider) {
+		else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
 			return true;
 		}
 		return false;

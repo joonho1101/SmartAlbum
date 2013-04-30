@@ -16,6 +16,7 @@ public class DetailActivity extends BaseActivity {
 	private TextView captionView;
 	private View caption_edit_wrapper;
 	private TextView captionEditView;
+	public int position;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,8 @@ public class DetailActivity extends BaseActivity {
 	}
 
 	public void getPhotoFromIntent() {
-		photo = getPhotoById(getIntent().getIntExtra("id", 0));
+		photo = getPhotoById(getIntent().getIntExtra("id", -1));
+		position = getIntent().getIntExtra("position", -1);
 	}
 
 	public void initImageView() {
@@ -41,7 +43,7 @@ public class DetailActivity extends BaseActivity {
 		captionView = (TextView) findViewById(R.id.caption);
 		String comment = photo.getComment();
 		if (comment == null || comment.length() < 1) {
-			comment = "Add comment...";
+			comment = getStringResource(R.string.caption_placeholder);
 		}
 		captionView.setText(comment);
 	}
@@ -91,6 +93,10 @@ public class DetailActivity extends BaseActivity {
 		PhotoUploader uploader = new PhotoUploader();
 		Intent share = uploader.createShareIntent(photo);
 		startActivity(Intent.createChooser(share, "Share via..."));
+	}
+
+	public void delete(View view) {
+		confirmDelete(photo.getId(), this);
 	}
 
 	/*

@@ -24,6 +24,8 @@ public class MainActivity extends BaseActivity {
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
+	public static final int RESULT_DELETE = 17;
+
 	// private Integer[] mThumbIds = { R.drawable.ic_launcher };
 	private Button button;
 	private GridView gridView;
@@ -63,8 +65,7 @@ public class MainActivity extends BaseActivity {
 		// File(filename)));
 
 		// launch camera intent with photo id
-		startActivityForResult(takePhotoIntent,
-				CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE + photos.size());
+		startActivityForResult(takePhotoIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 
 	/**
@@ -74,10 +75,8 @@ public class MainActivity extends BaseActivity {
 		gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new ImageAdapter(this));
 		gridView.setOnItemClickListener(new OnItemClickListener() {
-
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				startViewPhotoActivity(position);
 			}
 		});
@@ -87,8 +86,8 @@ public class MainActivity extends BaseActivity {
 	 * Creates an intent to view photo in detail.
 	 */
 	public void startViewPhotoActivity(int position) {
-		Intent viewPhotoIntent = new Intent(MainActivity.this,
-				DetailActivity.class);
+		Intent viewPhotoIntent = new Intent(MainActivity.this, DetailActivity.class);
+		viewPhotoIntent.putExtra("position", position);
 		viewPhotoIntent.putExtra("id", photos.get(position).getId());
 
 		startActivity(viewPhotoIntent);
@@ -99,14 +98,17 @@ public class MainActivity extends BaseActivity {
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode >= CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+		if (requestCode == RESULT_DELETE) {
+			photos.remove(data.getIntExtra("position", -1));
+			updateGrid();
+		}
+		else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
 				createPhoto((Bitmap) data.getExtras().get("data"));
 			}
 			else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
-				createPhoto(BitmapFactory.decodeResource(getResources(),
-						R.drawable.ic_launcher));
+				createPhoto(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
 			}
 			else {
 				// Image capture failed, advise user
