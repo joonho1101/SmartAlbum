@@ -121,6 +121,16 @@
 	            android:clickable="true"
 	            android:onClick="recordClick"
 	            android:text="Start recording" />   
+	            
+             <Button
+	            android:id="@+id/play_button"
+	            style="?android:attr/buttonStyleSmall"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="@dimen/activity_vertical_spacing"
+	            android:clickable="true"
+	            android:onClick="playClick"
+	            android:text="Play vocal comment" />   
             
             	 
         </LinearLayout>

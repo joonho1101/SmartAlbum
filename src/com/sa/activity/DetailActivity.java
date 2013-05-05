@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,7 +33,8 @@ public class DetailActivity extends BaseActivity {
 	private String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.3gp";
     boolean mStartRecording = true;
 
-
+    private MediaPlayer mp;
+    boolean mStartPlaying = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +153,48 @@ public class DetailActivity extends BaseActivity {
 			   makeToast("Could not convert byte array to audio file");
 		   }
 	}
+	
+	
+	
+	// Play vocal comment
+	 private void onPlay(boolean start) {
+	        if (start) {
+	            startPlaying();
+	        } else {
+	            stopPlaying();
+	        }
+	    }
+	 
+	 public void playClick(View v) {
+	     Button b = (Button)findViewById(R.id.play_button);
+         onPlay(mStartPlaying);
+         if (mStartPlaying) {
+             b.setText("Play vocal comment");
+         } else {
+             b.setText("Stop");
+         }
+         mStartPlaying = !mStartPlaying;
+	 }
+
+	    private void startPlaying() {
+	    	getFileFromBytes(filename, photo.getVocalComment());
+	        mp = new MediaPlayer();
+	        try {
+	            mp.setDataSource(filename);
+	            mp.prepare();
+	            mp.start();
+	        } catch (IOException e) {
+	        	makeToast("Could not start playing vocal comment");
+	        }
+	    }
+
+	    private void stopPlaying() {
+	        mp.release();
+	        mp = null;
+	    }
+	
+	
+	
 	
 	
 	public void getPhotoFromIntent() {
