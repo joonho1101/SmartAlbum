@@ -1,6 +1,11 @@
 package com.sa.activity;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import android.content.Intent;
 import android.media.MediaRecorder;
@@ -53,49 +58,39 @@ public class DetailActivity extends BaseActivity {
 	 
 
 	private void startRecording() {
-		makeToast("start recording");
 		mr = new MediaRecorder();
-		makeToast("mr created");
 		try{
 			mr.setAudioSource(MediaRecorder.AudioSource.MIC);
 		}
 		catch(Exception e){
-			makeToast("1");
 		}
 		try{
 			mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 		}
 		catch(Exception e){
-			makeToast("2");
 		}
 
         try{
         	mr.setOutputFile(filename);
         }
 		catch(Exception e){
-			makeToast("3  " + e.getMessage());
 		}
 		try{
 			mr.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 		}
 		catch(Exception e){
-			makeToast("4  " + e.getMessage());
 		}
 		try {
 			mr.prepare();
 		}
 		catch (IllegalStateException e) {
-			makeToast("5  " + e.getMessage());
 		}
 		catch (IOException e) {
-			makeToast("6  " + e.getMessage());
 		}
-
         try{
         	mr.start();
         }
         catch(Exception e){
-			makeToast("7  " + e.getMessage());
         }
 	}
 	
@@ -103,6 +98,16 @@ public class DetailActivity extends BaseActivity {
         mr.stop();
         mr.release();
         mr = null;
+        
+        byte[] b = getBytesFromFile(filename);
+        photo.setVocalComment(b);
+        try{
+        	db.updatePhoto(photo);
+        }
+        catch(Exception e){
+        	makeToast("Could not update photo");
+        }
+        
     }
     
     public void recordClick(View v) {
@@ -116,7 +121,36 @@ public class DetailActivity extends BaseActivity {
         mStartRecording = !mStartRecording;
     }
 
+	public byte[] getBytesFromFile(String filename){
+		int bytesRead;
+		   try {
+               FileInputStream is = new FileInputStream(filename);
+               ByteArrayOutputStream bos = new ByteArrayOutputStream();
+               byte[] b = new byte[1024];
+               while ((bytesRead = is.read(b)) != -1) {
+                   bos.write(b, 0, bytesRead);
+               }
+               return b;
+           }
+		   catch(Exception e){
+			   makeToast("Could not convert audio file to byte array");
+			   return null;
+		   }
+	}
 	
+	public void getFileFromBytes(String filename, byte[] b){
+		int bytesRead;
+		   try {
+            FileOutputStream os = new FileOutputStream(filename);
+            ByteArrayInputStream bis = new ByteArrayInputStream(b);
+            while ((bytesRead = bis.read()) != -1) {
+                os.write(b, 0, bytesRead);
+            }
+         }
+		   catch(Exception e){
+			   makeToast("Could not convert byte array to audio file");
+		   }
+	}
 	
 	
 	public void getPhotoFromIntent() {
