@@ -31,6 +31,8 @@ public class DetailActivity extends BaseActivity {
 	
 	private MediaRecorder mr;
 	private String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.3gp";
+	private String filenameMP3 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.mp3";
+
     boolean mStartRecording = true;
 
     private MediaPlayer mp;
@@ -132,7 +134,8 @@ public class DetailActivity extends BaseActivity {
                while ((bytesRead = is.read(b)) != -1) {
                    bos.write(b, 0, bytesRead);
                }
-               return b;
+               //
+               return bos.toByteArray();
            }
 		   catch(Exception e){
 			   makeToast("Could not convert audio file to byte array");
@@ -141,13 +144,15 @@ public class DetailActivity extends BaseActivity {
 	}
 	
 	public void getFileFromBytes(String filename, byte[] b){
-		int bytesRead;
+		//int bytesRead;
 		   try {
             FileOutputStream os = new FileOutputStream(filename);
-            ByteArrayInputStream bis = new ByteArrayInputStream(b);
-            while ((bytesRead = bis.read()) != -1) {
-                os.write(b, 0, bytesRead);
-            }
+            os.write(b);
+            //ByteArrayInputStream bis = new ByteArrayInputStream(b);
+            //while ((bytesRead = bis.read()) != -1) {
+            //    os.write(b, 0, bytesRead);
+           //}
+            os.close();
          }
 		   catch(Exception e){
 			   makeToast("Could not convert byte array to audio file");
@@ -176,7 +181,7 @@ public class DetailActivity extends BaseActivity {
          mStartPlaying = !mStartPlaying;
 	 }
 
-	    private void startPlaying() {
+	    private void startPlaying() { // use mp3?
 	    	getFileFromBytes(filename, photo.getVocalComment());
 	        mp = new MediaPlayer();
 	        try {
