@@ -125,6 +125,7 @@ public class DetailActivity extends BaseActivity {
         }
         mStartRecording = !mStartRecording;
     }
+<<<<<<< HEAD
 
 	public byte[] getBytesFromFile(String filename){
 		int bytesRead;
@@ -196,6 +197,8 @@ public class DetailActivity extends BaseActivity {
 	
 	
 	
+=======
+>>>>>>> Nothing
 	
 	public void getPhotoFromIntent() {
 		photo = getPhotoById(getIntent().getIntExtra("id", -1));

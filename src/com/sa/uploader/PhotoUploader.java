@@ -1,23 +1,18 @@
 package com.sa.uploader;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
-import com.sa.db.bean.Media;
-import com.sa.db.bean.Photo;
-
-import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.Environment;
-import android.widget.Toast;
+
+import com.sa.db.bean.Media;
+import com.sa.db.bean.Photo;
 
 public class PhotoUploader extends BaseUploader {
 
