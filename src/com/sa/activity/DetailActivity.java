@@ -30,17 +30,9 @@ public class DetailActivity extends BaseActivity {
 
 	private MediaRecorder mr;
 	private String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.3gp";
-<<<<<<< HEAD
 	private String filename2 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio2.3gp";
-=======
-<<<<<<< HEAD
 	private String filenameMP3 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.mp3";
->>>>>>> Nothing
-
-    boolean mStartRecording = true;
-=======
 	boolean mStartRecording = true;
->>>>>>> Nothing
 
 	private MediaPlayer mp;
 	boolean mStartPlaying = true;
@@ -103,38 +95,35 @@ public class DetailActivity extends BaseActivity {
 		catch (Exception e) {
 		}
 	}
-<<<<<<< HEAD
-	
-    private void stopRecording() {
-        mr.stop();
-        mr.release();
-        mr = null;
-        
-        byte[] b = getBytesFromFile(filename);
-        photo.setVocalComment(b);
-        try{
-        	boolean s = savePhoto(photo);
-        	makeToast("s = " + s);
-        }
-        catch(Exception e){
-        	makeToast("Could not save photo");
-        }
-        
-    }
-    
-    public void recordClick(View v) {
-        onRecord(mStartRecording);
-        Button b = (Button)findViewById(R.id.record_button);
-        if (mStartRecording) {
-            b.setText("Stop recording");
-        } else {
-            b.setText("Start recording");
-        }
-        mStartRecording = !mStartRecording;
-    }
-<<<<<<< HEAD
-=======
->>>>>>> Nothing
+
+	private void stopRecording() {
+		mr.stop();
+		mr.release();
+		mr = null;
+
+		byte[] b = getBytesFromFile(filename);
+		photo.setVocalComment(b);
+		try {
+			boolean s = savePhoto(photo);
+			makeToast("s = " + s);
+		}
+		catch (Exception e) {
+			makeToast("Could not save photo");
+		}
+
+	}
+
+	public void recordClick(View v) {
+		onRecord(mStartRecording);
+		Button b = (Button) findViewById(R.id.record_button);
+		if (mStartRecording) {
+			b.setText("Stop recording");
+		}
+		else {
+			b.setText("Start recording");
+		}
+		mStartRecording = !mStartRecording;
+	}
 
 	private void stopRecording() {
 		mr.stop();
@@ -166,32 +155,30 @@ public class DetailActivity extends BaseActivity {
 
 	public byte[] getBytesFromFile(String filename) {
 		int bytesRead;
-<<<<<<< HEAD
-		   try {
-               FileInputStream is = new FileInputStream(filename);
-               ByteArrayOutputStream bos = new ByteArrayOutputStream();
-               byte[] b = new byte[1024];
-               while ((bytesRead = is.read(b)) != -1) {
-                   bos.write(b, 0, bytesRead);
-               }
-               return bos.toByteArray();
-           }
-		   catch(Exception e){
-			   makeToast("Could not convert audio file to byte array");
-			   return null;
-		   }
+		try {
+			FileInputStream is = new FileInputStream(filename);
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			byte[] b = new byte[1024];
+			while ((bytesRead = is.read(b)) != -1) {
+				bos.write(b, 0, bytesRead);
+			}
+			return bos.toByteArray();
+		}
+		catch (Exception e) {
+			makeToast("Could not convert audio file to byte array");
+			return null;
+		}
 	}
-	
-	public void getFileFromBytes(String filename, byte[] b){
-		   try {
-            FileOutputStream os = new FileOutputStream(filename);
-            os.write(b);
-            os.close();
-         }
-		   catch(Exception e){
-			   makeToast("Could not convert byte array to audio file");
-		   }
-=======
+
+	public void getFileFromBytes(String filename, byte[] b) {
+		try {
+			FileOutputStream os = new FileOutputStream(filename);
+			os.write(b);
+			os.close();
+		}
+		catch (Exception e) {
+			makeToast("Could not convert byte array to audio file");
+		}
 		try {
 			FileInputStream is = new FileInputStream(filename);
 			ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -219,55 +206,49 @@ public class DetailActivity extends BaseActivity {
 		catch (Exception e) {
 			makeToast("Could not convert byte array to audio file");
 		}
->>>>>>> Nothing
+	}
+
+	// Play vocal comment
+	private void onPlay(boolean start) {
+		if (start) {
+			startPlaying();
+		}
+		else {
+			stopPlaying();
+		}
+	}
+
+	public void playClick(View v) {
+		Button b = (Button) findViewById(R.id.play_button);
+		onPlay(mStartPlaying);
+		if (mStartPlaying) {
+			b.setText("Stop");
+		}
+		else {
+			b.setText("Play vocal comment");
+		}
+		mStartPlaying = !mStartPlaying;
+	}
+
+	private void startPlaying() {
+		getFileFromBytes(filename2, photo.getVocalComment());
+		mp = new MediaPlayer();
+		try {
+			mp.setDataSource(filename2);
+			mp.prepare();
+			mp.start();
+		}
+		catch (IOException e) {
+			makeToast("Could not start playing vocal comment");
+		}
+	}
+
+	private void stopPlaying() {
+		mp.release();
+		mp = null;
 	}
 
 
-	// Play vocal comment
-<<<<<<< HEAD
-	 private void onPlay(boolean start) {
-	        if (start) {
-	            startPlaying();
-	        } else {
-	            stopPlaying();
-	        }
-	    }
-	 
-	 public void playClick(View v) {
-	     Button b = (Button)findViewById(R.id.play_button);
-         onPlay(mStartPlaying);
-         if (mStartPlaying) {
-             b.setText("Stop");
-         } else {
-             b.setText("Play vocal comment");
-         }
-         mStartPlaying = !mStartPlaying;
-	 }
-
-	    private void startPlaying() {
-	    	getFileFromBytes(filename2, photo.getVocalComment());
-	        mp = new MediaPlayer();
-	        try {
-	            mp.setDataSource(filename2);
-	            mp.prepare();
-	            mp.start();
-	        } catch (IOException e) {
-	        	makeToast("Could not start playing vocal comment");
-	        }
-	    }
-
-	    private void stopPlaying() {
-	        mp.release();
-	        mp = null;
-	    }
-	
-	
-	
-	
-=======
->>>>>>> Nothing
-	
-=======
 	private void onPlay(boolean start) {
 		if (start) {
 			startPlaying();
@@ -307,7 +288,6 @@ public class DetailActivity extends BaseActivity {
 		mp = null;
 	}
 
->>>>>>> Nothing
 	public void getPhotoFromIntent() {
 		photo = getPhotoById(getIntent().getIntExtra("id", -1));
 		position = getIntent().getIntExtra("position", -1);
