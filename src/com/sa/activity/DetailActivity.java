@@ -31,7 +31,7 @@ public class DetailActivity extends BaseActivity {
 	
 	private MediaRecorder mr;
 	private String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.3gp";
-	private String filenameMP3 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.mp3";
+	private String filename2 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio2.3gp";
 
     boolean mStartRecording = true;
 
@@ -106,10 +106,11 @@ public class DetailActivity extends BaseActivity {
         byte[] b = getBytesFromFile(filename);
         photo.setVocalComment(b);
         try{
-        	db.updatePhoto(photo);
+        	boolean s = savePhoto(photo);
+        	makeToast("s = " + s);
         }
         catch(Exception e){
-        	makeToast("Could not update photo");
+        	makeToast("Could not save photo");
         }
         
     }
@@ -134,7 +135,6 @@ public class DetailActivity extends BaseActivity {
                while ((bytesRead = is.read(b)) != -1) {
                    bos.write(b, 0, bytesRead);
                }
-               //
                return bos.toByteArray();
            }
 		   catch(Exception e){
@@ -144,14 +144,9 @@ public class DetailActivity extends BaseActivity {
 	}
 	
 	public void getFileFromBytes(String filename, byte[] b){
-		//int bytesRead;
 		   try {
             FileOutputStream os = new FileOutputStream(filename);
             os.write(b);
-            //ByteArrayInputStream bis = new ByteArrayInputStream(b);
-            //while ((bytesRead = bis.read()) != -1) {
-            //    os.write(b, 0, bytesRead);
-           //}
             os.close();
          }
 		   catch(Exception e){
@@ -174,18 +169,18 @@ public class DetailActivity extends BaseActivity {
 	     Button b = (Button)findViewById(R.id.play_button);
          onPlay(mStartPlaying);
          if (mStartPlaying) {
-             b.setText("Play vocal comment");
-         } else {
              b.setText("Stop");
+         } else {
+             b.setText("Play vocal comment");
          }
          mStartPlaying = !mStartPlaying;
 	 }
 
-	    private void startPlaying() { // use mp3?
-	    	getFileFromBytes(filename, photo.getVocalComment());
+	    private void startPlaying() {
+	    	getFileFromBytes(filename2, photo.getVocalComment());
 	        mp = new MediaPlayer();
 	        try {
-	            mp.setDataSource(filename);
+	            mp.setDataSource(filename2);
 	            mp.prepare();
 	            mp.start();
 	        } catch (IOException e) {
