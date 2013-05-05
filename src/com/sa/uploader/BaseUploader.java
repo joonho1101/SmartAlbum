@@ -9,7 +9,7 @@ import android.location.Location;
 
 public abstract class BaseUploader implements Facebook {
 
-	private Intent sharingIntent;
+	protected Intent sharingIntent;
 
 	public void addInfo(Media media) {
 		addCaption(media.getComment());
@@ -18,6 +18,9 @@ public abstract class BaseUploader implements Facebook {
 	}
 
 	public boolean addCaption(String s) {
+		if(s == null){
+			return false;
+		}
 		String text = sharingIntent.getStringExtra(Intent.EXTRA_TEXT);
 		String fulltext = "";
 		if (text != null) {
@@ -29,6 +32,9 @@ public abstract class BaseUploader implements Facebook {
 	}
 
 	public boolean addDate(Date d) {
+		if(d == null){
+			return false;
+		}
 		String text = sharingIntent.getStringExtra(Intent.EXTRA_TEXT);
 		String fulltext = "";
 		if (text != null) {
@@ -41,6 +47,9 @@ public abstract class BaseUploader implements Facebook {
 	}
 
 	public boolean addLocation(Location l) {
+		if(l == null){
+			return false;
+		}
 		String text = sharingIntent.getStringExtra(Intent.EXTRA_TEXT);
 		String fulltext = "";
 		if (text != null) {

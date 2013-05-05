@@ -1,8 +1,13 @@
 package com.sa.activity;
 
+import java.io.IOException;
+
 import android.content.Intent;
+import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +22,12 @@ public class DetailActivity extends BaseActivity {
 	private View caption_edit_wrapper;
 	private TextView captionEditView;
 	public int position;
+	
+	private MediaRecorder mr;
+	private String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.3gp";
+    boolean mStartRecording = true;
+
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +40,85 @@ public class DetailActivity extends BaseActivity {
 		initLocationView();
 	}
 
+	
+
+	private void onRecord(boolean start) {
+	      if (start) {
+	          startRecording();
+	      } 
+	      else {
+	          stopRecording();
+	      }
+	}
+	 
+
+	private void startRecording() {
+		makeToast("start recording");
+		mr = new MediaRecorder();
+		makeToast("mr created");
+		try{
+			mr.setAudioSource(MediaRecorder.AudioSource.MIC);
+		}
+		catch(Exception e){
+			makeToast("1");
+		}
+		try{
+			mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+		}
+		catch(Exception e){
+			makeToast("2");
+		}
+
+        try{
+        	mr.setOutputFile(filename);
+        }
+		catch(Exception e){
+			makeToast("3  " + e.getMessage());
+		}
+		try{
+			mr.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+		}
+		catch(Exception e){
+			makeToast("4  " + e.getMessage());
+		}
+		try {
+			mr.prepare();
+		}
+		catch (IllegalStateException e) {
+			makeToast("5  " + e.getMessage());
+		}
+		catch (IOException e) {
+			makeToast("6  " + e.getMessage());
+		}
+
+        try{
+        	mr.start();
+        }
+        catch(Exception e){
+			makeToast("7  " + e.getMessage());
+        }
+	}
+	
+    private void stopRecording() {
+        mr.stop();
+        mr.release();
+        mr = null;
+    }
+    
+    public void recordClick(View v) {
+        onRecord(mStartRecording);
+        Button b = (Button)findViewById(R.id.record_button);
+        if (mStartRecording) {
+            b.setText("Stop recording");
+        } else {
+            b.setText("Start recording");
+        }
+        mStartRecording = !mStartRecording;
+    }
+
+	
+	
+	
 	public void getPhotoFromIntent() {
 		photo = getPhotoById(getIntent().getIntExtra("id", -1));
 		position = getIntent().getIntExtra("position", -1);
