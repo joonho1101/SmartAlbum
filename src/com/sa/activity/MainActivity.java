@@ -74,6 +74,7 @@ public class MainActivity extends BaseActivity {
 		gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new ImageAdapter(this));
 		gridView.setOnItemClickListener(new OnItemClickListener() {
+
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				startViewPhotoActivity(position);

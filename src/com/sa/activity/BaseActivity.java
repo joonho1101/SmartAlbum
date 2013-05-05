@@ -42,7 +42,6 @@ public abstract class BaseActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(getLayoutId());
-		System.out.println(getApplicationContext());
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		db = new DatabaseHandler(getApplicationContext());
 	}

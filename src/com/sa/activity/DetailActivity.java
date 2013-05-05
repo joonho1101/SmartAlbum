@@ -5,7 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -28,15 +27,23 @@ public class DetailActivity extends BaseActivity {
 	private View caption_edit_wrapper;
 	private TextView captionEditView;
 	public int position;
-	
+
 	private MediaRecorder mr;
 	private String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.3gp";
+<<<<<<< HEAD
 	private String filename2 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio2.3gp";
+=======
+<<<<<<< HEAD
+	private String filenameMP3 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.mp3";
+>>>>>>> Nothing
 
     boolean mStartRecording = true;
+=======
+	boolean mStartRecording = true;
+>>>>>>> Nothing
 
-    private MediaPlayer mp;
-    boolean mStartPlaying = true;
+	private MediaPlayer mp;
+	boolean mStartPlaying = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,40 +56,39 @@ public class DetailActivity extends BaseActivity {
 		initLocationView();
 	}
 
-	
 
 	private void onRecord(boolean start) {
-	      if (start) {
-	          startRecording();
-	      } 
-	      else {
-	          stopRecording();
-	      }
+		if (start) {
+			startRecording();
+		}
+		else {
+			stopRecording();
+		}
 	}
-	 
+
 
 	private void startRecording() {
 		mr = new MediaRecorder();
-		try{
+		try {
 			mr.setAudioSource(MediaRecorder.AudioSource.MIC);
 		}
-		catch(Exception e){
+		catch (Exception e) {
 		}
-		try{
+		try {
 			mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 		}
-		catch(Exception e){
+		catch (Exception e) {
 		}
 
-        try{
-        	mr.setOutputFile(filename);
-        }
-		catch(Exception e){
+		try {
+			mr.setOutputFile(filename);
 		}
-		try{
+		catch (Exception e) {
+		}
+		try {
 			mr.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 		}
-		catch(Exception e){
+		catch (Exception e) {
 		}
 		try {
 			mr.prepare();
@@ -91,12 +97,13 @@ public class DetailActivity extends BaseActivity {
 		}
 		catch (IOException e) {
 		}
-        try{
-        	mr.start();
-        }
-        catch(Exception e){
-        }
+		try {
+			mr.start();
+		}
+		catch (Exception e) {
+		}
 	}
+<<<<<<< HEAD
 	
     private void stopRecording() {
         mr.stop();
@@ -126,9 +133,40 @@ public class DetailActivity extends BaseActivity {
         mStartRecording = !mStartRecording;
     }
 <<<<<<< HEAD
+=======
+>>>>>>> Nothing
 
-	public byte[] getBytesFromFile(String filename){
+	private void stopRecording() {
+		mr.stop();
+		mr.release();
+		mr = null;
+
+		byte[] b = getBytesFromFile(filename);
+		photo.setVocalComment(b);
+		try {
+			db.updatePhoto(photo);
+		}
+		catch (Exception e) {
+			makeToast("Could not update photo");
+		}
+
+	}
+
+	public void recordClick(View v) {
+		onRecord(mStartRecording);
+		Button b = (Button) findViewById(R.id.record_button);
+		if (mStartRecording) {
+			b.setText("Stop recording");
+		}
+		else {
+			b.setText("Start recording");
+		}
+		mStartRecording = !mStartRecording;
+	}
+
+	public byte[] getBytesFromFile(String filename) {
 		int bytesRead;
+<<<<<<< HEAD
 		   try {
                FileInputStream is = new FileInputStream(filename);
                ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -153,11 +191,40 @@ public class DetailActivity extends BaseActivity {
 		   catch(Exception e){
 			   makeToast("Could not convert byte array to audio file");
 		   }
+=======
+		try {
+			FileInputStream is = new FileInputStream(filename);
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			byte[] b = new byte[1024];
+			while ((bytesRead = is.read(b)) != -1) {
+				bos.write(b, 0, bytesRead);
+			}
+			return b;
+		}
+		catch (Exception e) {
+			makeToast("Could not convert audio file to byte array");
+			return null;
+		}
 	}
-	
-	
-	
+
+	public void getFileFromBytes(String filename, byte[] b) {
+		int bytesRead;
+		try {
+			FileOutputStream os = new FileOutputStream(filename);
+			ByteArrayInputStream bis = new ByteArrayInputStream(b);
+			while ((bytesRead = bis.read()) != -1) {
+				os.write(b, 0, bytesRead);
+			}
+		}
+		catch (Exception e) {
+			makeToast("Could not convert byte array to audio file");
+		}
+>>>>>>> Nothing
+	}
+
+
 	// Play vocal comment
+<<<<<<< HEAD
 	 private void onPlay(boolean start) {
 	        if (start) {
 	            startPlaying();
@@ -200,6 +267,47 @@ public class DetailActivity extends BaseActivity {
 =======
 >>>>>>> Nothing
 	
+=======
+	private void onPlay(boolean start) {
+		if (start) {
+			startPlaying();
+		}
+		else {
+			stopPlaying();
+		}
+	}
+
+	public void playClick(View v) {
+		Button b = (Button) findViewById(R.id.play_button);
+		onPlay(mStartPlaying);
+		if (mStartPlaying) {
+			b.setText("Play vocal comment");
+		}
+		else {
+			b.setText("Stop");
+		}
+		mStartPlaying = !mStartPlaying;
+	}
+
+	private void startPlaying() {
+		getFileFromBytes(filename, photo.getVocalComment());
+		mp = new MediaPlayer();
+		try {
+			mp.setDataSource(filename);
+			mp.prepare();
+			mp.start();
+		}
+		catch (IOException e) {
+			makeToast("Could not start playing vocal comment");
+		}
+	}
+
+	private void stopPlaying() {
+		mp.release();
+		mp = null;
+	}
+
+>>>>>>> Nothing
 	public void getPhotoFromIntent() {
 		photo = getPhotoById(getIntent().getIntExtra("id", -1));
 		position = getIntent().getIntExtra("position", -1);
@@ -286,5 +394,4 @@ public class DetailActivity extends BaseActivity {
 	int getLayoutId() {
 		return R.layout.activity_detail;
 	}
-
 }
