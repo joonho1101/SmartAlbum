@@ -111,8 +111,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(LATITUDE, photo.getLatitude());
 		values.put(PLACE, photo.getPlace());
 		values.put(DATE, photo.getDate().getTime() + "");
-
-		return db.update(TABLE_PHOTOS, values, ID + " = ?", new String[] { String.valueOf(photo.getId()) });
+		long rowsAffected = db.update(TABLE_PHOTOS, values, ID + " = ?", new String[] { String.valueOf(photo.getId()) });
+		db.close();
+		return rowsAffected;
 	}
 
 	/**
@@ -132,6 +133,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		Photo photo =
 				new Photo(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getBlob(2),
 						cursor.getBlob(3), cursor.getFloat(4), cursor.getFloat(5), cursor.getString(6), new Date(Long.parseLong(cursor.getString(7))));
+		db.close();
 		return photo;
 	}
 
@@ -169,6 +171,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			}
 			while (cursor.moveToNext());
 		}
+		db.close();
 		return photos;
 	}
 }
