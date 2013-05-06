@@ -1,3 +1,9 @@
+/**
+ * SmartAlbum --
+ * author - Phillip Huh(phuh) , Joon Ho Cho(joonhoc), Isaac Simha(isimha)
+ * improved version of album that uses internal database to store necessary components of photos
+ * such as voice, text memo, location, actual photo, etc
+ */
 package com.sa.db.dao;
 
 import java.util.ArrayList;
@@ -12,6 +18,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.sa.db.bean.Photo;
 
+/**
+ * DatabaseHandler class that handles database. It is also known as DAO(database access object)
+ * 
+ * @author Phillip Huh(phuh), Joon Ho Cho(joonhoc), Isaac Simha(isimha)
+ * 
+ */
 public class DatabaseHandler extends SQLiteOpenHelper {
 
 	// All Static variables
@@ -99,7 +111,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(LATITUDE, photo.getLatitude());
 		values.put(PLACE, photo.getPlace());
 		values.put(DATE, photo.getDate().getTime() + "");
-				
+
 		return db.update(TABLE_PHOTOS, values, ID + " = ?", new String[] { String.valueOf(photo.getId()) });
 	}
 

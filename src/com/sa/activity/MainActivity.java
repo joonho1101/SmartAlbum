@@ -1,15 +1,23 @@
+/**
+ * SmartAlbum --
+ * author - Phillip Huh(phuh) , Joon Ho Cho(joonhoc), Isaac Simha(isimha)
+ * improved version of album that uses internal database to store necessary components of photos
+ * such as voice, text memo, location, actual photo, etc
+ */
 package com.sa.activity;
 
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 
-import com.sa.db.bean.Photo;
-import com.sa.smartalbum.R;
-
-import android.os.Bundle;
-import android.provider.MediaStore;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,12 +27,20 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.sa.db.bean.Photo;
+import com.sa.smartalbum.R;
+
+/**
+ * Main Activity class
+ * 
+ * @author Phillip Huh(phuh), Joon Ho Cho(joonhoc), Isaac Simha(isimha)
+ * 
+ */
 public class MainActivity extends BaseActivity {
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	private static final int VIEW_IMAGE_ACTIVITY_REQUEST_CODE = 200;
 
-	// private Integer[] mThumbIds = { R.drawable.ic_launcher };
 	private Button button;
 	private GridView gridView;
 	private LinkedList<Photo> photos = new LinkedList<Photo>();
@@ -58,9 +74,6 @@ public class MainActivity extends BaseActivity {
 	 */
 	public void startTakePhotoActivity() {
 		Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		// takePhotoIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-		// takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new
-		// File(filename)));
 
 		// launch camera intent with photo id
 		startActivityForResult(takePhotoIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
@@ -118,9 +131,37 @@ public class MainActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * Creates photo given Bitmap of photo
+	 * 
+	 * @param bitmap
+	 */
 	private void createPhoto(Bitmap bitmap) {
 		Photo p = new Photo();
 		p.setBitmap(bitmap);
+		Location l = getLastLocation();
+		double latitude = l.getLatitude();
+		double longitude = l.getLongitude();
+		Geocoder geo = new Geocoder(getApplicationContext(), Locale.getDefault());
+		List<Address> addresses;
+		try {
+			addresses = geo.getFromLocation(latitude, longitude, 1);
+			if (addresses.isEmpty()) {
+				p.setPlace("");
+			}
+			else {
+				if (addresses.size() > 0) {
+					String place = addresses.get(0).getFeatureName() + ", ";
+					place += addresses.get(0).getLocality() + ", " +
+							addresses.get(0).getAdminArea() + ", " +
+							addresses.get(0).getCountryName();
+					p.setPlace(place);
+				}
+			}
+		}
+		catch (Exception e) {
+
+		}
 		p.setLocation(getLastLocation());
 
 		if (savePhoto(p)) {
@@ -146,7 +187,6 @@ public class MainActivity extends BaseActivity {
 
 		@Override
 		public int getCount() {
-			// return mThumbIds.length;
 			return photos.size();
 		}
 
