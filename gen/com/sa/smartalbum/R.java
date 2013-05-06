@@ -53,10 +53,11 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
-        public static final int audio_byte2audio_fail=0x7f05001e;
-        public static final int audio_conversion_fail=0x7f05001d;
-        public static final int audio_record_fail=0x7f05001b;
-        public static final int audio_save_fail=0x7f05001c;
+        public static final int audio_byte2audio_fail=0x7f050020;
+        public static final int audio_conversion_fail=0x7f05001f;
+        public static final int audio_record_fail=0x7f05001c;
+        public static final int audio_save_fail=0x7f05001e;
+        public static final int audio_save_success=0x7f05001d;
         public static final int cancel=0x7f050010;
         public static final int caption_placeholder=0x7f050008;
         public static final int confirm_delete=0x7f05000c;
@@ -69,9 +70,10 @@ public final class R {
         public static final int location=0x7f050005;
         public static final int no=0x7f05000e;
         public static final int ok=0x7f05000f;
-        public static final int photo_save_fail=0x7f05001a;
+        public static final int photo_delete_success=0x7f05001a;
+        public static final int photo_save_fail=0x7f05001b;
         public static final int photo_save_success=0x7f050019;
-        public static final int play_audio_fail=0x7f05001f;
+        public static final int play_audio_fail=0x7f050021;
         public static final int play_voice_memo=0x7f050015;
         public static final int share=0x7f050009;
         public static final int share_facebook=0x7f050007;

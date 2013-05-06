@@ -112,6 +112,7 @@ public class MainActivity extends BaseActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == VIEW_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_DELETE) {
+				makeToast(getStringResource(R.string.photo_delete_success));
 				photos.remove(data.getIntExtra("position", -1));
 				updateGrid();
 			}

@@ -27,8 +27,10 @@
     <string name="empty"></string>
     <string name="enable_gps">GPS is disabled in your device. Would you like to enable it?</string>
     <string name="photo_save_success">Image successfully saved!</string>
+    <string name="photo_delete_success">Image successfully deleted!</string>
     <string name="photo_save_fail">Oops. Something went wrong. Failed to save a photo.</string>
     <string name="audio_record_fail">Oops. Something went wrong. Failed to start recording audio.</string>
+    <string name="audio_save_success">Successfully saved voice memo!</string>
     <string name="audio_save_fail">Oops. Something went wrong. Failed to save voice memo.</string>
     <string name="audio_conversion_fail">Oops. Something went wrong. Failed to convert audio file to byte array.</string>
     <string name="audio_byte2audio_fail">Oops. Something went wrong. Failed to convert byte array to audio file.</string>

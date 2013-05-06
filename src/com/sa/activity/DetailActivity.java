@@ -104,7 +104,10 @@ public class DetailActivity extends BaseActivity {
 			byte[] b = getBytesFromFile(TEMP_FILENAME);
 			photo.setVocalComment(b);
 
-			if (!savePhoto(photo)) {
+			if (savePhoto(photo)) {
+				makeToast(getStringResource(R.string.audio_save_success));
+			}
+			else {
 				makeToast(getStringResource(R.string.audio_save_fail));
 			}
 		}
