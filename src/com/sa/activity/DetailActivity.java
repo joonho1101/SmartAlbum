@@ -31,8 +31,6 @@ public class DetailActivity extends BaseActivity {
 	private MediaRecorder mr;
 	private String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.3gp";
 	private String filename2 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio2.3gp";
-	private String filenameMP3 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.mp3";
-
 	boolean mStartRecording = true;
 
 	private MediaPlayer mp;
@@ -117,7 +115,6 @@ public class DetailActivity extends BaseActivity {
 		if (mStartRecording) {
 			startRecording();
 			stringId = R.string.stop_recording;
-
 		}
 		else {
 			stopRecording();
@@ -126,7 +123,6 @@ public class DetailActivity extends BaseActivity {
 		((Button) findViewById(R.id.record_button)).setText(getStringResource(stringId));
 		mStartRecording = !mStartRecording;
 	}
-
 
 	public byte[] getBytesFromFile(String filename) {
 		int bytesRead;
@@ -145,15 +141,13 @@ public class DetailActivity extends BaseActivity {
 		}
 	}
 
-
 	public void getFileFromBytes(String filename, byte[] b) {
-		int bytesRead;
 		try {
+			makeToast("HERE?");
+			makeToast("fileName is " + filename);
 			FileOutputStream os = new FileOutputStream(filename);
-			ByteArrayInputStream bis = new ByteArrayInputStream(b);
-			while ((bytesRead = bis.read()) != -1) {
-				os.write(b, 0, bytesRead);
-			}
+			os.write(b);
+			os.close();
 		}
 		catch (Exception e) {
 			makeToast("Could not convert byte array to audio file");
@@ -161,6 +155,7 @@ public class DetailActivity extends BaseActivity {
 	}
 
 	// Play vocal comment
+
 	public void playClick(View v) {
 		int stringId;
 		if (mStartPlaying) {
@@ -176,10 +171,10 @@ public class DetailActivity extends BaseActivity {
 	}
 
 	private void startPlaying() {
-		getFileFromBytes(filename, photo.getVocalComment());
+		getFileFromBytes(filename2, photo.getVocalComment());
 		mp = new MediaPlayer();
 		try {
-			mp.setDataSource(filename);
+			mp.setDataSource(filename2);
 			mp.prepare();
 			mp.start();
 		}
