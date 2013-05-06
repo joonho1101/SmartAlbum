@@ -6,23 +6,19 @@
  */
 package com.sa.activity;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
-import com.sa.db.bean.Photo;
-import com.sa.smartalbum.R;
-
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -32,9 +28,12 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.sa.db.bean.Photo;
+import com.sa.smartalbum.R;
+
 /**
  * Main Activity class
- * @author phillip
+ * @author Phillip Huh(phuh), Joon Ho Cho(joonhoc), Isaac Simha(isimha)
  *
  */
 public class MainActivity extends BaseActivity {

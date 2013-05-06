@@ -25,6 +25,11 @@ import com.sa.db.bean.Photo;
 import com.sa.smartalbum.R;
 import com.sa.uploader.PhotoUploader;
 
+/**
+ * Detail Activity Class
+ * @author Phillip Huh(phuh), Joon Ho Cho(joonhoc), Isaac Simha(isimha)
+ *
+ */
 public class DetailActivity extends BaseActivity {
 
 	private Photo photo;
