@@ -30,7 +30,7 @@ public class DetailActivity extends BaseActivity {
 	private MediaRecorder mr;
 	private String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.3gp";
 	private String filename2 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio2.3gp";
-	boolean mStartRecording = true;
+	boolean isRecordingVoice = false;
 
 	private MediaPlayer mp;
 	boolean mStartPlaying = true;
@@ -49,46 +49,25 @@ public class DetailActivity extends BaseActivity {
 
 	/**
 	 * Voice related methods
+	 * 
+	 * @throws IOException
+	 * @throws IllegalStateException
 	 */
 
-	private void startRecording() {
-		mr = new MediaRecorder();
+	private boolean startRecording() {
 		try {
+			mr = new MediaRecorder();
 			mr.setAudioSource(MediaRecorder.AudioSource.MIC);
-		}
-		catch (Exception e) {
-		}
-
-		try {
 			mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-		}
-		catch (Exception e) {
-		}
-
-		try {
 			mr.setOutputFile(filename);
-		}
-		catch (Exception e) {
-		}
-
-		try {
 			mr.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-		}
-		catch (Exception e) {
-		}
-
-		try {
 			mr.prepare();
-		}
-		catch (IllegalStateException e) {
-		}
-		catch (IOException e) {
-		}
-
-		try {
 			mr.start();
+			return true;
 		}
 		catch (Exception e) {
+			makeToast("Could not start record audio");
+			return false;
 		}
 	}
 
@@ -96,31 +75,30 @@ public class DetailActivity extends BaseActivity {
 		mr.stop();
 		mr.release();
 		mr = null;
-
-		byte[] b = getBytesFromFile(filename);
-		photo.setVocalComment(b);
-
-		try {
-			boolean s = savePhoto(photo);
-			makeToast("s = " + s);
-		}
-		catch (Exception e) {
-			makeToast("Could not save photo");
-		}
 	}
 
 	public void recordClick(View v) {
-		int stringId;
-		if (mStartRecording) {
-			startRecording();
-			stringId = R.string.stop_recording;
+		if (isRecordingVoice) {
+			stopRecording();
+			isRecordingVoice = false;
+
+			byte[] b = getBytesFromFile(filename);
+			photo.setVocalComment(b);
+
+			if (!savePhoto(photo)) {
+				makeToast("Could not save voice recording");
+			}
 		}
 		else {
-			stopRecording();
-			stringId = R.string.start_recording;
+			isRecordingVoice = startRecording();
 		}
-		((Button) findViewById(R.id.record_button)).setText(getStringResource(stringId));
-		mStartRecording = !mStartRecording;
+		updateRecordButtonText(isRecordingVoice);
+	}
+
+	public void updateRecordButtonText(boolean recording) {
+		Button button = (Button) findViewById(R.id.record_button);
+		int id = recording ? R.string.stop_recording : R.string.start_recording;
+		button.setText(getStringResource(id));
 	}
 
 	public byte[] getBytesFromFile(String filename) {

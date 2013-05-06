@@ -18,5 +18,6 @@
     <string name="stop_recording">Stop Recording</string>
     <string name="play_voice_memo">Play voice memo</string>
     <string name="stop_voice_memo">Stop</string>
+    <string name="empty"></string>
 
 </resources>
