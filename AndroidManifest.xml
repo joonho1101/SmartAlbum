@@ -33,6 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="com.sa.activity.DetailActivity"
             android:label="@string/title_activity_detail" >
