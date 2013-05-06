@@ -36,7 +36,7 @@ public class ImageViewActivity extends BaseActivity {
 	private boolean savePhotoFile(String filename, Bitmap bmp) {
 		try {
 			bmp.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(filename));
-			return getBaseContext().getFileStreamPath(filename).exists();
+			return true;
 		}
 		catch (Exception e) {
 			makeToast("Error while saving");
