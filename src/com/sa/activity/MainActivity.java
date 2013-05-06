@@ -140,15 +140,16 @@ public class MainActivity extends BaseActivity {
 		Photo p = new Photo();
 		p.setBitmap(bitmap);
 		Location l = getLastLocation();
-		double latitude, longitude;
-		if (l == null) {
-			latitude = 0;
-			longitude = 0;
-		}
-		else {
+
+		double latitude = 0, longitude = 0;
+		if (l != null) {
 			latitude = l.getLatitude();
 			longitude = l.getLongitude();
 		}
+		else {
+			makeToast("null location");
+		}
+
 		Geocoder geo = new Geocoder(getApplicationContext(), Locale.getDefault());
 		List<Address> addresses;
 		try {
@@ -170,6 +171,7 @@ public class MainActivity extends BaseActivity {
 		catch (Exception e) {
 			makeToast("error");
 		}
+
 		p.setLocation(l);
 
 		if (savePhoto(p)) {

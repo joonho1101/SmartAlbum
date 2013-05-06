@@ -52,6 +52,7 @@ public abstract class BaseActivity extends Activity {
 		setContentView(getLayoutId());
 		db = new DatabaseHandler(getApplicationContext());
 		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		requestLocationUpdates();
 	}
 
 	@Override
