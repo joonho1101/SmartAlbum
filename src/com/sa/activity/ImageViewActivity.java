@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.webkit.WebView;
 import com.sa.db.bean.Photo;
 import com.sa.smartalbum.R;
@@ -23,7 +24,7 @@ import com.sa.smartalbum.R;
  */
 public class ImageViewActivity extends BaseActivity {
 
-	private static final String TEMP_FILENAME = BASE_PATH + "/tmp.jpg";
+	private static final String TEMP_FILENAME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp.jpg";
 	Photo photo;
 
 	@Override

@@ -49,6 +49,9 @@ public class MainActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		requestLocationUpdates();
+
 		initializeButton();
 		initGridView();
 		photos.addAll(db.getAllPhotos());
