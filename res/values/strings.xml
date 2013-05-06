@@ -9,7 +9,7 @@
     <string name="location">Add location</string>
     <string name="voice">Add voice memo</string>
     <string name="share_facebook">Share on Facebook</string>
-    <string name="caption_placeholder">Add comment...</string>
+    <string name="caption_placeholder">Add comment&#8230;</string>
     <string name="share">Share</string>
     <string name="delete">Delete</string>
     <string name="edit_ok">OK</string>

@@ -28,7 +28,6 @@ public abstract class BaseActivity extends Activity {
 	public static final String NETWORK_PROVIDER = LocationManager.NETWORK_PROVIDER;
 
 	public static final int RESULT_DELETE = 17;
-
 	private static final int TWO_MINUTES = 1000 * 60 * 2;
 
 	public Location lastLocation = null;
