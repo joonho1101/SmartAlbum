@@ -227,7 +227,7 @@ public class Photo implements Media {
 	public Location getLocation() {
 		Location loc = new Location(LocationManager.GPS_PROVIDER);
 		loc.setLatitude(latitude);
-		loc.setLongitude(getLongitude());
+		loc.setLongitude(longitude);
 		return loc;
 	}
 
