@@ -29,6 +29,8 @@
     <string name="photo_save_success">Image successfully saved!</string>
     <string name="photo_delete_success">Image successfully deleted!</string>
     <string name="photo_save_fail">Oops. Something went wrong. Failed to save a photo.</string>
+    <string name="comment_save_success">Successfully saved caption!</string>
+    <string name="comment_save_fail">Oops. Something went wrong. Failed to save a caption.</string>
     <string name="audio_record_fail">Oops. Something went wrong. Failed to start recording audio.</string>
     <string name="audio_save_success">Successfully saved voice memo!</string>
     <string name="audio_save_fail">Oops. Something went wrong. Failed to save voice memo.</string>

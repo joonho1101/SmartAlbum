@@ -286,8 +286,13 @@ public class DetailActivity extends BaseActivity {
 		hideEditCaption();
 		String text = captionEditView.getText().toString();
 		photo.setComment(text);
-		savePhoto(photo);
-		captionView.setText(text);
+		if (savePhoto(photo)) {
+			captionView.setText(text);
+			makeToast(getStringResource(R.string.comment_save_success));
+		}
+		else {
+			makeToast(getStringResource(R.string.comment_save_fail));
+		}
 	}
 
 	/**
