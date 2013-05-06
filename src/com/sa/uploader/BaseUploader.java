@@ -55,7 +55,7 @@ public abstract class BaseUploader implements Facebook {
 		if (text != null) {
 			fulltext += text;
 		}
-		fulltext += "\n" + l.toString();
+		fulltext += "\n(" + l.getLatitude() + ", " + l.getLongitude() + ")";
 		sharingIntent.putExtra(Intent.EXTRA_TEXT, fulltext);
 
 		return true;

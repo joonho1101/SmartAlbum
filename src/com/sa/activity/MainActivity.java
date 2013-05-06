@@ -1,10 +1,16 @@
 package com.sa.activity;
 
+import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 
 import com.sa.db.bean.Photo;
 import com.sa.smartalbum.R;
 
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.content.Context;
@@ -122,6 +128,29 @@ public class MainActivity extends BaseActivity {
 	private void createPhoto(Bitmap bitmap) {
 		Photo p = new Photo();
 		p.setBitmap(bitmap);
+		Location l = getLastLocation();
+		double latitude = l.getLatitude();
+		double longitude = l.getLongitude();
+		Geocoder geo = new Geocoder(getApplicationContext(), Locale.getDefault());
+		List<Address> addresses;
+		try {
+			addresses = geo.getFromLocation(latitude, longitude, 1);
+			if (addresses.isEmpty()) {
+				p.setPlace("");
+			}
+			else {
+				if (addresses.size() > 0) {
+					String place = addresses.get(0).getFeatureName() + ", ";
+					place += addresses.get(0).getLocality() +", " + 
+							addresses.get(0).getAdminArea() + ", " + 
+							addresses.get(0).getCountryName();
+					p.setPlace(place);
+				}
+			}
+		}
+		catch(Exception e){
+			
+		}
 		p.setLocation(getLastLocation());
 
 		if (savePhoto(p)) {
