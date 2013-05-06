@@ -157,8 +157,6 @@ public class DetailActivity extends BaseActivity {
 	 */
 	public void getFileFromBytes(String filename, byte[] b) {
 		try {
-			makeToast("HERE?");
-			makeToast("fileName is " + filename);
 			FileOutputStream os = new FileOutputStream(filename);
 			os.write(b);
 			os.close();
