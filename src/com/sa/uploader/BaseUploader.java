@@ -31,6 +31,7 @@ public abstract class BaseUploader implements Facebook {
 
 	/**
 	 * Adds caption
+	 * 
 	 * @param s
 	 * @return
 	 */
@@ -50,6 +51,7 @@ public abstract class BaseUploader implements Facebook {
 
 	/**
 	 * Adds date
+	 * 
 	 * @param d
 	 * @return
 	 */
@@ -70,6 +72,7 @@ public abstract class BaseUploader implements Facebook {
 
 	/**
 	 * Adds locations
+	 * 
 	 * @param l
 	 * @return
 	 */

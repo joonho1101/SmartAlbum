@@ -27,8 +27,9 @@ import com.sa.uploader.PhotoUploader;
 
 /**
  * Detail Activity Class
+ * 
  * @author Phillip Huh(phuh), Joon Ho Cho(joonhoc), Isaac Simha(isimha)
- *
+ * 
  */
 public class DetailActivity extends BaseActivity {
 
@@ -169,6 +170,7 @@ public class DetailActivity extends BaseActivity {
 
 	/**
 	 * Plays vocal comment
+	 * 
 	 * @param v
 	 */
 	public void playClick(View v) {
@@ -212,7 +214,7 @@ public class DetailActivity extends BaseActivity {
 	/**
 	 * Photo related methods
 	 */
-	
+
 	/**
 	 * Gets photo id from intent
 	 */
@@ -267,6 +269,7 @@ public class DetailActivity extends BaseActivity {
 
 	/**
 	 * Edits caption
+	 * 
 	 * @param view
 	 */
 	public void editCaption(View view) {
@@ -276,6 +279,7 @@ public class DetailActivity extends BaseActivity {
 
 	/**
 	 * Saves edit caption
+	 * 
 	 * @param view
 	 */
 	public void saveEditCaption(View view) {
@@ -288,6 +292,7 @@ public class DetailActivity extends BaseActivity {
 
 	/**
 	 * Cancels edit caption when user wants to cancel editing caption
+	 * 
 	 * @param view
 	 */
 	public void cancelEditCaption(View view) {
@@ -301,6 +306,7 @@ public class DetailActivity extends BaseActivity {
 
 	/**
 	 * Share intent in order for users to share the photo
+	 * 
 	 * @param view
 	 */
 	public void share(View view) {
@@ -317,7 +323,8 @@ public class DetailActivity extends BaseActivity {
 	}
 
 	/**
-	 * Deletes the photo 
+	 * Deletes the photo
+	 * 
 	 * @param view
 	 */
 	public void delete(View view) {

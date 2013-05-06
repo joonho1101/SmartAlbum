@@ -40,6 +40,7 @@ public class Photo implements Media {
 
 	/**
 	 * Photo constructor
+	 * 
 	 * @param id
 	 * @param comment
 	 * @param actualPhoto
@@ -263,6 +264,7 @@ public class Photo implements Media {
 
 	/**
 	 * Compresses bitmap into byte array
+	 * 
 	 * @param bmp
 	 * @return
 	 */

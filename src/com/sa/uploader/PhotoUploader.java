@@ -21,9 +21,10 @@ import com.sa.db.bean.Media;
 import com.sa.db.bean.Photo;
 
 /**
- * PhotoUploader class that uploads photo 
+ * PhotoUploader class that uploads photo
+ * 
  * @author Phillip Huh(phuh), Joon Ho Cho(joonhoc), Isaac Simha(isimha)
- *
+ * 
  */
 public class PhotoUploader extends BaseUploader {
 
@@ -32,18 +33,18 @@ public class PhotoUploader extends BaseUploader {
 		return createPhotoShareIntent((Photo) media);
 	}
 
-	public Intent createPhotoShareIntent(Photo photo) {		
-	    Bitmap bmp = photo.getBitmap();
+	public Intent createPhotoShareIntent(Photo photo) {
+		Bitmap bmp = photo.getBitmap();
 
 		File storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-	    File photo_file = new File(storagePath, Long.toString(System.currentTimeMillis()) + ".png");
-		
-	    FileOutputStream fos;
+		File photo_file = new File(storagePath, Long.toString(System.currentTimeMillis()) + ".png");
+
+		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(photo_file);
 			bmp.compress(CompressFormat.PNG, 100, fos);
-	    	fos.flush();
-	    	fos.close();
+			fos.flush();
+			fos.close();
 		}
 		catch (FileNotFoundException e) {
 		}
@@ -54,14 +55,13 @@ public class PhotoUploader extends BaseUploader {
 		sharingIntent.setType("image/png");
 
 		sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photo_file));
-		
-		try{
+
+		try {
 			addInfo(photo);
 		}
-		catch(Exception e){
-			//Toast.makeText(context, "add info failed", Toast.LENGTH_SHORT).show();
+		catch (Exception e) {
+			// Toast.makeText(context, "add info failed", Toast.LENGTH_SHORT).show();
 		}
-			
-		return sharingIntent;	
+		return sharingIntent;
 	}
 }

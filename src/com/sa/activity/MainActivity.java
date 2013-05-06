@@ -33,8 +33,9 @@ import com.sa.smartalbum.R;
 
 /**
  * Main Activity class
+ * 
  * @author Phillip Huh(phuh), Joon Ho Cho(joonhoc), Isaac Simha(isimha)
- *
+ * 
  */
 public class MainActivity extends BaseActivity {
 
@@ -133,6 +134,7 @@ public class MainActivity extends BaseActivity {
 
 	/**
 	 * Creates photo given Bitmap of photo
+	 * 
 	 * @param bitmap
 	 */
 	private void createPhoto(Bitmap bitmap) {
@@ -151,15 +153,15 @@ public class MainActivity extends BaseActivity {
 			else {
 				if (addresses.size() > 0) {
 					String place = addresses.get(0).getFeatureName() + ", ";
-					place += addresses.get(0).getLocality() +", " + 
-							addresses.get(0).getAdminArea() + ", " + 
+					place += addresses.get(0).getLocality() + ", " +
+							addresses.get(0).getAdminArea() + ", " +
 							addresses.get(0).getCountryName();
 					p.setPlace(place);
 				}
 			}
 		}
-		catch(Exception e){
-			
+		catch (Exception e) {
+
 		}
 		p.setLocation(getLastLocation());
 

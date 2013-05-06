@@ -91,6 +91,7 @@ public abstract class BaseActivity extends Activity {
 
 	/**
 	 * Wrapper method that deletes photo by primary key.
+	 * 
 	 * @param id
 	 * @return true if it is deleted correctly. False if there is an exception.
 	 */
@@ -105,6 +106,7 @@ public abstract class BaseActivity extends Activity {
 
 	/**
 	 * Wrapper method that deletes photo by photo class
+	 * 
 	 * @param photo
 	 * @return true if it is deleted correctly. False if there is an exception
 	 */
@@ -114,6 +116,7 @@ public abstract class BaseActivity extends Activity {
 
 	/**
 	 * Confirms if the user wants to really delete the photo
+	 * 
 	 * @param photoId
 	 * @param activity
 	 */
@@ -207,6 +210,7 @@ public abstract class BaseActivity extends Activity {
 
 	/**
 	 * Gets the last recent/known location
+	 * 
 	 * @return
 	 */
 	public Location getLastLocation() {
@@ -218,6 +222,7 @@ public abstract class BaseActivity extends Activity {
 
 	/**
 	 * Gets the location listener
+	 * 
 	 * @return
 	 */
 	private LocationListener getLocationListener() {
@@ -263,6 +268,7 @@ public abstract class BaseActivity extends Activity {
 
 	/**
 	 * Requests location updates given provider
+	 * 
 	 * @param provider
 	 */
 	private void requestLocationUpdatesSafe(String provider) {

@@ -12,10 +12,12 @@ import android.location.Location;
 
 /**
  * Media interface that handles media related parts
+ * 
  * @author phillip Huh(phuh), Joon Ho Cho (joonhoc), Isaac Simha(isimha)
- *
+ * 
  */
 public interface Media {
+
 	public static final int TYPE_PHOTO = 1;
 
 	public int getType();
