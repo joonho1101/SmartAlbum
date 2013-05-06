@@ -99,6 +99,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(LATITUDE, photo.getLatitude());
 		values.put(PLACE, photo.getPlace());
 		values.put(DATE, photo.getDate().getTime() + "");
+				
 		return db.update(TABLE_PHOTOS, values, ID + " = ?", new String[] { String.valueOf(photo.getId()) });
 	}
 

@@ -31,8 +31,6 @@ public class DetailActivity extends BaseActivity {
 	private MediaRecorder mr;
 	private String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.3gp";
 	private String filename2 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio2.3gp";
-	private String filenameMP3 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.mp3";
-
 	boolean mStartRecording = true;
 
 	private MediaPlayer mp;
@@ -126,7 +124,6 @@ public class DetailActivity extends BaseActivity {
 		mStartRecording = !mStartRecording;
 	}
 
-
 	public byte[] getBytesFromFile(String filename) {
 		int bytesRead;
 		try {
@@ -144,15 +141,11 @@ public class DetailActivity extends BaseActivity {
 		}
 	}
 
-
 	public void getFileFromBytes(String filename, byte[] b) {
-		int bytesRead;
 		try {
 			FileOutputStream os = new FileOutputStream(filename);
-			ByteArrayInputStream bis = new ByteArrayInputStream(b);
-			while ((bytesRead = bis.read()) != -1) {
-				os.write(b, 0, bytesRead);
-			}
+			os.write(b);
+			os.close();
 		}
 		catch (Exception e) {
 			makeToast("Could not convert byte array to audio file");
@@ -160,6 +153,7 @@ public class DetailActivity extends BaseActivity {
 	}
 
 	// Play vocal comment
+
 	private void onPlay(boolean start) {
 		if (start) {
 			startPlaying();
@@ -169,24 +163,23 @@ public class DetailActivity extends BaseActivity {
 		}
 	}
 
-
 	public void playClick(View v) {
 		Button b = (Button) findViewById(R.id.play_button);
 		onPlay(mStartPlaying);
 		if (mStartPlaying) {
-			b.setText("Play vocal comment");
+			b.setText("Stop");
 		}
 		else {
-			b.setText("Stop");
+			b.setText("Play vocal comment");
 		}
 		mStartPlaying = !mStartPlaying;
 	}
 
 	private void startPlaying() {
-		getFileFromBytes(filename, photo.getVocalComment());
+		getFileFromBytes(filename2, photo.getVocalComment());
 		mp = new MediaPlayer();
 		try {
-			mp.setDataSource(filename);
+			mp.setDataSource(filename2);
 			mp.prepare();
 			mp.start();
 		}
