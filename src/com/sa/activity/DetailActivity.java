@@ -30,11 +30,7 @@ public class DetailActivity extends BaseActivity {
 
 	private MediaRecorder mr;
 	private String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.3gp";
-<<<<<<< HEAD
 	private String filename2 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio2.3gp";
-=======
-
->>>>>>> NA
 	boolean mStartRecording = true;
 
 	private MediaPlayer mp;
