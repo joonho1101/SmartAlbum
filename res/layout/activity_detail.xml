@@ -81,24 +81,38 @@
             android:text="@string/location"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <TextView
-            android:id="@+id/voice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_spacing"
-            android:text="@string/voice"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_spacing" >
+            android:layout_marginTop="@dimen/activity_vertical_spacing"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/record_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_spacing"
+                android:clickable="true"
+                android:onClick="recordClick"
+                android:text="@string/start_recording" />
+
+            <Button
+                android:id="@+id/play_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_spacing"
+                android:clickable="true"
+                android:onClick="playClick"
+                android:text="@string/play_voice_memo" />
 
             <Button
                 android:id="@+id/share_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_spacing"
                 android:clickable="true"
                 android:onClick="share"
                 android:text="@string/share" />
@@ -108,31 +122,10 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_spacing"
                 android:clickable="true"
                 android:onClick="delete"
                 android:text="@string/delete" />
-            
-            <Button
-	            android:id="@+id/record_button"
-	            style="?android:attr/buttonStyleSmall"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_marginTop="@dimen/activity_vertical_spacing"
-	            android:clickable="true"
-	            android:onClick="recordClick"
-	            android:text="@string/start_recording" />   
-	            
-             <Button
-	            android:id="@+id/play_button"
-	            style="?android:attr/buttonStyleSmall"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_marginTop="@dimen/activity_vertical_spacing"
-	            android:clickable="true"
-	            android:onClick="playClick"
-	            android:text="@string/play_voice_memo" />   
-            
-            	 
         </LinearLayout>
     </LinearLayout>
 
