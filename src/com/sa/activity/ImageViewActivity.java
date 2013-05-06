@@ -36,7 +36,7 @@ public class ImageViewActivity extends BaseActivity {
 	private boolean savePhotoFile(String filename, Bitmap bmp) {
 		try {
 			bmp.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(filename));
-			return true;
+			return getBaseContext().getFileStreamPath(filename).exists();
 		}
 		catch (Exception e) {
 			return false;
@@ -62,7 +62,9 @@ public class ImageViewActivity extends BaseActivity {
 		WebView webView = (WebView) findViewById(R.id.webview);
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setBuiltInZoomControls(true);
-		savePhotoAsFile(photo);
+		if (!savePhotoAsFile(photo)) {
+			makeToast("image file not saved!");
+		}
 		webView.loadUrl(TEMP_FILENAME);
 	}
 
