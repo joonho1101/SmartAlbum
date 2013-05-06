@@ -10,7 +10,6 @@ import android.provider.MediaStore;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -110,11 +109,11 @@ public class MainActivity extends BaseActivity {
 			}
 			else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
-				createPhoto(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+				// do nothing
 			}
 			else {
 				// Image capture failed, advise user
-				makeToast("Oops. Something went wrong. Failed to save a photo.\n");
+				makeToast(getStringResource(R.string.photo_save_fail));
 			}
 		}
 	}
@@ -125,12 +124,12 @@ public class MainActivity extends BaseActivity {
 		p.setLocation(getLastLocation());
 
 		if (savePhoto(p)) {
-			makeToast("Image saved");
+			makeToast(getStringResource(R.string.photo_save_success));
 			photos.push(p);
 			updateGrid();
 		}
 		else {
-			makeToast("Oops. Something went wrong. Failed to save a photo.\n");
+			makeToast(getStringResource(R.string.photo_save_fail));
 		}
 	}
 

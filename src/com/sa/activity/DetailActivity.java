@@ -28,8 +28,7 @@ public class DetailActivity extends BaseActivity {
 	public int position;
 
 	private MediaRecorder mr;
-	private String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.3gp";
-	private String filename2 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio2.3gp";
+	private static final String TEMP_FILENAME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.3gp";
 	boolean isRecordingVoice = false;
 
 	private MediaPlayer mp;
@@ -59,14 +58,14 @@ public class DetailActivity extends BaseActivity {
 			mr = new MediaRecorder();
 			mr.setAudioSource(MediaRecorder.AudioSource.MIC);
 			mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-			mr.setOutputFile(filename);
+			mr.setOutputFile(TEMP_FILENAME);
 			mr.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 			mr.prepare();
 			mr.start();
 			return true;
 		}
 		catch (Exception e) {
-			makeToast("Could not start record audio");
+			makeToast(getStringResource(R.string.audio_record_fail));
 			return false;
 		}
 	}
@@ -82,11 +81,11 @@ public class DetailActivity extends BaseActivity {
 			stopRecording();
 			isRecordingVoice = false;
 
-			byte[] b = getBytesFromFile(filename);
+			byte[] b = getBytesFromFile(TEMP_FILENAME);
 			photo.setVocalComment(b);
 
 			if (!savePhoto(photo)) {
-				makeToast("Could not save voice recording");
+				makeToast(getStringResource(R.string.audio_save_fail));
 			}
 		}
 		else {
@@ -113,21 +112,19 @@ public class DetailActivity extends BaseActivity {
 			return bos.toByteArray();
 		}
 		catch (Exception e) {
-			makeToast("Could not convert audio file to byte array");
+			makeToast(getStringResource(R.string.audio_conversion_fail));
 			return null;
 		}
 	}
 
 	public void getFileFromBytes(String filename, byte[] b) {
 		try {
-			makeToast("HERE?");
-			makeToast("fileName is " + filename);
 			FileOutputStream os = new FileOutputStream(filename);
 			os.write(b);
 			os.close();
 		}
 		catch (Exception e) {
-			makeToast("Could not convert byte array to audio file");
+			makeToast(getStringResource(R.string.audio_byte2audio_fail));
 		}
 	}
 
@@ -148,15 +145,15 @@ public class DetailActivity extends BaseActivity {
 	}
 
 	private void startPlaying() {
-		getFileFromBytes(filename2, photo.getVocalComment());
+		getFileFromBytes(TEMP_FILENAME, photo.getVocalComment());
 		mp = new MediaPlayer();
 		try {
-			mp.setDataSource(filename2);
+			mp.setDataSource(TEMP_FILENAME);
 			mp.prepare();
 			mp.start();
 		}
 		catch (IOException e) {
-			makeToast("Could not start playing vocal comment");
+			makeToast(getStringResource(R.string.play_audio_fail));
 		}
 	}
 
@@ -232,7 +229,7 @@ public class DetailActivity extends BaseActivity {
 	private void startPhotoShareIntent() {
 		PhotoUploader uploader = new PhotoUploader();
 		Intent share = uploader.createShareIntent(photo);
-		startActivity(Intent.createChooser(share, "Share via..."));
+		startActivity(Intent.createChooser(share, getStringResource(R.string.share_via)));
 	}
 
 	public void delete(View view) {

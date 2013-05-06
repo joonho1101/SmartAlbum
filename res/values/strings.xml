@@ -11,7 +11,13 @@
     <string name="share_facebook">Share on Facebook</string>
     <string name="caption_placeholder">Add comment&#8230;</string>
     <string name="share">Share</string>
+    <string name="share_via">Share via</string>
     <string name="delete">Delete</string>
+    <string name="confirm_delete">Are you sure you want to delete this photo?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="edit_ok">OK</string>
     <string name="edit_cancel">Cancel</string>
     <string name="start_recording">Add voice memo</string>
@@ -19,5 +25,13 @@
     <string name="play_voice_memo">Play voice memo</string>
     <string name="stop_voice_memo">Stop</string>
     <string name="empty"></string>
+    <string name="enable_gps">GPS is disabled in your device. Would you like to enable it?</string>
+    <string name="photo_save_success">Image successfully saved!</string>
+    <string name="photo_save_fail">Oops. Something went wrong. Failed to save a photo.</string>
+    <string name="audio_record_fail">Oops. Something went wrong. Failed to start recording audio.</string>
+    <string name="audio_save_fail">Oops. Something went wrong. Failed to save voice memo.</string>
+    <string name="audio_conversion_fail">Oops. Something went wrong. Failed to convert audio file to byte array.</string>
+    <string name="audio_byte2audio_fail">Oops. Something went wrong. Failed to convert byte array to audio file.</string>
+    <string name="play_audio_fail">Oops. Something went wrong. Failed to start playing vocal memo.</string>
 
 </resources>

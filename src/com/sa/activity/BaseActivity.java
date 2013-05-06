@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.sa.db.bean.Photo;
 import com.sa.db.dao.DatabaseHandler;
+import com.sa.smartalbum.R;
 
 /**
  * Base Activity for SmartAlbum that contains commonly used methods and utility
@@ -85,8 +86,8 @@ public abstract class BaseActivity extends Activity {
 
 	public void confirmDelete(final int photoId, final DetailActivity activity) {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-		alertDialogBuilder.setMessage("Are you sure you want to delete this photo?").setCancelable(false)
-				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		alertDialogBuilder.setMessage(getStringResource(R.string.confirm_delete)).setCancelable(false)
+				.setPositiveButton(getStringResource(R.string.yes), new DialogInterface.OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
@@ -100,7 +101,7 @@ public abstract class BaseActivity extends Activity {
 						}
 					}
 				});
-		alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		alertDialogBuilder.setNegativeButton(getStringResource(R.string.cancel), new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
@@ -228,8 +229,8 @@ public abstract class BaseActivity extends Activity {
 	 */
 	private void showGPSDisabledAlertToUser() {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-		alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
-				.setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		alertDialogBuilder.setMessage(getStringResource(R.string.enable_gps))
+				.setCancelable(false).setPositiveButton(getStringResource(R.string.yes), new DialogInterface.OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
@@ -238,7 +239,7 @@ public abstract class BaseActivity extends Activity {
 						startActivity(callGPSSettingIntent);
 					}
 				});
-		alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		alertDialogBuilder.setNegativeButton(getStringResource(R.string.cancel), new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int id) {

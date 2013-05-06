@@ -53,22 +53,36 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
+        public static final int audio_byte2audio_fail=0x7f05001e;
+        public static final int audio_conversion_fail=0x7f05001d;
+        public static final int audio_record_fail=0x7f05001b;
+        public static final int audio_save_fail=0x7f05001c;
+        public static final int cancel=0x7f050010;
         public static final int caption_placeholder=0x7f050008;
-        public static final int delete=0x7f05000a;
-        public static final int edit_cancel=0x7f05000c;
-        public static final int edit_ok=0x7f05000b;
-        public static final int empty=0x7f050011;
+        public static final int confirm_delete=0x7f05000c;
+        public static final int delete=0x7f05000b;
+        public static final int edit_cancel=0x7f050012;
+        public static final int edit_ok=0x7f050011;
+        public static final int empty=0x7f050017;
+        public static final int enable_gps=0x7f050018;
         public static final int hello_world=0x7f050002;
         public static final int location=0x7f050005;
-        public static final int play_voice_memo=0x7f05000f;
+        public static final int no=0x7f05000e;
+        public static final int ok=0x7f05000f;
+        public static final int photo_save_fail=0x7f05001a;
+        public static final int photo_save_success=0x7f050019;
+        public static final int play_audio_fail=0x7f05001f;
+        public static final int play_voice_memo=0x7f050015;
         public static final int share=0x7f050009;
         public static final int share_facebook=0x7f050007;
-        public static final int start_recording=0x7f05000d;
-        public static final int stop_recording=0x7f05000e;
-        public static final int stop_voice_memo=0x7f050010;
+        public static final int share_via=0x7f05000a;
+        public static final int start_recording=0x7f050013;
+        public static final int stop_recording=0x7f050014;
+        public static final int stop_voice_memo=0x7f050016;
         public static final int take_photo=0x7f050004;
         public static final int title_activity_detail=0x7f050003;
         public static final int voice=0x7f050006;
+        public static final int yes=0x7f05000d;
     }
     public static final class style {
         /** 
