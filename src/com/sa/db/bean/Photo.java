@@ -42,6 +42,7 @@ public class Photo implements Media {
 		this.latitude = latitude;
 		this.place = place;
 		this.date = date;
+		this.vocalComment = vocalComment;
 	}
 
 	/**
