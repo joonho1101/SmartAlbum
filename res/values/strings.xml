@@ -14,5 +14,9 @@
     <string name="delete">Delete</string>
     <string name="edit_ok">OK</string>
     <string name="edit_cancel">Cancel</string>
+    <string name="start_recording">Add voice memo</string>
+    <string name="stop_recording">Stop Recording</string>
+    <string name="play_voice_memo">Play voice memo</string>
+    <string name="stop_voice_memo">Stop</string>
 
 </resources>

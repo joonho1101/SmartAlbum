@@ -120,7 +120,7 @@
 	            android:layout_marginTop="@dimen/activity_vertical_spacing"
 	            android:clickable="true"
 	            android:onClick="recordClick"
-	            android:text="Start recording" />   
+	            android:text="@string/start_recording" />   
 	            
              <Button
 	            android:id="@+id/play_button"
@@ -130,7 +130,7 @@
 	            android:layout_marginTop="@dimen/activity_vertical_spacing"
 	            android:clickable="true"
 	            android:onClick="playClick"
-	            android:text="Play vocal comment" />   
+	            android:text="@string/play_voice_memo" />   
             
             	 
         </LinearLayout>

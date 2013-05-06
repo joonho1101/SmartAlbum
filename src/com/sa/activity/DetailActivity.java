@@ -50,15 +50,9 @@ public class DetailActivity extends BaseActivity {
 	}
 
 
-	private void onRecord(boolean start) {
-		if (start) {
-			startRecording();
-		}
-		else {
-			stopRecording();
-		}
-	}
-
+	/**
+	 * Voice related methods
+	 */
 
 	private void startRecording() {
 		mr = new MediaRecorder();
@@ -67,6 +61,7 @@ public class DetailActivity extends BaseActivity {
 		}
 		catch (Exception e) {
 		}
+
 		try {
 			mr.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 		}
@@ -78,11 +73,13 @@ public class DetailActivity extends BaseActivity {
 		}
 		catch (Exception e) {
 		}
+
 		try {
 			mr.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 		}
 		catch (Exception e) {
 		}
+
 		try {
 			mr.prepare();
 		}
@@ -90,6 +87,7 @@ public class DetailActivity extends BaseActivity {
 		}
 		catch (IOException e) {
 		}
+
 		try {
 			mr.start();
 		}
@@ -104,6 +102,7 @@ public class DetailActivity extends BaseActivity {
 
 		byte[] b = getBytesFromFile(filename);
 		photo.setVocalComment(b);
+
 		try {
 			boolean s = savePhoto(photo);
 			makeToast("s = " + s);
@@ -111,18 +110,20 @@ public class DetailActivity extends BaseActivity {
 		catch (Exception e) {
 			makeToast("Could not save photo");
 		}
-
 	}
 
 	public void recordClick(View v) {
-		onRecord(mStartRecording);
-		Button b = (Button) findViewById(R.id.record_button);
+		int stringId;
 		if (mStartRecording) {
-			b.setText("Stop recording");
+			startRecording();
+			stringId = R.string.stop_recording;
+
 		}
 		else {
-			b.setText("Start recording");
+			stopRecording();
+			stringId = R.string.start_recording;
 		}
+		((Button) findViewById(R.id.record_button)).setText(getStringResource(stringId));
 		mStartRecording = !mStartRecording;
 	}
 
@@ -160,25 +161,17 @@ public class DetailActivity extends BaseActivity {
 	}
 
 	// Play vocal comment
-	private void onPlay(boolean start) {
-		if (start) {
+	public void playClick(View v) {
+		int stringId;
+		if (mStartPlaying) {
 			startPlaying();
+			stringId = R.string.stop_voice_memo;
 		}
 		else {
 			stopPlaying();
+			stringId = R.string.play_voice_memo;
 		}
-	}
-
-
-	public void playClick(View v) {
-		Button b = (Button) findViewById(R.id.play_button);
-		onPlay(mStartPlaying);
-		if (mStartPlaying) {
-			b.setText("Play vocal comment");
-		}
-		else {
-			b.setText("Stop");
-		}
+		((Button) findViewById(R.id.play_button)).setText(getStringResource(stringId));
 		mStartPlaying = !mStartPlaying;
 	}
 
@@ -199,6 +192,10 @@ public class DetailActivity extends BaseActivity {
 		mp.release();
 		mp = null;
 	}
+
+	/**
+	 * Photo related methods
+	 */
 
 	public void getPhotoFromIntent() {
 		photo = getPhotoById(getIntent().getIntExtra("id", -1));

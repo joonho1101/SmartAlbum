@@ -60,8 +60,12 @@ public final class R {
         public static final int edit_ok=0x7f05000b;
         public static final int hello_world=0x7f050002;
         public static final int location=0x7f050005;
+        public static final int play_voice_memo=0x7f05000f;
         public static final int share=0x7f050009;
         public static final int share_facebook=0x7f050007;
+        public static final int start_recording=0x7f05000d;
+        public static final int stop_recording=0x7f05000e;
+        public static final int stop_voice_memo=0x7f050010;
         public static final int take_photo=0x7f050004;
         public static final int title_activity_detail=0x7f050003;
         public static final int voice=0x7f050006;
