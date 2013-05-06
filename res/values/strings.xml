@@ -37,5 +37,6 @@
     <string name="audio_conversion_fail">Oops. Something went wrong. Failed to convert audio file to byte array.</string>
     <string name="audio_byte2audio_fail">Oops. Something went wrong. Failed to convert byte array to audio file.</string>
     <string name="play_audio_fail">Oops. Something went wrong. Failed to start playing vocal memo.</string>
+    <string name="title_activity_image_view">ImageViewActivity</string>
 
 </resources>

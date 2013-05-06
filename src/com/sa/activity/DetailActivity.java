@@ -340,7 +340,9 @@ public class DetailActivity extends BaseActivity {
 	 * An intent to start ImageViewActivity
 	 */
 	public void startImageViewActivity(View view) {
-		// TODO
+		Intent intent = new Intent(this, ImageViewActivity.class);
+		intent.putExtra("id", photo.getId());
+		startActivity(intent);
 	}
 
 	@Override

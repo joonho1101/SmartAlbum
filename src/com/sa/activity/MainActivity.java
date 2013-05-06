@@ -13,6 +13,7 @@ import java.util.Locale;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -96,11 +97,10 @@ public class MainActivity extends BaseActivity {
 	 * Creates an intent to view photo in detail.
 	 */
 	public void startViewPhotoActivity(int position) {
-		Intent viewPhotoIntent = new Intent(MainActivity.this, DetailActivity.class);
-		viewPhotoIntent.putExtra("position", position);
-		viewPhotoIntent.putExtra("id", photos.get(position).getId());
-
-		startActivityForResult(viewPhotoIntent, VIEW_IMAGE_ACTIVITY_REQUEST_CODE);
+		Intent intent = new Intent(this, DetailActivity.class);
+		intent.putExtra("position", position);
+		intent.putExtra("id", photos.get(position).getId());
+		startActivityForResult(intent, VIEW_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 
 	/**
@@ -120,6 +120,7 @@ public class MainActivity extends BaseActivity {
 				createPhoto((Bitmap) data.getExtras().get("data"));
 			}
 			else if (resultCode == RESULT_CANCELED) {
+				createPhoto((Bitmap) BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
 				// User cancelled the image capture
 				// do nothing
 			}
@@ -139,8 +140,15 @@ public class MainActivity extends BaseActivity {
 		Photo p = new Photo();
 		p.setBitmap(bitmap);
 		Location l = getLastLocation();
-		double latitude = l.getLatitude();
-		double longitude = l.getLongitude();
+		double latitude, longitude;
+		if (l == null) {
+			latitude = 0;
+			longitude = 0;
+		}
+		else {
+			latitude = l.getLatitude();
+			longitude = l.getLongitude();
+		}
 		Geocoder geo = new Geocoder(getApplicationContext(), Locale.getDefault());
 		List<Address> addresses;
 		try {
