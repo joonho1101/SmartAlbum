@@ -23,7 +23,7 @@ import com.sa.smartalbum.R;
  */
 public class ImageViewActivity extends BaseActivity {
 
-	private static final String TEMP_FILENAME = "file://" + BASE_PATH + "/tmp.jpg";
+	private static final String TEMP_FILENAME = BASE_PATH + "/tmp.jpg";
 	Photo photo;
 
 	@Override
@@ -39,6 +39,7 @@ public class ImageViewActivity extends BaseActivity {
 			return getBaseContext().getFileStreamPath(filename).exists();
 		}
 		catch (Exception e) {
+			makeToast("Error while saving");
 			return false;
 		}
 	}
@@ -65,7 +66,7 @@ public class ImageViewActivity extends BaseActivity {
 		if (!savePhotoAsFile(photo)) {
 			makeToast("image file not saved!");
 		}
-		webView.loadUrl(TEMP_FILENAME);
+		webView.loadUrl("file://" + TEMP_FILENAME);
 	}
 
 

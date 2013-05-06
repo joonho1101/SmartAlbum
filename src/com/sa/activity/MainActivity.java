@@ -155,6 +155,7 @@ public class MainActivity extends BaseActivity {
 			addresses = geo.getFromLocation(latitude, longitude, 1);
 			if (addresses.isEmpty()) {
 				p.setPlace("");
+				makeToast("empty location");
 			}
 			else {
 				if (addresses.size() > 0) {
@@ -167,9 +168,9 @@ public class MainActivity extends BaseActivity {
 			}
 		}
 		catch (Exception e) {
-
+			makeToast("error");
 		}
-		p.setLocation(getLastLocation());
+		p.setLocation(l);
 
 		if (savePhoto(p)) {
 			makeToast(getStringResource(R.string.photo_save_success));
