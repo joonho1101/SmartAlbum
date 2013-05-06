@@ -34,9 +34,10 @@
     <string name="audio_record_fail">Oops. Something went wrong. Failed to start recording audio.</string>
     <string name="audio_save_success">Successfully saved voice memo!</string>
     <string name="audio_save_fail">Oops. Something went wrong. Failed to save voice memo.</string>
-    <string name="audio_conversion_fail">Oops. Something went wrong. Failed to convert audio file to byte array.</string>
-    <string name="audio_byte2audio_fail">Oops. Something went wrong. Failed to convert byte array to audio file.</string>
-    <string name="play_audio_fail">Oops. Something went wrong. Failed to start playing vocal memo.</string>
+    <string name="no_audio_to_play">No voice memo to play.</string>
+    <string name="audio_conversion_fail">Failed to play voice memo.</string>
+    <string name="audio_byte2audio_fail">Failed to play voice memo.</string>
+    <string name="play_audio_fail">Failed to play voice memo.</string>
     <string name="title_activity_image_view">ImageViewActivity</string>
 
 </resources>

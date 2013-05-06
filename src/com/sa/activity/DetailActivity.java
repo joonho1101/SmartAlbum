@@ -191,7 +191,12 @@ public class DetailActivity extends BaseActivity {
 	 * Starts playing the vocal sound
 	 */
 	private void startPlaying() {
-		getFileFromBytes(TEMP_FILENAME, photo.getVocalComment());
+		byte[] data = photo.getVocalComment();
+		if (data == null) {
+			makeToast(getStringResource(R.string.no_audio_to_play));
+		}
+
+		getFileFromBytes(TEMP_FILENAME, data);
 		mp = new MediaPlayer();
 		try {
 			mp.setDataSource(TEMP_FILENAME);

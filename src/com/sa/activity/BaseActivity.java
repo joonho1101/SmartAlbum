@@ -51,7 +51,7 @@ public abstract class BaseActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(getLayoutId());
 		db = new DatabaseHandler(getApplicationContext());
-		// locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 	}
 
 	@Override
@@ -203,25 +203,20 @@ public abstract class BaseActivity extends Activity {
 	 * @return last know location
 	 */
 	public Location getLastKnownLocation() {
-		Location location = null;
-
-		if (isGPSEnabled()) {
-			makeToast("gps enabled");
-			location = locationManager.getLastKnownLocation(GPS_PROVIDER);
-			if (location != null) {
-				return location;
-			}
+		Location location = locationManager.getLastKnownLocation(GPS_PROVIDER);
+		if (location != null) {
+			return location;
 		}
 
-		if (isNetworkLocationEnabled()) {
-			makeToast("network enabled");
-			location = locationManager.getLastKnownLocation(NETWORK_PROVIDER);
-			if (location != null) {
-				return location;
-			}
+		location = locationManager.getLastKnownLocation(NETWORK_PROVIDER);
+		if (location != null) {
+			return location;
 		}
 
-		showGPSDisabledAlertToUser();
+		if (!(isGPSEnabled() && isNetworkLocationEnabled())) {
+			showGPSDisabledAlertToUser();
+		}
+
 		return null;
 	}
 
@@ -233,9 +228,6 @@ public abstract class BaseActivity extends Activity {
 	public Location getLastLocation() {
 		if (lastLocation == null) {
 			lastLocation = getLastKnownLocation();
-			if (lastLocation == null) {
-				makeToast("lastLocation null");
-			}
 		}
 		return lastLocation;
 	}
@@ -251,7 +243,9 @@ public abstract class BaseActivity extends Activity {
 
 			@Override
 			public void onLocationChanged(Location location) {
-				lastLocation = location;
+				if (isBetterLocation(location, lastLocation)) {
+					lastLocation = location;
+				}
 			}
 
 			@Override
