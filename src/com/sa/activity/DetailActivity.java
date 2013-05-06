@@ -30,7 +30,11 @@ public class DetailActivity extends BaseActivity {
 
 	private MediaRecorder mr;
 	private String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio.3gp";
+<<<<<<< HEAD
 	private String filename2 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/audio2.3gp";
+=======
+
+>>>>>>> NA
 	boolean mStartRecording = true;
 
 	private MediaPlayer mp;
@@ -47,7 +51,6 @@ public class DetailActivity extends BaseActivity {
 		initLocationView();
 	}
 
-
 	private void onRecord(boolean start) {
 		if (start) {
 			startRecording();
@@ -56,7 +59,6 @@ public class DetailActivity extends BaseActivity {
 			stopRecording();
 		}
 	}
-
 
 	private void startRecording() {
 		mr = new MediaRecorder();
@@ -143,6 +145,8 @@ public class DetailActivity extends BaseActivity {
 
 	public void getFileFromBytes(String filename, byte[] b) {
 		try {
+			makeToast("HERE?");
+			makeToast("fileName is " + filename);
 			FileOutputStream os = new FileOutputStream(filename);
 			os.write(b);
 			os.close();
