@@ -88,6 +88,7 @@ public abstract class BaseActivity extends Activity {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setMessage("Are you sure you want to delete this photo?").setCancelable(false)
 				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						deletePhoto(photoId);
@@ -101,6 +102,7 @@ public abstract class BaseActivity extends Activity {
 					}
 				});
 		alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				dialog.cancel();
@@ -170,6 +172,13 @@ public abstract class BaseActivity extends Activity {
 		}
 	}
 
+	public Location getLastLocation() {
+		if (lastLocation == null) {
+			lastLocation = getLastKnownLocation();
+		}
+		return lastLocation;
+	}
+
 	private LocationListener getLocationListener() {
 		// Define a listener that responds to location updates
 		return new LocationListener() {
@@ -222,6 +231,7 @@ public abstract class BaseActivity extends Activity {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
 				.setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						Intent callGPSSettingIntent =
@@ -230,6 +240,7 @@ public abstract class BaseActivity extends Activity {
 					}
 				});
 		alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				dialog.cancel();

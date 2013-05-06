@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity {
 	private void createPhoto(Bitmap bitmap) {
 		Photo p = new Photo();
 		p.setBitmap(bitmap);
-		p.setLocation(lastLocation);
+		p.setLocation(getLastLocation());
 
 		if (savePhoto(p)) {
 			makeToast("Image saved");
