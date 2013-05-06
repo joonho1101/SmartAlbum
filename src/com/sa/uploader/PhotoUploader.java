@@ -1,3 +1,9 @@
+/**
+ * SmartAlbum --
+ * author - Phillip Huh(phuh) , Joon Ho Cho(joonhoc), Isaac Simha(isimha)
+ * improved version of album that uses internal database to store necessary components of photos
+ * such as voice, text memo, location, actual photo, etc
+ */
 package com.sa.uploader;
 
 import java.io.File;
@@ -14,6 +20,11 @@ import android.os.Environment;
 import com.sa.db.bean.Media;
 import com.sa.db.bean.Photo;
 
+/**
+ * PhotoUploader class that uploads photo 
+ * @author Phillip Huh(phuh), Joon Ho Cho(joonhoc), Isaac Simha(isimha)
+ *
+ */
 public class PhotoUploader extends BaseUploader {
 
 	@Override

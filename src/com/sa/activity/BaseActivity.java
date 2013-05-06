@@ -1,3 +1,9 @@
+/**
+ * SmartAlbum --
+ * author - Phillip Huh(phuh) , Joon Ho Cho(joonhoc), Isaac Simha(isimha)
+ * improved version of album that uses internal database to store necessary components of photos
+ * such as voice, text memo, location, actual photo, etc
+ */
 package com.sa.activity;
 
 import android.app.Activity;
@@ -19,7 +25,7 @@ import com.sa.db.dao.DatabaseHandler;
  * Base Activity for SmartAlbum that contains commonly used methods and utility
  * functions.
  * 
- * @author Joon
+ * @author Joon Ho Cho(joonhoc), Phillip Huh(phuh), Isaac Simha (isimha)
  * 
  */
 public abstract class BaseActivity extends Activity {
@@ -52,10 +58,23 @@ public abstract class BaseActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Gets photo by primary id
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Photo getPhotoById(int id) {
 		return db.getPhoto(id);
 	}
 
+	/**
+	 * Wrapper method that saves photo. If photo exists, it updates existing photo. If photo doesn't exist, it makes new
+	 * photo.
+	 * 
+	 * @param photo
+	 * @return true if it is added/updated correctly. false if there is an exception.
+	 */
 	public boolean savePhoto(Photo photo) {
 		try {
 			if (photo.getId() == 0) {
@@ -70,6 +89,11 @@ public abstract class BaseActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Wrapper method that deletes photo by primary key.
+	 * @param id
+	 * @return true if it is deleted correctly. False if there is an exception.
+	 */
 	public boolean deletePhoto(int id) {
 		try {
 			return db.deletePhoto(id) > 0;
@@ -79,10 +103,20 @@ public abstract class BaseActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Wrapper method that deletes photo by photo class
+	 * @param photo
+	 * @return true if it is deleted correctly. False if there is an exception
+	 */
 	public boolean deletePhoto(Photo photo) {
 		return deletePhoto(photo.getId());
 	}
 
+	/**
+	 * Confirms if the user wants to really delete the photo
+	 * @param photoId
+	 * @param activity
+	 */
 	public void confirmDelete(final int photoId, final DetailActivity activity) {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setMessage("Are you sure you want to delete this photo?").setCancelable(false)
@@ -171,6 +205,10 @@ public abstract class BaseActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Gets the last recent/known location
+	 * @return
+	 */
 	public Location getLastLocation() {
 		if (lastLocation == null) {
 			lastLocation = getLastKnownLocation();
@@ -178,6 +216,10 @@ public abstract class BaseActivity extends Activity {
 		return lastLocation;
 	}
 
+	/**
+	 * Gets the location listener
+	 * @return
+	 */
 	private LocationListener getLocationListener() {
 		// Define a listener that responds to location updates
 		return new LocationListener() {
@@ -219,12 +261,16 @@ public abstract class BaseActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Requests location updates given provider
+	 * @param provider
+	 */
 	private void requestLocationUpdatesSafe(String provider) {
 		locationManager.requestLocationUpdates(provider, 0, 0, getLocationListener());
 	}
 
 	/**
-	 * Ask user to enable GPS
+	 * Asks user to enable GPS
 	 */
 	private void showGPSDisabledAlertToUser() {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

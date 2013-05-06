@@ -1,3 +1,9 @@
+/**
+ * SmartAlbum --
+ * author - Phillip Huh(phuh) , Joon Ho Cho(joonhoc), Isaac Simha(isimha)
+ * improved version of album that uses internal database to store necessary components of photos
+ * such as voice, text memo, location, actual photo, etc
+ */
 package com.sa.db.bean;
 
 import java.io.ByteArrayOutputStream;
@@ -11,7 +17,7 @@ import android.location.LocationManager;
 /**
  * Photo bean class that handles all of photo information
  * 
- * @author phillip
+ * @author Phillip Huh(phuh), Joon Ho Cho(joonhoc), Isaac Simha(isimha)
  * 
  */
 public class Photo implements Media {
@@ -32,6 +38,17 @@ public class Photo implements Media {
 
 	}
 
+	/**
+	 * Photo constructor
+	 * @param id
+	 * @param comment
+	 * @param actualPhoto
+	 * @param vocalComment
+	 * @param longitude
+	 * @param latitude
+	 * @param place
+	 * @param date
+	 */
 	public Photo(int id, String comment, byte[] actualPhoto,
 			byte[] vocalComment, float longitude, float latitude, String place,
 			Date date) {
@@ -244,6 +261,11 @@ public class Photo implements Media {
 		}
 	}
 
+	/**
+	 * Compresses bitmap into byte array
+	 * @param bmp
+	 * @return
+	 */
 	public byte[] compressBitmap(Bitmap bmp) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
